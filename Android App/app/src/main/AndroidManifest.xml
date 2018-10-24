@@ -30,7 +30,9 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
-        <activity android:name=".WelcomeScreenActivity"></activity>
+        <activity android:name=".WelcomeScreenHomeOwner" />
+        <activity android:name=".WelcomeScreenServiceProvider" />
+        <activity android:name=".WelcomeScreenAdministrator"></activity>
     </application>
 
 </manifest>
