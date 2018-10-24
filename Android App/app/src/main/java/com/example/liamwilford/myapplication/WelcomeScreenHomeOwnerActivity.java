@@ -3,7 +3,8 @@ package com.example.liamwilford.myapplication;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class WelcomeScreenHomeOwner extends AppCompatActivity {
+public class WelcomeScreenHomeOwnerActivity
+        extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
