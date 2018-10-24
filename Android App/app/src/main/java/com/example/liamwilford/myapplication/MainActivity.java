@@ -16,10 +16,14 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
         /** called when user taps log in button */
-    public void send (View view){
+    public void loginScreen (View view){
         //do something in response to button
-        Intent intent = new Intent(this,LogInScreen.class);
-        intent.putExtra (EXTRA_MESSAGE, "No account has been created, please create an admin account");
+        Intent intent = new Intent(this,LogInScreenActivity.class);
         startActivity(intent);
+    }
+    public void signUpScreen (View view) {
+        Intent intent = new Intent(this, SignUpActivity.class);
+        startActivity(intent);
+
     }
 }
