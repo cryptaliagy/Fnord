@@ -1,4 +1,4 @@
-package com.example.liamwilford.myapplication;
+package com.seg2105.fnord;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
