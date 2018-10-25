@@ -3,7 +3,7 @@ package com.example.liamwilford.myapplication;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class LogInScreen extends AppCompatActivity {
+public class LogInScreenActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

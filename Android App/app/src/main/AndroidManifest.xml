@@ -17,7 +17,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".LogInScreen"
+            android:name=".LogInScreenActivity"
             android:parentActivityName=".MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -30,7 +30,9 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
-        <activity android:name=".WelcomeScreenActivity"></activity>
+        <activity android:name=".WelcomeScreenHomeOwnerActivity" />
+        <activity android:name=".WelcomeScreenServiceProviderActivity" />
+        <activity android:name=".WelcomeScreenAdministratorActivity"></activity>
     </application>
 
 </manifest>
