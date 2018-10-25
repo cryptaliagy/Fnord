@@ -30,6 +30,65 @@
             android:layout_width="match_parent"
             android:layout_height="40dp" />
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <RadioGroup
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/homeOwnerRadioButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:onClick="accountButton"
+                        android:text="Home Owner" />
+
+                    <RadioButton
+                        android:id="@+id/serviceProviderButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:onClick="accountButton"
+                        android:text="Service Provider" />
+
+                    <RadioButton
+                        android:id="@+id/adminAccountButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:onClick="accountButton"
+                        android:text="Administrator" />
+                </LinearLayout>
+
+            </RadioGroup>
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+        </LinearLayout>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="40dp" />
+
         <EditText
             android:id="@+id/logInUserNameEditText"
             android:layout_width="300dp"
@@ -70,53 +129,6 @@
         <Space
             android:layout_width="match_parent"
             android:layout_height="10dp" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <Space
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1" />
-
-            <Button
-                android:id="@+id/homeOwnerAccountButton"
-                style="@style/Widget.AppCompat.Button.Colored"
-                android:layout_width="120dp"
-                android:layout_height="50dp"
-                android:layout_weight="1"
-                android:text="Home Owner" />
-
-            <Space
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1" />
-
-            <Button
-                android:id="@+id/serviceProviderAccountButton"
-                style="@style/Widget.AppCompat.Button.Colored"
-                android:layout_width="120dp"
-                android:layout_height="50dp"
-                android:layout_weight="1"
-                android:text="Service Provider" />
-
-            <Space
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1" />
-
-        </LinearLayout>
-
-        <Button
-            android:id="@+id/adminAccountButton"
-            style="@style/Widget.AppCompat.Button.Colored"
-            android:layout_width="250dp"
-            android:layout_height="50dp"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="Administrator" />
 
         <Space
             android:layout_width="match_parent"

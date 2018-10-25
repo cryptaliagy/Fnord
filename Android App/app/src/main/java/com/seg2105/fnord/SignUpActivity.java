@@ -70,7 +70,7 @@ public class SignUpActivity extends AppCompatActivity {
 
         // Check which radio button was clicked
         switch(view.getId()) {
-            case R.id.homeOwnerAccountButton:
+            case R.id.homeOwnerRadioButton:
                 if (checked){
                     account = AccountType.HOMEOWNER;
                     break;
@@ -80,7 +80,7 @@ public class SignUpActivity extends AppCompatActivity {
                     account = AccountType.ADMIN;
                     break;
                 }
-            case R.id.serviceProviderAccountButton:
+            case R.id.serviceProviderButton:
                 if (checked){
                     account = AccountType.SERIVCEPROVIDER;
                     break;
@@ -108,11 +108,20 @@ public class SignUpActivity extends AppCompatActivity {
     public void signUp(View view){
         // validate inputs
         if (validateUsername() && validatePassword()){
+            EditText passwordView = (EditText) findViewById(R.id.editText2);
+            String password = (String) passwordView.getText().toString(); // password
+
+            EditText usernameView = (EditText) findViewById(R.id.logInUserNameEditText);
+            String username = (String) usernameView.getText().toString(); // username
+            System.out.println("---New Account Sign Up---\nuser: "+ username+ " \npassword: "+password); // best debug /s
             if (account.equals(AccountType.HOMEOWNER)){
+                // TODO: Create new home owner here
                 homeOwnerWelcome(view);
             } else if (account.equals(AccountType.ADMIN)){
+                // TODO: Create new admin here
                 adminWelcome(view);
             } else if (account.equals(AccountType.SERIVCEPROVIDER)){
+                // TODO: Create new service provider here
                 serviceProviderWelcome(view);
             }
         }
