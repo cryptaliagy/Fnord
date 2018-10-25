@@ -12,17 +12,20 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="200dp" />
-
         <EditText
             android:id="@+id/editText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:gravity="center_horizontal"
             android:inputType="textPersonName"
-            android:text="WELCOME SERVICE PROVIDER" />
+            android:text="Welcome," />
+
+        <EditText
+            android:id="@+id/editText7"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="you are signed in as a Service Provider" />
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>
