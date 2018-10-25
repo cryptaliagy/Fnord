@@ -26,9 +26,16 @@
             android:textSize="24sp"
             app:fontFamily="casual" />
 
-        <Space
+        <TextView
+            android:id="@+id/signUpAccountTypeTextView"
             android:layout_width="match_parent"
-            android:layout_height="40dp" />
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="Account Type"
+            android:textAppearance="@style/TextAppearance.AppCompat.Menu"
+            android:textSize="18sp"
+            android:typeface="sans"
+            app:fontFamily="sans-serif-smallcaps" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -114,17 +121,6 @@
         <Space
             android:layout_width="match_parent"
             android:layout_height="40dp" />
-
-        <TextView
-            android:id="@+id/signUpAccountTypeTextView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:text="Account Type"
-            android:textAppearance="@style/TextAppearance.AppCompat.Menu"
-            android:textSize="18sp"
-            android:typeface="sans"
-            app:fontFamily="sans-serif-smallcaps" />
 
         <Space
             android:layout_width="match_parent"
