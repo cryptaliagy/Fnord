@@ -26,3 +26,14 @@ hs_err_pid*
 .idea/
 .gradle/
 .DS_Store
+Android App/local\.properties
+*.iml
+Android App/.gradle/
+Android App/.idea/caches/build_file_checksums.ser
+Android App/.idea/libraries
+Android App/.idea/modules.xml
+Android App/.idea/workspace.xml
+Android App/.DS_Store
+Android App/build
+Android App/captures
+Android App/.externalNativeBuild

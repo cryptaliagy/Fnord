@@ -21,7 +21,7 @@ public class LogInScreenActivity extends AppCompatActivity {
      * @return the validity of the username (true if valid, false if invalid)
      */
     protected boolean validateUsername(){
-        String pattern = "[^\s]*";
+        String pattern = "[^\\s ]*";
         TextView usernameView = (TextView) findViewById(R.id.logInUserNameEditText);
         String username = (String) usernameView.getText();
 
@@ -35,7 +35,7 @@ public class LogInScreenActivity extends AppCompatActivity {
      * @return the validity of the username (true if valid, false if invalid)
      */
     protected boolean validatePassword(){
-        String pattern = "[^\s]*";
+        String pattern = "[^\\s]*";
         TextView passwordView = (TextView) findViewById(R.id.editText2);
         String password = (String) passwordView.getText();
 
