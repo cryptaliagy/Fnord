@@ -1,4 +1,4 @@
-package com.example.liamwilford.myapplication;
+package com.seg2105.fnord;
 
 import android.accounts.Account;
 import android.content.Intent;
