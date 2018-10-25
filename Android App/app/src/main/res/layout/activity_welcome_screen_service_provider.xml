@@ -18,7 +18,8 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="textPersonName"
-            android:text="Welcome," />
+            android:text="Welcome,"
+            android:textColor="@android:color/black" />
 
         <EditText
             android:id="@+id/editText10"
@@ -26,7 +27,8 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="textPersonName"
-            android:text="username of service provider" />
+            android:text="username of service provider"
+            android:textColor="@android:color/black" />
 
         <EditText
             android:id="@+id/editText7"
@@ -34,6 +36,7 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="textPersonName"
-            android:text="you are signed in as a Service Provider" />
+            android:text="you are signed in as a Service Provider"
+            android:textColor="@android:color/black" />
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>
