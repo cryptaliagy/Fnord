@@ -101,38 +101,6 @@ public class LogInScreenActivity extends AppCompatActivity {
 
         EditText passwordText = (EditText) findViewById(R.id.logInPassWordEditText);
         String password = (String) passwordText.getText().toString();
-
-        mAuth.signInWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete( Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            Log.d(TAG, "signInWithEmail:success");
-                        } else {
-                            Log.w(TAG, "signInWithEmail:failure", task.getException());
-                            Toast.makeText(LogInScreenActivity.this, "Authentication failed.",
-                                    Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
-
-        FirebaseUser user = mAuth.getCurrentUser();
-
-        if (user == null) {
-            return;
-        }
-
-        String id = user.getUid();
-        User.AccountType type = User.AccountType.valueOf(userDatabase.child(id).child("type").toString());
-
-        if (type.equals(User.AccountType.ADMIN)) {
-            adminWelcome(view);
-        } else if (type.equals(User.AccountType.SERVICEPROVIDER)) {
-            serviceProviderWelcome(view);
-        } else {
-            homeOwnerWelcome(view);
-        }
     }
-
 
 }

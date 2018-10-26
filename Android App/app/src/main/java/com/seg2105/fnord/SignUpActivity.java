@@ -155,37 +155,15 @@ public class SignUpActivity extends AppCompatActivity {
             EditText emailView = (EditText) findViewById(R.id.logInEmail);
             String email = (String) emailView.getText().toString();
 
-            if (hasAdmin && account.equals(User.AccountType.ADMIN)) {
-                Toast.makeText(SignUpActivity.this, "Only one admin account can be created",
-                        Toast.LENGTH_SHORT).show();
-                return;
-            }
+            if (validatePassword() && validateUsername()) {
+                if (account.equals(User.AccountType.ADMIN)) {
+                    adminWelcome(view);
 
-            makeAccount(email, password);
-
-            FirebaseUser user = mAuth.getCurrentUser();
-
-            if (user == null) {
-                return;
-            }
-
-            if (account.equals(User.AccountType.ADMIN)) {
-                FirebaseDatabase.getInstance().getReference("admin").child("created").setValue(true);
-            }
-
-            String id = user.getUid();
-
-            if (account.equals(User.AccountType.ADMIN)) {
-                userDatabase.child(id).setValue(new Administrator(username, email));
-                adminWelcome(view);
-
-            } else if (account.equals(User.AccountType.SERVICEPROVIDER)) {
-                userDatabase.child(id).setValue(new ServiceProvider(username, email));
-                serviceProviderWelcome(view);
-            }
-            else {
-                userDatabase.child(id).setValue(new Homeowner(username, email));
-                homeOwnerWelcome(view);
+                } else if (account.equals(User.AccountType.SERVICEPROVIDER)) {
+                    serviceProviderWelcome(view);
+                } else {
+                    homeOwnerWelcome(view);
+                }
             }
         }
     }
