@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "607536356622",
+    "firebase_url": "https://fnordprojectseg2105-9cf17.firebaseio.com",
+    "project_id": "fnordprojectseg2105-9cf17",
+    "storage_bucket": "fnordprojectseg2105-9cf17.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:607536356622:android:ed33a9a2c7956650",
+        "android_client_info": {
+          "package_name": "com.seg2105.fnord"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "607536356622-a7sntm805bijok61dqmkbm7mse70e5na.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.seg2105.fnord",
+            "certificate_hash": "c6dac2410c800d960c52f790ee755949b2df8772"
+          }
+        },
+        {
+          "client_id": "607536356622-okcfreen1ej0c5ruft5vjbj1qebodhu8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCXiCIQ4vDvuDYBBirzTX3nx4FLMXECpj0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "607536356622-okcfreen1ej0c5ruft5vjbj1qebodhu8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
