@@ -2,20 +2,37 @@ package com.seg2105.fnord;
 
 import android.accounts.Account;
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.util.regex.Pattern;
 
 public class SignUpActivity extends AppCompatActivity {
-    private enum AccountType { HOMEOWNER, ADMIN, SERIVCEPROVIDER}
-    private AccountType account = null;
+    private User.AccountType account = null;
+    private FirebaseAuth mAuth;
+    private boolean hasAdmin = FirebaseDatabase.getInstance().getReference("admin").child("created").equals(true);
+    private DatabaseReference userDatabase;
+    private static final String TAG = "EmailPassword";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        mAuth = FirebaseAuth.getInstance();
+        userDatabase = FirebaseDatabase.getInstance().getReference("users");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
     }
@@ -72,17 +89,17 @@ public class SignUpActivity extends AppCompatActivity {
         switch(view.getId()) {
             case R.id.homeOwnerRadioButton:
                 if (checked){
-                    account = AccountType.HOMEOWNER;
+                    account = User.AccountType.HOMEOWNER;
                     break;
                 }
             case R.id.adminAccountButton:
                 if (checked){
-                    account = AccountType.ADMIN;
+                    account = User.AccountType.ADMIN;
                     break;
                 }
             case R.id.serviceProviderButton:
                 if (checked){
-                    account = AccountType.SERIVCEPROVIDER;
+                    account = User.AccountType.SERVICEPROVIDER;
                     break;
                 }
         }
@@ -105,6 +122,27 @@ public class SignUpActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void makeAccount(String email, String password) {
+        mAuth.createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    FirebaseUser user;
+
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            Log.d(TAG, "createUserWithEmail:success");
+                        }
+                        else {
+                            Log.w(TAG, "createUserWithEmail:failure", task.getException());
+                            Toast.makeText(SignUpActivity.this, "Authentication failed.",
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+
+
+    }
+
     public void signUp(View view){
         // validate inputs
         if (validateUsername() && validatePassword()){
@@ -113,18 +151,42 @@ public class SignUpActivity extends AppCompatActivity {
 
             EditText usernameView = (EditText) findViewById(R.id.logInUserNameEditText);
             String username = (String) usernameView.getText().toString(); // username
-            System.out.println("---New Account Sign Up---\nuser: "+ username+ " \npassword: "+password); // best debug /s
-            if (account.equals(AccountType.HOMEOWNER)){
-                // TODO: Create new home owner here
-                homeOwnerWelcome(view);
-            } else if (account.equals(AccountType.ADMIN)){
-                // TODO: Create new admin here
+
+            EditText emailView = (EditText) findViewById(R.id.logInEmail);
+            String email = (String) emailView.getText().toString();
+
+            if (hasAdmin && account.equals(User.AccountType.ADMIN)) {
+                Toast.makeText(SignUpActivity.this, "Only one admin account can be created",
+                        Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            makeAccount(email, password);
+
+            FirebaseUser user = mAuth.getCurrentUser();
+
+            if (user == null) {
+                return;
+            }
+
+            if (account.equals(User.AccountType.ADMIN)) {
+                FirebaseDatabase.getInstance().getReference("admin").child("created").setValue(true);
+            }
+
+            String id = user.getUid();
+
+            if (account.equals(User.AccountType.ADMIN)) {
+                userDatabase.child(id).setValue(new Administrator(username, email));
                 adminWelcome(view);
-            } else if (account.equals(AccountType.SERIVCEPROVIDER)){
-                // TODO: Create new service provider here
+
+            } else if (account.equals(User.AccountType.SERVICEPROVIDER)) {
+                userDatabase.child(id).setValue(new ServiceProvider(username, email));
                 serviceProviderWelcome(view);
+            }
+            else {
+                userDatabase.child(id).setValue(new Homeowner(username, email));
+                homeOwnerWelcome(view);
             }
         }
     }
-
 }

@@ -110,6 +110,19 @@
             android:layout_height="40dp" />
 
         <EditText
+            android:id="@+id/logInEmail"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:gravity="left|center_horizontal"
+            android:hint="Please Enter Email"
+            android:inputType="textWebEmailAddress" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="40dp" />
+
+        <EditText
             android:id="@+id/editText2"
             android:layout_width="300dp"
             android:layout_height="wrap_content"

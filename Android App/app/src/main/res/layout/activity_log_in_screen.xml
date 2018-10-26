@@ -36,7 +36,7 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:gravity="left|center_horizontal"
-            android:hint="Please Enter Username"
+            android:hint="Please Enter Email"
             android:inputType="textPersonName" />
 
         <Space

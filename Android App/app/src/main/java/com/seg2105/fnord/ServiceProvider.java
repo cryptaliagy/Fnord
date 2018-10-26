@@ -12,10 +12,10 @@ public class ServiceProvider extends User {
 
     public ServiceProvider (String username, String passwordHash,
                             String email, String firstName, String lastName) {
-        super(username, passwordHash, email, firstName, lastName);
+        super(username, email, firstName, lastName);
     }
 
-    public ServiceProvider (String username, String passwordHash) {
-        super(username, passwordHash);
+    public ServiceProvider (String username, String email) {
+        super(username, email, AccountType.SERVICEPROVIDER);
     }
 }

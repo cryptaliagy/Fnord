@@ -9,10 +9,10 @@ public class Homeowner extends User {
 
     public Homeowner(String username, String passwordHash, String email,
                      String firstName, String lastName, String address) {
-        super(username, passwordHash, email, firstName, lastName);
+        super(username, email, firstName, lastName);
     }
 
-    public Homeowner(String username, String passwordHash) {
-        super(username, passwordHash);
+    public Homeowner(String username, String email) {
+        super(username, email, AccountType.HOMEOWNER);
     }
 }
