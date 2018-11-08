@@ -25,7 +25,7 @@
         <activity android:name=".DeleteService" />
         <activity android:name=".ViewService" />
         <activity android:name=".EditServices" />
-        <activity android:name=".EditServices2"></activity>
+        <activity android:name=".EditServices2" />
     </application>
 
 </manifest>

@@ -7,4 +7,5 @@
         <item>HomeOwner</item>
         <item>ServiceProvider</item>
     </string-array>
+    <string name="title_activity_pleasedelete">PLEASEDELETE</string>
 </resources>
