@@ -19,7 +19,7 @@ public class WelcomeAdministrator extends AppCompatActivity {
         setContentView(R.layout.activity_welcome_administrator);
         //setting a custom message showing the username of the account
         TextView textView = (TextView) findViewById(R.id.welcomeAdmin);
-        textView.setText("Welcome " + SignInActivity.currentUser);
+        textView.setText("Welcome " + SignInActivity.currentUser + ".");
 
         cserve = (Button) findViewById(R.id.createServiceChoiceButton);
         cserve.setOnClickListener(new View.OnClickListener() {
