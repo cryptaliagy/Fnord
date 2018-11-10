@@ -32,12 +32,12 @@ public class DeleteService extends AppCompatActivity {
                     int indexOfService = MainActivity.ser.getServices().indexOf(serviceToDelete); //getting index of the service so we can delete the rate as well
                     MainActivity.ser.getServices().remove(indexOfService);//removing the service from the service arraylist
                     MainActivity.ser.getServiceRates().remove(indexOfService); //removing the service's rate from the servicerate arraylist
-                    Toast toastDel = Toast.makeText(getApplicationContext(), "Service Deleted.", Toast.LENGTH_SHORT);
-                    toastDel.show();
+                    Toast toastDelete = Toast.makeText(getApplicationContext(), "Service Deleted.", Toast.LENGTH_SHORT);
+                    toastDelete.show();
                 }
                 else{
-                    Toast toastNoDel = Toast.makeText(getApplicationContext(), "No Services Selected.", Toast.LENGTH_SHORT);
-                    toastNoDel.show();
+                    Toast toastNoDelete = Toast.makeText(getApplicationContext(), "No Services Selected.", Toast.LENGTH_SHORT);
+                    toastNoDelete.show();
                 }
                 initializeSpinner();
                 //TODO make a nice toast saying its been successfully deleted
