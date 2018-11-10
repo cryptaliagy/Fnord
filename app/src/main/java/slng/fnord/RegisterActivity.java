@@ -9,8 +9,12 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.regex.Pattern;
+
+import static slng.fnord.UserTypes.*;
 
 public class RegisterActivity extends AppCompatActivity {
     private Button register2;
@@ -39,67 +43,86 @@ public class RegisterActivity extends AppCompatActivity {
             public void onClick(View v) {
                 EditText emailText = (EditText) findViewById(R.id.registerEmail);
                 email = emailText.getText().toString();
+
                 EditText passwordText = (EditText) findViewById(R.id.registerPassword);
                 password = passwordText.getText().toString();
+
                 EditText usernameText = (EditText) findViewById(R.id.registerUsername);
                 username = usernameText.getText().toString();
+
                 accountType = accountSpinner.getSelectedItem().toString();
+                Accounts acc = MainActivity.getAccounts();
 
-                //TODO here we will probably need to add validations - i.e. for the variables above (email, pwd, username), we will
-                //TODO need to check whether they are actually valid before proceeding onward
-                //TODO also we may need to implement another function to make sure the username/email we are registering as does not already
-                //TODO exist in the appropriate arraylist for the account being created (i.e. service provider/homeowner)
+                Toast toast = null;
 
-                //three different cases depending on what was selected
-                //in each case, we add the email/username/password to the appropriate arraylist in the static instance of Accounts
-                if(accountType.equals("HomeOwner")){
-                    MainActivity.acc.addHomeOwnerEmail(email);
-                    MainActivity.acc.addHomeOwnerUsernames(username);
-                    MainActivity.acc.addHomeOwnerPassword(password);
-                    SignInActivity.currentUser = username;
-                    openHomeOwnerActivity();
-
+                if (!Common.validateEmail(email)) {
+                    toast = Toast.makeText(getApplicationContext(), "Email is invalid", Toast.LENGTH_SHORT);
+                    toast.show();
+                    return;
                 }
-                else if(accountType.equals("ServiceProvider")){
-                    MainActivity.acc.addSPEmail(email);
-                    MainActivity.acc.addSPUsernames(username);
-                    MainActivity.acc.addSPPassword(password);
-                    SignInActivity.currentUser = username;
-                    openServiceProviderActivity();
-                }
-                else if(accountType.equals("Administrator") && MainActivity.acc.adminFlag==false){
-                    MainActivity.acc.addAdminEmail(email);
-                    MainActivity.acc.addAdminUsername(username);
-                    MainActivity.acc.addAdminPassword(password);
-                    SignInActivity.currentUser = username;
-                    MainActivity.acc.adminFlag = true;
-                    openAdministratorActivity();
-                }
-//                else{
-//                    System.exit(0);
-//                }
 
+                if (!Common.validatePassword(password)) {
+                    toast = Toast.makeText(getApplicationContext(), "Password is invalid", Toast.LENGTH_SHORT);
+                    toast.show();
+                    return;
+                }
+
+                if (!Common.validateUser(username)) {
+                    toast = Toast.makeText(getApplicationContext(), "Username is invalid", Toast.LENGTH_SHORT);
+                    toast.show();
+                    return;
+                }
+
+                if (acc.existsAccount(email)) {
+                    toast = Toast.makeText(getApplicationContext(), "An account with this email already exists", Toast.LENGTH_SHORT);
+                    toast.show();
+                    return;
+                }
+
+
+                SignInActivity.currentUser = username;
+                UserTypes type = null;
+
+                if (accountType.equals("HomeOwner")) {
+                    type = HOMEOWNER;
+                } else if (accountType.equals("ServiceProvider")) {
+                    type = SERVICEPROVIDER;
+                } else if (accountType.equals("Administrator")) {
+                    if (!acc.existsAdmin()) {
+                        type = ADMIN;
+                    }
+                    else {
+                        toast = Toast.makeText(getApplicationContext(), "An administrator account already exists", Toast.LENGTH_SHORT);
+                        toast.show();
+                        return;
+                    }
+                }
+
+
+                acc.makeUser(email, username, password, type);
+                toast = Toast.makeText(getApplicationContext(), "New account has been made", Toast.LENGTH_SHORT);
+                toast.show();
+                openUserActivity(type);
             }
         });
     }
-    //opens welcome screen for a homeowner
-    public void openHomeOwnerActivity(){
-        Intent intent = new Intent(this, WelcomeHomeOwner.class);
+
+    //opens welcome screen for the user
+    public void openUserActivity(UserTypes type) {
+        Intent intent = null;
+        switch (type) {
+            case ADMIN:
+                intent = new Intent(this, WelcomeAdministrator.class);
+                break;
+            case HOMEOWNER:
+                intent = new Intent(this, WelcomeHomeOwner.class);
+                break;
+            case SERVICEPROVIDER:
+                intent = new Intent(this, WelcomeServiceProvider.class);
+                break;
+        }
         startActivity(intent);
     }
-
-    //opens welcome screen for a service provider
-    public void openServiceProviderActivity(){
-        Intent intent = new Intent(this, WelcomeServiceProvider.class);
-        startActivity(intent);
-    }
-
-    //opens welcome screen for an admin
-    public void openAdministratorActivity(){
-        Intent intent = new Intent(this, WelcomeAdministrator.class);
-        startActivity(intent);
-    }
-
 
 
 }
