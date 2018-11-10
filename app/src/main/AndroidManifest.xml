@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="slng.fnord">
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".SignInActivity"
+            android:parentActivityName= ".MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
+
+        <activity
+            android:name=".RegisterActivity"
+            android:parentActivityName= ".MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
+
+        <activity
+            android:name=".WelcomeHomeOwner"
+            android:parentActivityName= ".SignInActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".SignInActivity" />
+        </activity>
+
+        <activity
+            android:name=".WelcomeAdministrator"
+            android:parentActivityName= ".SignInActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".SignInActivity" />
+        </activity>
+
+        <activity
+            android:name=".WelcomeServiceProvider"
+            android:parentActivityName= ".SignInActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".SignInActivity" />
+        </activity>
+
+        <activity
+            android:name=".CreateService"
+            android:parentActivityName= ".WelcomeAdministrator">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".WelcomeAdministrator" />
+        </activity>
+
+        <activity
+            android:name=".DeleteService"
+            android:parentActivityName= ".WelcomeAdministrator">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".WelcomeAdministrator" />
+        </activity>
+
+        <activity
+            android:name=".ViewService"
+            android:parentActivityName= ".WelcomeAdministrator">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".WelcomeAdministrator" />
+        </activity>
+
+        <activity
+            android:name=".EditServices"
+            android:parentActivityName= ".WelcomeAdministrator">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".WelcomeAdministrator" />
+        </activity>
+
+        <activity
+            android:name=".EditServices2"
+            android:parentActivityName= ".EditServices">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".EditServices" />
+        </activity>
+    </application>
+
+</manifest>

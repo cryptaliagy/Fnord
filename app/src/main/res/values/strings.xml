@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Fnord</string>
+
+    //spinner values
+    <string-array name="accountTypes">
+        <item>Administrator</item>
+        <item>HomeOwner</item>
+        <item>ServiceProvider</item>
+    </string-array>
+    <string name="title_activity_pleasedelete">PLEASEDELETE</string>
+</resources>
