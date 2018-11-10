@@ -28,33 +28,21 @@ public class SignInActivity extends AppCompatActivity {
                 email = emailText.getText().toString();
                 EditText passwordText = (EditText) findViewById(R.id.signInPassword);
                 password = passwordText.getText().toString();
-
-                //checking if the email is in home owners email arraylist
-                if(MainActivity.acc.getHomeOwnerEmails().contains(email)){
-                    //getting index of the email
-                    int emailIndex = MainActivity.acc.getHomeOwnerEmails().indexOf(email);
-                    //checking if the password passed into sign in form is the same as the password
-                    //with index corresponding to the email
-                    if(MainActivity.acc.getHomeOwnerPasswords().get(emailIndex).equals(password)){
-                        currentUser = MainActivity.acc.getHomeOwnerUsernames().get(emailIndex);
-                        openHomeOwnerActivity();
-                    }
-                }
-
-                //checking if the email is in service providers email arraylist
-                else if(MainActivity.acc.getServiceProviderEmails().contains(email)){
-                    //getting index of the email
-                    int emailIndex = MainActivity.acc.getServiceProviderEmails().indexOf(email);
-                    //checkings password
-                    if(MainActivity.acc.getServiceProviderPasswords().get(emailIndex).equals(password)){
-                        currentUser = MainActivity.acc.getServiceProviderUsernames().get(emailIndex);
-                        openServiceProviderActivity();
-                    }
-                }
-                else if(MainActivity.acc.getAdminEmail().equals(email)){
-                    if(MainActivity.acc.getAdminPassword().equals(password)){
-                        currentUser = MainActivity.acc.getAdminUsername();
-                        openAdministratorActivity();
+                Accounts acc = MainActivity.getAccounts();
+                User user = null;
+                if (acc.existsAccount(email)) {
+                    user = acc.getUser(email);
+                    currentUser = user.getUsername();
+                    switch(user.getType()) {
+                        case ADMIN:
+                            openAdministratorActivity();
+                            break;
+                        case HOMEOWNER:
+                            openHomeOwnerActivity();
+                            break;
+                        case SERVICEPROVIDER:
+                            openServiceProviderActivity();
+                            break;
                     }
                 }
             }

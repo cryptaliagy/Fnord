@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.Spinner;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class EditServices extends AppCompatActivity {
     private Spinner editServicesSpinner;
@@ -17,6 +18,7 @@ public class EditServices extends AppCompatActivity {
     //screen and then set them back into the service/servicerates arraylists
     public static String currentService;
     public static String currentServiceRate;
+    public static Services ser = MainActivity.getServices();
 
 
     @Override
@@ -30,8 +32,7 @@ public class EditServices extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 currentService = editServicesSpinner.getSelectedItem().toString();
-                int index = MainActivity.ser.getServices().indexOf(currentService);
-                currentServiceRate = MainActivity.ser.getServiceRates().get(index);
+                currentServiceRate = Double.toString(ser.getServiceRate(currentService));
                 openEditServicesView();
             }
         });
@@ -40,8 +41,7 @@ public class EditServices extends AppCompatActivity {
 
     private void initializeSpinner(){
         editServicesSpinner = (Spinner) findViewById(R.id.editServiceSpinner);
-        ArrayList<String> services = new ArrayList<>();
-        services = MainActivity.ser.services;
+        ArrayList<String> services = ser.asArrayList();
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, services);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         editServicesSpinner.setAdapter(adapter);
