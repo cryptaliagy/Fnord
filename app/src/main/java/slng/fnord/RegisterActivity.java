@@ -9,6 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.regex.Pattern;
@@ -49,24 +50,29 @@ public class RegisterActivity extends AppCompatActivity {
                 accountType = accountSpinner.getSelectedItem().toString();
                 Accounts acc = MainActivity.getAccounts();
 
+                Toast toast = null;
 
                 if (!validateEmail(email)) {
-                    // Toast of some kind
+                    toast = Toast.makeText(getApplicationContext(), "Email is invalid", Toast.LENGTH_SHORT);
+                    toast.show();
                     return;
                 }
 
                 if (!validatePassword(password)) {
-                    // Toast of some kind. Maybe buttered, maybe not, who knows?
+                    toast = Toast.makeText(getApplicationContext(), "Password is invalid", Toast.LENGTH_SHORT);
+                    toast.show();
                     return;
                 }
 
                 if (!validateUser(username)) {
-                    // Toast of some kind... Maybe the french variety?
+                    toast = Toast.makeText(getApplicationContext(), "Username is invalid", Toast.LENGTH_SHORT);
+                    toast.show();
                     return;
                 }
 
                 if (acc.existsAccount(email)) {
-                    // Toast of some kind, I rather prefer with strawberry jam
+                    toast = Toast.makeText(getApplicationContext(), "An account with this email already exists", Toast.LENGTH_SHORT);
+                    toast.show();
                     return;
                 }
 
@@ -83,7 +89,8 @@ public class RegisterActivity extends AppCompatActivity {
                         type = ADMIN;
                     }
                     else {
-                        // Toast of some kind
+                        toast = Toast.makeText(getApplicationContext(), "An administrator account already exists", Toast.LENGTH_SHORT);
+                        toast.show();
                         return;
                     }
                 }
