@@ -34,7 +34,7 @@
         <Spinner
             android:id="@+id/servicesSpinner"
             android:layout_width="350dp"
-            android:layout_height="35dp"
+            android:layout_height="50dp"
             android:background="@android:drawable/btn_dropdown" />
 
         <Space
