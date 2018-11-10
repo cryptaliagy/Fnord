@@ -46,25 +46,28 @@ public class RegisterActivity extends AppCompatActivity {
                 username = usernameText.getText().toString();
                 accountType = accountSpinner.getSelectedItem().toString();
 
-                //TODO here we will probably need to add validations - i.e. for the variables above (email, pwd, username), we will
-                //TODO need to check whether they are actually valid before proceeding onward
-                //TODO also we may need to implement another function to make sure the username/email we are registering as does not already
-                //TODO exist in the appropriate arraylist for the account being created (i.e. service provider/homeowner)
+
+                boolean emailIsValid = validateEmail(email);
+                boolean usernameIsValid = validateUser(username);
+                boolean passwordIsValid = validatePassword(password);
+
+                String id = Common.makeMD5(username);
+
 
                 //three different cases depending on what was selected
                 if(accountType.equals("HomeOwner")){
-                    MainActivity.acc.addHomeOwnerInfo(email, username, password);
+                    MainActivity.acc.makeUser(email, username, password, UserTypes.HOMEOWNER);
                     SignInActivity.currentUser = username;
                     openHomeOwnerActivity();
 
                 }
                 else if(accountType.equals("ServiceProvider")){
-                    MainActivity.acc.addServiceProviderInfo(email, username, password);
+                    MainActivity.acc.makeUser(email, username, password, UserTypes.SERVICEPROVIDER);
                     SignInActivity.currentUser = username;
                     openServiceProviderActivity();
                 }
                 else if(accountType.equals("Administrator") && !MainActivity.acc.existsAdmin()){
-                    MainActivity.acc.makeAdminUser(email, username, password);
+                    MainActivity.acc.makeUser(email, username, password, UserTypes.ADMIN);
                     SignInActivity.currentUser = username;
                     openAdministratorActivity();
                 }

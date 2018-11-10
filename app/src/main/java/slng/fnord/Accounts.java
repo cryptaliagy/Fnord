@@ -9,13 +9,9 @@ import java.util.HashMap;
 
 public class Accounts {
     //admin
-    private User admin = null;
+    private boolean adminExists = false;
 
-    //homeowners
-    HashMap<String, User> homeOwnerData = new HashMap<>();
-
-    //service providers
-    HashMap<String, User> serviceProviderData = new HashMap<>();
+    private HashMap<String, User> userData = new HashMap<>();
 
     public Accounts() {
     }
@@ -23,27 +19,24 @@ public class Accounts {
         return this;
     }
 
-    //public methods to add admin account
-    public void makeAdminUser(String email, String username, String password) {
-        admin = new User(email, username, password);
-    }
-
     //public methods to add homeowner account
-    public void addHomeOwnerInfo(String email, String username, String password) {
+    public void makeUser(String email, String username, String password, UserTypes type) {
+        if (type.equals(UserTypes.ADMIN)) {
+            adminExists = true;
+        }
         String id = Common.makeMD5(username);
-        User user = new User(email, username, password);
-        homeOwnerData.put(id, user);
-    }
-
-    //public methods to add service provider account
-    public void addServiceProviderInfo(String email, String username, String password) {
-        String id = Common.makeMD5(username);
-        User user = new User(email, username, password);
-        serviceProviderData.put(id, user);
+        User user = new User(email, username, password, type);
+        userData.put(id, user);
     }
 
     //getters
     public boolean existsAdmin() {
-        return admin != null;
+        return adminExists;
+    }
+
+    public boolean existsAccount(String username) {
+        String id = Common.makeMD5(username);
+
+        return userData.containsKey(id);
     }
 }
