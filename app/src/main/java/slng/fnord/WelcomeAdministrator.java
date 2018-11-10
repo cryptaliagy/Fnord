@@ -70,7 +70,7 @@ public class WelcomeAdministrator extends AppCompatActivity {
     }
 
     public void openEditServiceView(){
-        Intent intent = new Intent(this, EditServices.class);
+        Intent intent = new Intent(this, EditServicesSelect.class);
         startActivity(intent);
     }
 
