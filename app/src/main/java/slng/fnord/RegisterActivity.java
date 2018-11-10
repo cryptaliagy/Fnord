@@ -79,8 +79,6 @@ public class RegisterActivity extends AppCompatActivity {
                     return;
                 }
 
-
-                SignInActivity.currentUser = username;
                 UserTypes type = null;
 
                 if (accountType.equals("HomeOwner")) {
@@ -100,6 +98,7 @@ public class RegisterActivity extends AppCompatActivity {
 
 
                 acc.makeUser(email, username, password, type);
+                SignInActivity.currentUser = acc.getUser(email);
                 toast = Toast.makeText(getApplicationContext(), "New account has been made", Toast.LENGTH_SHORT);
                 toast.show();
                 openUserActivity(type);

@@ -14,7 +14,7 @@ public class SignInActivity extends AppCompatActivity {
     private Button signIn2;
     String email;
     String password;
-    public static String currentUser;
+    public static User currentUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,8 +48,8 @@ public class SignInActivity extends AppCompatActivity {
 
                 if (acc.existsAccount(email)) {
                     user = acc.getUser(email);
-                    currentUser = user.getUsername();
                     if (user.checkPassword(password)) {
+                        currentUser = user;
                         openUserActivity(user.getType());
                     } else {
                         Toast toastWrongPassword = Toast.makeText(getApplicationContext(), "Incorrect password", Toast.LENGTH_SHORT);
