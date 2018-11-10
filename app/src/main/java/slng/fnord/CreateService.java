@@ -45,10 +45,10 @@ public class CreateService extends AppCompatActivity {
                     return;
                 }
 
-                //if the static arraylist of services doesn't have the service we are trying to add, add the service + its rate
-                if(!MainActivity.getServices().getServices().contains(serviceToAdd)){
-                    MainActivity.getServices().addService(serviceToAdd);
-                    MainActivity.getServices().addServiceRate(rateOfService);
+                Services ser = MainActivity.getServices();
+                if(!ser.hasService(serviceToAdd)){
+                    ser.addService(serviceToAdd, Double.valueOf(rateOfService));
+
                     Toast toastCreate = Toast.makeText(getApplicationContext(), "Service Created.", Toast.LENGTH_SHORT);
                     toastCreate.show();
 
@@ -57,10 +57,6 @@ public class CreateService extends AppCompatActivity {
                     Toast toastNoCreate = Toast.makeText(getApplicationContext(), "No Service Created. Service Already Exists.", Toast.LENGTH_SHORT);
                     toastNoCreate.show();
                 }
-                //can probably add another else statement here and have it show a toast showing that the service already exists and thus
-                //cannot be added
-                //TODO need some verifications here/authentication, namely, checking if the service exists, checking if its a valid service (i.e. not a blank line)
-                //and of course, the appropriate toast
             }
         });
 

@@ -5,6 +5,9 @@ import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 //simple view of service + its rate, do not touch
 public class ViewService extends AppCompatActivity {
 
@@ -14,7 +17,8 @@ public class ViewService extends AppCompatActivity {
         setContentView(R.layout.activity_view_service);
 
         ListView lv = (ListView) findViewById(R.id.listOfServices);
-        ServicesAndRatesAdapter adapter = new ServicesAndRatesAdapter(this, R.layout.adapter_view_layout,MainActivity.getServices().getServices());
+        ServicesAndRatesAdapter adapter = new ServicesAndRatesAdapter(this, R.layout.adapter_view_layout,
+                MainActivity.getServices().asArrayList());
         lv.setAdapter(adapter);
     }
 }

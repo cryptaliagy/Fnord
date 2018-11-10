@@ -26,12 +26,10 @@ public class DeleteService extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //setting the text of the selected service in the list, then deleting it and the rate associated with it
-                if(MainActivity.getServices().getServices().size() != 0) {
-
+                Services ser = MainActivity.getServices();
+                if(ser.size() != 0) {
                     serviceToDelete = deleteServicesSpinner.getSelectedItem().toString();
-                    int indexOfService = MainActivity.getServices().getServices().indexOf(serviceToDelete); //getting index of the service so we can delete the rate as well
-                    MainActivity.getServices().getServices().remove(indexOfService);//removing the service from the service arraylist
-                    MainActivity.getServices().getServiceRates().remove(indexOfService); //removing the service's rate from the servicerate arraylist
+                    ser.deleteService(serviceToDelete);
                     Toast toastDelete = Toast.makeText(getApplicationContext(), "Service Deleted.", Toast.LENGTH_SHORT);
                     toastDelete.show();
                 }
@@ -40,7 +38,6 @@ public class DeleteService extends AppCompatActivity {
                     toastNoDelete.show();
                 }
                 initializeSpinner();
-                //TODO make a nice toast saying its been successfully deleted
             }
         });
 
@@ -49,8 +46,7 @@ public class DeleteService extends AppCompatActivity {
     //helper function that creates/initializes the spinner aka the dropdown list
     private void initializeSpinner(){
         deleteServicesSpinner = (Spinner) findViewById(R.id.servicesSpinner);
-        ArrayList<String> services = new ArrayList<>();
-        services = MainActivity.getServices().services;
+        ArrayList<String> services = MainActivity.getServices().asArrayList();
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, services);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         deleteServicesSpinner.setAdapter(adapter);
