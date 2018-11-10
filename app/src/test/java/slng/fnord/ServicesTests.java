@@ -2,11 +2,15 @@ package slng.fnord;
 
 import org.junit.Test;
 
+import static com.google.common.truth.Truth.assertThat;
+
 public class ServicesTests {
     @Test
     public void createServiceTest(){
         Services services = new Services();
-        services.addService("Lawnmowing");
+        services.addService("Lawnmowing", 0.5);
+        assertThat(services.hasService("Lawnmowing")).isTrue();
         services.deleteService("Lawnmowing");
+
     }
 }
