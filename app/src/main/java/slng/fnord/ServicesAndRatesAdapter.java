@@ -15,19 +15,22 @@ import java.util.List;
 //this is a helper class to make sure the UI on the view services page displays properly - do not touch
 public class ServicesAndRatesAdapter extends ArrayAdapter<String> {
     private Context mContext;
-    int mResource;
+    private int mResource;
+    private ArrayList<String> objects;
 
     public ServicesAndRatesAdapter(@NonNull Context context, int resource, @NonNull ArrayList<String> objects) {
         super(context, resource, objects);
         this.mContext = context;
         mResource = resource;
+        this.objects = objects;
     }
 
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-        String service = MainActivity.ser.getServices().get(position);
-        String rate = MainActivity.ser.getServiceRates().get(position);
+        Services ser = MainActivity.getServices();
+        String service = objects.get(position);
+        String rate = Double.toString(ser.getServiceRate(service));
 
         LayoutInflater inflater = LayoutInflater.from(mContext);
         convertView = inflater.inflate(mResource,parent,false);

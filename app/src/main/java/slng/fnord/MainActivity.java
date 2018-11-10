@@ -10,8 +10,8 @@ public class MainActivity extends AppCompatActivity {
 
     private Button register;
     private Button signIn;
-    public static Accounts acc = new Accounts(); //static instance of account created to keep arraylists of all accounts
-    public static Services ser = new Services(); //static instance of services created to keep arraylists of all services/rates
+    private static Accounts acc = new Accounts();
+    private static Services ser = new Services();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +40,8 @@ public class MainActivity extends AppCompatActivity {
     public static Accounts getAccounts(){
         return acc;
     }
+
+    public static Services getServices() {return ser; }
 
     //opening the register screen
     public void openRegisterActivity(){
