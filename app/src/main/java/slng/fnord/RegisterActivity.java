@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 
 import java.util.ArrayList;
+import java.util.regex.Pattern;
 
 public class RegisterActivity extends AppCompatActivity {
     private Button register2;
@@ -51,28 +52,20 @@ public class RegisterActivity extends AppCompatActivity {
                 //TODO exist in the appropriate arraylist for the account being created (i.e. service provider/homeowner)
 
                 //three different cases depending on what was selected
-                //in each case, we add the email/username/password to the appropriate arraylist in the static instance of Accounts
                 if(accountType.equals("HomeOwner")){
-                    MainActivity.acc.addHomeOwnerEmail(email);
-                    MainActivity.acc.addHomeOwnerUsernames(username);
-                    MainActivity.acc.addHomeOwnerPassword(password);
+                    MainActivity.acc.addHomeOwnerInfo(email, username, password);
                     SignInActivity.currentUser = username;
                     openHomeOwnerActivity();
 
                 }
                 else if(accountType.equals("ServiceProvider")){
-                    MainActivity.acc.addSPEmail(email);
-                    MainActivity.acc.addSPUsernames(username);
-                    MainActivity.acc.addSPPassword(password);
+                    MainActivity.acc.addServiceProviderInfo(email, username, password);
                     SignInActivity.currentUser = username;
                     openServiceProviderActivity();
                 }
-                else if(accountType.equals("Administrator") && MainActivity.acc.adminFlag==false){
-                    MainActivity.acc.addAdminEmail(email);
-                    MainActivity.acc.addAdminUsername(username);
-                    MainActivity.acc.addAdminPassword(password);
+                else if(accountType.equals("Administrator") && !MainActivity.acc.existsAdmin()){
+                    MainActivity.acc.makeAdminUser(email, username, password);
                     SignInActivity.currentUser = username;
-                    MainActivity.acc.adminFlag = true;
                     openAdministratorActivity();
                 }
 //                else{
@@ -100,6 +93,19 @@ public class RegisterActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    // Your everyday run-of-the-mill email validation regex
+    public boolean validateEmail(String email) {
+        return Pattern.matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-z]{2,}$", email);
+    }
+
+    // Users should only contain alphanumeric characters, periods, underscores and dashes
+    public boolean validateUser(String user) {
+        return Pattern.matches("[a-zA-Z0-9._-]{6,}", user);
+    }
+
+    public boolean validatePassword(String password) {
+        return Pattern.matches("[a-zA-Z0-9._+=!@#$%^&*:,?-]{5,}", password);
+    }
 
 
 }
