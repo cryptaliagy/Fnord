@@ -2,8 +2,8 @@ version: 2
 jobs:
   build:
     branches:
-       only:
-         - circleCI
+       ignore:
+         - master # nothing gets to master before passing through develop first
     working_directory: ~/code
     docker:
       - image: circleci/android:api-25-alpha
