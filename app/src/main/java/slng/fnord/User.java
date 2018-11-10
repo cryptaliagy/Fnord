@@ -31,4 +31,8 @@ public class User {
     public String getUsername() {
         return username;
     }
+
+    public UserTypes getType() {
+        return type;
+    }
 }

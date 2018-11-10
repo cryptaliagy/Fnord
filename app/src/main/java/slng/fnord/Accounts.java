@@ -24,7 +24,7 @@ public class Accounts {
         if (type.equals(UserTypes.ADMIN)) {
             adminExists = true;
         }
-        String id = Common.makeMD5(username);
+        String id = Common.makeMD5(email);
         User user = new User(email, username, password, type);
         userData.put(id, user);
     }
@@ -34,9 +34,15 @@ public class Accounts {
         return adminExists;
     }
 
-    public boolean existsAccount(String username) {
-        String id = Common.makeMD5(username);
+    public boolean existsAccount(String email) {
+        String id = Common.makeMD5(email);
 
         return userData.containsKey(id);
+    }
+
+    public User getUser(String email) {
+        String id = Common.makeMD5(email);
+
+        return userData.get(id);
     }
 }
