@@ -13,10 +13,6 @@ public class Services {
         return services.get(service);
     }
 
-    public void updateService(String service, double newRate) {
-        services.put(service, newRate);
-    }
-
     //method to add a service
     public void addService(String service, double rate){
         services.put(service, rate);

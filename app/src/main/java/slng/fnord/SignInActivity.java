@@ -34,6 +34,18 @@ public class SignInActivity extends AppCompatActivity {
                 password = passwordText.getText().toString();
                 email = emailText.getText().toString();
 
+                if (!Common.validateEmail(email)) {
+                    Toast toastInvalidEmail = Toast.makeText(getApplicationContext(), "Email is invalid", Toast.LENGTH_SHORT);
+                    toastInvalidEmail.show();
+                    return;
+                }
+
+                if (!Common.validatePassword(password)) {
+                    Toast toastInvalidPassword = Toast.makeText(getApplicationContext(), "Password is invalid", Toast.LENGTH_SHORT);
+                    toastInvalidPassword.show();
+                    return;
+                }
+
                 if (acc.existsAccount(email)) {
                     user = acc.getUser(email);
                     currentUser = user.getUsername();
@@ -50,9 +62,6 @@ public class SignInActivity extends AppCompatActivity {
                 }
             }
         });
-
-
-
     }
 
     public void openUserActivity(UserTypes types) {
