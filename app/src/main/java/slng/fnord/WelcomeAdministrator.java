@@ -25,15 +25,15 @@ public class WelcomeAdministrator extends AppCompatActivity {
         cserve.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openCreateServiceView();
+                openView(CreateService.class);
             }
         });
 
         dserve = (Button) findViewById(R.id.deleteServiceChoiceButton);
-        dserve.setOnClickListener(new View.OnClickListener(){
+        dserve.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
-                openDeleteServiceView();
+            public void onClick(View v) {
+                openView(DeleteService.class);
             }
         });
 
@@ -41,7 +41,7 @@ public class WelcomeAdministrator extends AppCompatActivity {
         vserve.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openViewServiceView();
+                openView(ViewService.class);
             }
         });
 
@@ -49,30 +49,13 @@ public class WelcomeAdministrator extends AppCompatActivity {
         eserve.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openEditServiceView();
+                openView(EditServicesSelect.class);
             }
         });
     }
 
-    public void openCreateServiceView(){
-        Intent intent = new Intent(this, CreateService.class);
-        startActivity(intent);
+    public void openView(Class<?> cls) {
+        startActivity(new Intent(this, cls));
     }
-
-    public void openDeleteServiceView(){
-        Intent intent = new Intent(this, DeleteService.class);
-        startActivity(intent);
-    }
-
-    public void openViewServiceView(){
-        Intent intent = new Intent(this, ViewService.class);
-        startActivity(intent);
-    }
-
-    public void openEditServiceView(){
-        Intent intent = new Intent(this, EditServicesSelect.class);
-        startActivity(intent);
-    }
-
 
 }

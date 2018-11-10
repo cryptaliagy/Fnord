@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openRegisterActivity();
+                openActivity(RegisterActivity.class);
             }
         });
 
@@ -32,26 +32,17 @@ public class MainActivity extends AppCompatActivity {
         signIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openSignInActivity();
+                openActivity(SignInActivity.class);
             }
         });
     }
 
-    public static Accounts getAccounts(){
-        return acc;
+    public static Accounts getAccounts() { return acc; }
+
+    public static Services getServices() { return ser; }
+
+    public void openActivity(Class<?> cls) {
+        startActivity(new Intent(this, cls));
     }
 
-    public static Services getServices() {return ser; }
-
-    //opening the register screen
-    public void openRegisterActivity(){
-        Intent intent = new Intent(this, RegisterActivity.class);
-        startActivity(intent);
-    }
-
-    //opening the sign in screen
-    public void openSignInActivity(){
-        Intent intent = new Intent(this, SignInActivity.class);
-        startActivity(intent);
-    }
 }
