@@ -13,6 +13,8 @@ import android.widget.Spinner;
 import java.util.ArrayList;
 import java.util.regex.Pattern;
 
+import static slng.fnord.UserTypes.*;
+
 public class RegisterActivity extends AppCompatActivity {
     private Button register2;
     String email;
@@ -45,54 +47,68 @@ public class RegisterActivity extends AppCompatActivity {
                 EditText usernameText = (EditText) findViewById(R.id.registerUsername);
                 username = usernameText.getText().toString();
                 accountType = accountSpinner.getSelectedItem().toString();
+                Accounts acc = MainActivity.getAccounts();
 
 
-                boolean emailIsValid = validateEmail(email);
-                boolean usernameIsValid = validateUser(username);
-                boolean passwordIsValid = validatePassword(password);
-
-                String id = Common.makeMD5(username);
-
-
-                //three different cases depending on what was selected
-                if(accountType.equals("HomeOwner")){
-                    MainActivity.acc.makeUser(email, username, password, UserTypes.HOMEOWNER);
-                    SignInActivity.currentUser = username;
-                    openHomeOwnerActivity();
-
+                if (!validateEmail(email)) {
+                    // Toast of some kind
+                    return;
                 }
-                else if(accountType.equals("ServiceProvider")){
-                    MainActivity.acc.makeUser(email, username, password, UserTypes.SERVICEPROVIDER);
-                    SignInActivity.currentUser = username;
-                    openServiceProviderActivity();
-                }
-                else if(accountType.equals("Administrator") && !MainActivity.acc.existsAdmin()){
-                    MainActivity.acc.makeUser(email, username, password, UserTypes.ADMIN);
-                    SignInActivity.currentUser = username;
-                    openAdministratorActivity();
-                }
-//                else{
-//                    System.exit(0);
-//                }
 
+                if (!validatePassword(password)) {
+                    // Toast of some kind. Maybe buttered, maybe not, who knows?
+                    return;
+                }
+
+                if (!validateUser(username)) {
+                    // Toast of some kind... Maybe the french variety?
+                    return;
+                }
+
+                if (acc.existsAccount(email)) {
+                    // Toast of some kind, I rather prefer with strawberry jam
+                    return;
+                }
+
+
+                SignInActivity.currentUser = username;
+                UserTypes type = null;
+
+                if (accountType.equals("HomeOwner")) {
+                    type = HOMEOWNER;
+                } else if (accountType.equals("ServiceProvider")) {
+                    type = SERVICEPROVIDER;
+                } else if (accountType.equals("Administrator")) {
+                    if (!acc.existsAdmin()) {
+                        type = ADMIN;
+                    }
+                    else {
+                        // Toast of some kind
+                        return;
+                    }
+                }
+
+
+                acc.makeUser(email, username, password, type);
+                openUserActivity(type);
             }
         });
     }
-    //opens welcome screen for a homeowner
-    public void openHomeOwnerActivity(){
-        Intent intent = new Intent(this, WelcomeHomeOwner.class);
-        startActivity(intent);
-    }
 
-    //opens welcome screen for a service provider
-    public void openServiceProviderActivity(){
-        Intent intent = new Intent(this, WelcomeServiceProvider.class);
-        startActivity(intent);
-    }
-
-    //opens welcome screen for an admin
-    public void openAdministratorActivity(){
-        Intent intent = new Intent(this, WelcomeAdministrator.class);
+    //opens welcome screen for the user
+    public void openUserActivity(UserTypes type) {
+        Intent intent = null;
+        switch (type) {
+            case ADMIN:
+                intent = new Intent(this, WelcomeAdministrator.class);
+                break;
+            case HOMEOWNER:
+                intent = new Intent(this, WelcomeHomeOwner.class);
+                break;
+            case SERVICEPROVIDER:
+                intent = new Intent(this, WelcomeServiceProvider.class);
+                break;
+        }
         startActivity(intent);
     }
 

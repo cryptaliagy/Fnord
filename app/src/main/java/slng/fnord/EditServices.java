@@ -30,8 +30,8 @@ public class EditServices extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 currentService = editServicesSpinner.getSelectedItem().toString();
-                int index = MainActivity.ser.getServices().indexOf(currentService);
-                currentServiceRate = MainActivity.ser.getServiceRates().get(index);
+                int index = MainActivity.getServices().getServices().indexOf(currentService);
+                currentServiceRate = MainActivity.getServices().getServiceRates().get(index);
                 openEditServicesView();
             }
         });
@@ -41,7 +41,7 @@ public class EditServices extends AppCompatActivity {
     private void initializeSpinner(){
         editServicesSpinner = (Spinner) findViewById(R.id.editServiceSpinner);
         ArrayList<String> services = new ArrayList<>();
-        services = MainActivity.ser.services;
+        services = MainActivity.getServices().services;
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, services);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         editServicesSpinner.setAdapter(adapter);

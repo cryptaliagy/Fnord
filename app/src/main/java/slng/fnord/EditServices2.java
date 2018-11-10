@@ -16,7 +16,7 @@ public class EditServices2 extends AppCompatActivity {
         setContentView(R.layout.activity_edit_services2);
 
         //keeping track of the index of the service selected in the list in the previous screen (EditServices)
-        final int indexToChange = MainActivity.ser.getServices().indexOf(EditServices.currentService);
+        final int indexToChange = MainActivity.getServices().getServices().indexOf(EditServices.currentService);
 
         //two textviews for the editable service and service rate
         final TextView serviceView = (TextView) findViewById(R.id.serviceNameEditField);
@@ -40,17 +40,17 @@ public class EditServices2 extends AppCompatActivity {
                 }
 
                 else{
-                    if (MainActivity.ser.getServices().contains(serviceView.getText().toString()) == false) {
-                        MainActivity.ser.getServices().set(indexToChange, serviceView.getText().toString());
-                        MainActivity.ser.getServiceRates().set(indexToChange, rateView.getText().toString());
+                    if (MainActivity.getServices().getServices().contains(serviceView.getText().toString()) == false) {
+                        MainActivity.getServices().getServices().set(indexToChange, serviceView.getText().toString());
+                        MainActivity.getServices().getServiceRates().set(indexToChange, rateView.getText().toString());
                         Toast toastEdit = Toast.makeText(getApplicationContext(), "Service Edited.", Toast.LENGTH_SHORT);
                         toastEdit.show();
                     }
 
-                    if (MainActivity.ser.getServices().contains(serviceView.getText().toString()) == true) {
-                        if (MainActivity.ser.getServices().indexOf(serviceView.getText().toString()) == indexToChange || MainActivity.ser.getServices().lastIndexOf(serviceView.getText().toString()) == indexToChange) {
-                            MainActivity.ser.getServices().set(indexToChange, serviceView.getText().toString());
-                            MainActivity.ser.getServiceRates().set(indexToChange, rateView.getText().toString());
+                    if (MainActivity.getServices().getServices().contains(serviceView.getText().toString()) == true) {
+                        if (MainActivity.getServices().getServices().indexOf(serviceView.getText().toString()) == indexToChange || MainActivity.getServices().getServices().lastIndexOf(serviceView.getText().toString()) == indexToChange) {
+                            MainActivity.getServices().getServices().set(indexToChange, serviceView.getText().toString());
+                            MainActivity.getServices().getServiceRates().set(indexToChange, rateView.getText().toString());
                             Toast toastEdit = Toast.makeText(getApplicationContext(), "Service Edited.", Toast.LENGTH_SHORT);
                             toastEdit.show();
                         } else {

@@ -26,8 +26,9 @@ public class ServicesAndRatesAdapter extends ArrayAdapter<String> {
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-        String service = MainActivity.ser.getServices().get(position);
-        String rate = MainActivity.ser.getServiceRates().get(position);
+        Services ser = MainActivity.getServices();
+        String service = ser.getServices().get(position);
+        String rate = ser.getServiceRates().get(position);
 
         LayoutInflater inflater = LayoutInflater.from(mContext);
         convertView = inflater.inflate(mResource,parent,false);

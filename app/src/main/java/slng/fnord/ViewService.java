@@ -14,7 +14,7 @@ public class ViewService extends AppCompatActivity {
         setContentView(R.layout.activity_view_service);
 
         ListView lv = (ListView) findViewById(R.id.listOfServices);
-        ServicesAndRatesAdapter adapter = new ServicesAndRatesAdapter(this, R.layout.adapter_view_layout,MainActivity.ser.getServices());
+        ServicesAndRatesAdapter adapter = new ServicesAndRatesAdapter(this, R.layout.adapter_view_layout,MainActivity.getServices().getServices());
         lv.setAdapter(adapter);
     }
 }

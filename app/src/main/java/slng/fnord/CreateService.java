@@ -30,9 +30,9 @@ public class CreateService extends AppCompatActivity {
                 rateOfService = rateOfServiceText.getText().toString();
 
                 //if the static arraylist of services doesn't have the service we are trying to add, add the service + its rate
-                if(MainActivity.ser.getServices().contains(serviceToAdd)==false){
-                    MainActivity.ser.addService(serviceToAdd);
-                    MainActivity.ser.addServiceRate(rateOfService);
+                if(MainActivity.getServices().getServices().contains(serviceToAdd)==false){
+                    MainActivity.getServices().addService(serviceToAdd);
+                    MainActivity.getServices().addServiceRate(rateOfService);
                     Toast toastCreate = Toast.makeText(getApplicationContext(), "Service Created.", Toast.LENGTH_SHORT);
                     toastCreate.show();
 
