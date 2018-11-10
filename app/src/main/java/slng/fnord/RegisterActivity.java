@@ -55,19 +55,19 @@ public class RegisterActivity extends AppCompatActivity {
 
                 Toast toast = null;
 
-                if (!validateEmail(email)) {
+                if (!Common.validateEmail(email)) {
                     toast = Toast.makeText(getApplicationContext(), "Email is invalid", Toast.LENGTH_SHORT);
                     toast.show();
                     return;
                 }
 
-                if (!validatePassword(password)) {
+                if (!Common.validatePassword(password)) {
                     toast = Toast.makeText(getApplicationContext(), "Password is invalid", Toast.LENGTH_SHORT);
                     toast.show();
                     return;
                 }
 
-                if (!validateUser(username)) {
+                if (!Common.validateUser(username)) {
                     toast = Toast.makeText(getApplicationContext(), "Username is invalid", Toast.LENGTH_SHORT);
                     toast.show();
                     return;
@@ -122,20 +122,6 @@ public class RegisterActivity extends AppCompatActivity {
                 break;
         }
         startActivity(intent);
-    }
-
-    // Your everyday run-of-the-mill email validation regex
-    public boolean validateEmail(String email) {
-        return Pattern.matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-z]{2,}$", email);
-    }
-
-    // Users should only contain alphanumeric characters, periods, underscores and dashes
-    public boolean validateUser(String user) {
-        return Pattern.matches("^[a-zA-Z0-9._-]{6,}$", user);
-    }
-
-    public boolean validatePassword(String password) {
-        return Pattern.matches("^[a-zA-Z0-9._+=!@#$%^&*:,?-]{5,}$", password);
     }
 
 
