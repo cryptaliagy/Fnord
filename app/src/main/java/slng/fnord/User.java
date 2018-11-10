@@ -13,8 +13,8 @@ public class User {
         this.email = email;
         this.username = username;
         byte[] saltBytes = new byte[20];
-        SecureRandom scrand = new SecureRandom();
-        scrand.nextBytes(saltBytes);
+        new SecureRandom().nextBytes(saltBytes);
+
         salt = Common.makeHex(saltBytes);
         passwordHash = Common.makeMD5(password + salt);
         this.type = type;

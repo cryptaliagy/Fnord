@@ -43,10 +43,13 @@ public class RegisterActivity extends AppCompatActivity {
             public void onClick(View v) {
                 EditText emailText = (EditText) findViewById(R.id.registerEmail);
                 email = emailText.getText().toString();
+
                 EditText passwordText = (EditText) findViewById(R.id.registerPassword);
                 password = passwordText.getText().toString();
+
                 EditText usernameText = (EditText) findViewById(R.id.registerUsername);
                 username = usernameText.getText().toString();
+
                 accountType = accountSpinner.getSelectedItem().toString();
                 Accounts acc = MainActivity.getAccounts();
 
@@ -97,6 +100,8 @@ public class RegisterActivity extends AppCompatActivity {
 
 
                 acc.makeUser(email, username, password, type);
+                toast = Toast.makeText(getApplicationContext(), "New account has been made", Toast.LENGTH_SHORT);
+                toast.show();
                 openUserActivity(type);
             }
         });
@@ -126,11 +131,11 @@ public class RegisterActivity extends AppCompatActivity {
 
     // Users should only contain alphanumeric characters, periods, underscores and dashes
     public boolean validateUser(String user) {
-        return Pattern.matches("[a-zA-Z0-9._-]{6,}", user);
+        return Pattern.matches("^[a-zA-Z0-9._-]{6,}$", user);
     }
 
     public boolean validatePassword(String password) {
-        return Pattern.matches("[a-zA-Z0-9._+=!@#$%^&*:,?-]{5,}", password);
+        return Pattern.matches("^[a-zA-Z0-9._+=!@#$%^&*:,?-]{5,}$", password);
     }
 
 
