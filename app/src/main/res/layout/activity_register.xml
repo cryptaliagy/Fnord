@@ -90,7 +90,7 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="Please enter a password"
-            android:inputType="textPersonName"
+            android:inputType="textPassword"
             android:textAlignment="center" />
 
         <Space

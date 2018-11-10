@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class EditServices2 extends AppCompatActivity {
     private Button confirm;
@@ -31,8 +32,34 @@ public class EditServices2 extends AppCompatActivity {
                 //will need to make some validations on the new service name and rate before we actually add it
                 //i.e. if the new service we are trying to add is blank or if it already exists, we make a toast saying it was not added (and ofc it wasnt added)
 
-                MainActivity.ser.getServices().set(indexToChange, serviceView.getText().toString());
-                MainActivity.ser.getServiceRates().set(indexToChange, rateView.getText().toString());
+                if(serviceView.getText().toString().isEmpty() || rateView.getText().toString().isEmpty() ){
+
+                    Toast toastBlank = Toast.makeText(getApplicationContext(), "That Field Cannot Be Blank.", Toast.LENGTH_SHORT);
+                    toastBlank.show();
+
+                }
+
+                else{
+                    if (MainActivity.ser.getServices().contains(serviceView.getText().toString()) == false) {
+                        MainActivity.ser.getServices().set(indexToChange, serviceView.getText().toString());
+                        MainActivity.ser.getServiceRates().set(indexToChange, rateView.getText().toString());
+                        Toast toastEdit = Toast.makeText(getApplicationContext(), "Service Edited.", Toast.LENGTH_SHORT);
+                        toastEdit.show();
+                    }
+
+                    if (MainActivity.ser.getServices().contains(serviceView.getText().toString()) == true) {
+                        if (MainActivity.ser.getServices().indexOf(serviceView.getText().toString()) == indexToChange || MainActivity.ser.getServices().lastIndexOf(serviceView.getText().toString()) == indexToChange) {
+                            MainActivity.ser.getServices().set(indexToChange, serviceView.getText().toString());
+                            MainActivity.ser.getServiceRates().set(indexToChange, rateView.getText().toString());
+                            Toast toastEdit = Toast.makeText(getApplicationContext(), "Service Edited.", Toast.LENGTH_SHORT);
+                            toastEdit.show();
+                        } else {
+                            Toast toastNoEdit = Toast.makeText(getApplicationContext(), "A Service With That Name Already Exists. Please Choose Another Name.", Toast.LENGTH_SHORT);
+                            toastNoEdit.show();
+                        }
+
+                    }
+                }
 
 
                 //TODO make a toast confirming that it has been edited

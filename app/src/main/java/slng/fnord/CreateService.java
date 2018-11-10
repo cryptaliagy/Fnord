@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class CreateService extends AppCompatActivity {
     private Button createService;
@@ -32,8 +33,13 @@ public class CreateService extends AppCompatActivity {
                 if(MainActivity.ser.getServices().contains(serviceToAdd)==false){
                     MainActivity.ser.addService(serviceToAdd);
                     MainActivity.ser.addServiceRate(rateOfService);
-                    //TODO a toast here showing the service has been added would be nice
-                    //at this point, make a popup/toast/warning to show that the service has been added
+                    Toast toastCreate = Toast.makeText(getApplicationContext(), "Service Created.", Toast.LENGTH_SHORT);
+                    toastCreate.show();
+
+                }
+                else{
+                    Toast toastNoCreate = Toast.makeText(getApplicationContext(), "No Service Created. Service Already Exists.", Toast.LENGTH_SHORT);
+                    toastNoCreate.show();
                 }
                 //can probably add another else statement here and have it show a toast showing that the service already exists and thus
                 //cannot be added
