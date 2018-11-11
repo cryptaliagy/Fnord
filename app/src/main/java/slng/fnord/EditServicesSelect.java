@@ -52,4 +52,15 @@ public class EditServicesSelect extends AppCompatActivity {
         Intent intent = new Intent(this, EditService.class);
         startActivity(intent);
     }
+
+    @Override
+    public void onRestart() {
+        super.onRestart();
+        //When BACK BUTTON is pressed, the activity on the stack is restarted
+        //Do what you want on the refresh procedure here
+        initializeSpinner();
+    }
+
+
+
 }
