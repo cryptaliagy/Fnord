@@ -30,7 +30,7 @@ public class ServicesAndRatesAdapter extends ArrayAdapter<String> {
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         Services ser = MainActivity.getServices();
         String service = objects.get(position);
-        String rate = Double.toString(ser.getServiceRate(service));
+        Double  rate = ser.getServiceRate(service);
 
         LayoutInflater inflater = LayoutInflater.from(mContext);
         convertView = inflater.inflate(mResource,parent,false);
@@ -39,7 +39,7 @@ public class ServicesAndRatesAdapter extends ArrayAdapter<String> {
         TextView tvRate = (TextView) convertView.findViewById(R.id.rateField);
 
         tvService.setText(service);
-        tvRate.setText(rate);
+        tvRate.setText(String.format("%.2f", rate));
         return convertView;
 
     }

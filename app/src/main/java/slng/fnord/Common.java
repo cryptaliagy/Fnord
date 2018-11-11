@@ -34,7 +34,7 @@ public class Common {
     }
 
     public static boolean validatePrice(String price) {
-        return Pattern.matches("^[0-9]+\\.[0-9]{0,2}$", price);
+        return Pattern.matches("^[0-9]+(\\.[0-9]{0,2})?$", price);
     }
 
     // Your everyday run-of-the-mill email validation regex
