@@ -11,7 +11,7 @@ import android.widget.Spinner;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class EditServices extends AppCompatActivity {
+public class EditServicesSelect extends AppCompatActivity {
     private Spinner editServicesSpinner;
     private Button editService;
     //two static strings for the service that is selected and its rate - need these so that we can edit them in the next
@@ -49,7 +49,18 @@ public class EditServices extends AppCompatActivity {
     }
 
     public void openEditServicesView(){
-        Intent intent = new Intent(this, EditServices2.class);
+        Intent intent = new Intent(this, EditService.class);
         startActivity(intent);
     }
+
+    @Override
+    public void onRestart() {
+        super.onRestart();
+        //When BACK BUTTON is pressed, the activity on the stack is restarted
+        //Do what you want on the refresh procedure here
+        initializeSpinner();
+    }
+
+
+
 }

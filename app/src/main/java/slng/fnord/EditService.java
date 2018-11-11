@@ -7,7 +7,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class EditServices2 extends AppCompatActivity {
+public class EditService extends AppCompatActivity {
     private Button confirm;
 
     @Override
@@ -17,10 +17,10 @@ public class EditServices2 extends AppCompatActivity {
 
         //two textviews for the editable service and service rate
         final TextView serviceView = (TextView) findViewById(R.id.serviceNameEditField);
-        serviceView.setText(EditServices.currentService);
+        serviceView.setText(EditServicesSelect.currentService);
 
         final TextView rateView = (TextView) findViewById(R.id.serviceRateEditField);
-        rateView.setText(EditServices.currentServiceRate);
+        rateView.setText(EditServicesSelect.currentServiceRate);
 
         confirm = (Button) findViewById(R.id.confirmChangesBtn);
         confirm.setOnClickListener(new View.OnClickListener() {
@@ -38,7 +38,7 @@ public class EditServices2 extends AppCompatActivity {
                 }
 
                 String newServiceName = serviceView.getText().toString();
-                String prevServiceName = EditServices.currentService;
+                String prevServiceName = EditServicesSelect.currentService;
                 String rate = rateView.getText().toString();
                 Services ser = MainActivity.getServices();
 

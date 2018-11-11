@@ -83,7 +83,7 @@
         </activity>
 
         <activity
-            android:name=".EditServices"
+            android:name=".EditServicesSelect"
             android:parentActivityName= ".WelcomeAdministrator">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -91,11 +91,11 @@
         </activity>
 
         <activity
-            android:name=".EditServices2"
-            android:parentActivityName= ".EditServices">
+            android:name=".EditService"
+            android:parentActivityName= ".EditServicesSelect">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".EditServices" />
+                android:value=".EditServicesSelect" />
         </activity>
     </application>
 
