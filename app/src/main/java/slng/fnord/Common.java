@@ -52,4 +52,17 @@ public class Common {
     }
 
 
+    public static User makeUser(String email, String username, String password, UserTypes type) {
+        switch (type) {
+            case HOMEOWNER:
+                return new HomeOwner(email, username, password);
+            case SERVICEPROVIDER:
+                return new ServiceProvider(email, username, password);
+            case ADMIN:
+                return new Administrator(email, username, password);
+        }
+
+        return null; // In theory impossible
+    }
+
 }

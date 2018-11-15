@@ -2,7 +2,7 @@ package slng.fnord;
 
 import java.security.SecureRandom;
 
-public class User {
+public abstract class User {
     private String email;
     private String username;
     private String passwordHash;
