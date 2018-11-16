@@ -97,7 +97,7 @@ public class RegisterActivity extends AppCompatActivity {
                 }
 
 
-                acc.makeUser(email, username, password, type);
+                acc.makeAccount(email, username, password, type);
                 SignInActivity.currentUser = acc.getUser(email);
                 toast = Toast.makeText(getApplicationContext(), "New account has been made", Toast.LENGTH_SHORT);
                 toast.show();
