@@ -81,11 +81,6 @@ public class SignInActivity extends AppCompatActivity {
                         }
 
                     }
-
-                    @Override
-                    public void onComplete() {
-
-                    }
                 };
 
                 userObservable.subscribe(userObserver);

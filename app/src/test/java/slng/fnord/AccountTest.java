@@ -4,6 +4,8 @@ import org.junit.Test;
 import static com.google.common.truth.Truth.assertThat;
 
 public class AccountTest {
+
+    /* Unnecessary test as of commit 97fa70
     @Test
     public void adminAccountTest(){
         // values should be verified by now, so only valid strings will be used
@@ -12,7 +14,7 @@ public class AccountTest {
         User user = accounts.getUser("glitt073@uottawa.ca");
         assertThat(user!=null).isTrue();
         assertThat(user.getType()==UserTypes.ADMIN).isTrue();
-    }
+    }*/
 
     @Test
     public void spAccountTest(){

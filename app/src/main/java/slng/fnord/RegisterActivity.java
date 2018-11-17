@@ -105,11 +105,6 @@ public class RegisterActivity extends AppCompatActivity {
                     checkUsernameExists(user);
                 }
             }
-
-            @Override
-            public void onComplete() {
-
-            }
         };
 
         userObservable.subscribe(userObserver);
@@ -127,11 +122,6 @@ public class RegisterActivity extends AppCompatActivity {
                 } else {
                     registerUser(user);
                 }
-            }
-
-            @Override
-            public void onComplete() {
-
             }
         };
 
