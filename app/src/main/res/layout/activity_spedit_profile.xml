@@ -6,4 +6,53 @@
     android:layout_height="match_parent"
     tools:context=".SPEditProfile">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textView23"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="EDIT PROFILE" />
+
+        <EditText
+            android:id="@+id/SPProfileAddressEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Enter your address"
+            android:inputType="textPersonName" />
+
+        <EditText
+            android:id="@+id/SPProfilePhoneNumberEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Enter your phone number"
+            android:inputType="textPersonName" />
+
+        <EditText
+            android:id="@+id/SPProfileCompanyEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Enter your company name"
+            android:inputType="textPersonName" />
+
+        <EditText
+            android:id="@+id/SPProfileBioEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Enter your biography"
+            android:inputType="textMultiLine" />
+
+        <Button
+            android:id="@+id/SPProfileConfirmButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Save changes" />
+    </LinearLayout>
 </android.support.constraint.ConstraintLayout>
