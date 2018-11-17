@@ -76,7 +76,7 @@ public class SignInActivity extends AppCompatActivity {
                                 SignInActivity.currentUser = dbUser;
                                 openUserActivity(type);
                             } else {
-                                Toast.makeText(getApplicationContext(), "Password is incorrect", Toast.LENGTH_SHORT);
+                                Toast.makeText(getApplicationContext(), "Password is incorrect", Toast.LENGTH_SHORT).show();
                             }
                         }
 
