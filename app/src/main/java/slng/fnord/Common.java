@@ -58,11 +58,13 @@ public class Common {
                 return new HomeOwner(email, username, password);
             case SERVICEPROVIDER:
                 return new ServiceProvider(email, username, password);
-            case ADMIN:
-                return new Administrator(email, username, password);
         }
 
         return null; // In theory impossible
+    }
+
+    public static void main(String[] args) {
+        System.out.println(Common.makeMD5("admin@admin.com"));
     }
 
 }

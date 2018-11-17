@@ -2,6 +2,11 @@ package slng.fnord;
 
 public class HomeOwner extends User {
     private String address;
+
+    public HomeOwner() {
+
+    }
+
     public HomeOwner(String email, String username, String password) {
         super(email, username, password, UserTypes.HOMEOWNER);
     }
