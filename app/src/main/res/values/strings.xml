@@ -3,7 +3,6 @@
 
     //spinner values
     <string-array name="accountTypes">
-        <item>Administrator</item>
         <item>HomeOwner</item>
         <item>ServiceProvider</item>
     </string-array>

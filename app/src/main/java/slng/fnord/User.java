@@ -9,6 +9,12 @@ public abstract class User {
     private String salt;
     private UserTypes type;
 
+
+    // Used by the DB callback
+    public User() {
+
+    }
+
     public User (String email, String username, String password, UserTypes type) {
         this.email = email;
         this.username = username;
@@ -35,4 +41,8 @@ public abstract class User {
     public UserTypes getType() {
         return type;
     }
+
+    public String getPasswordHash() { return passwordHash; }
+
+    public String getSalt() { return salt; }
 }

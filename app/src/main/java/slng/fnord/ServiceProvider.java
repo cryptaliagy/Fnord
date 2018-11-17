@@ -4,6 +4,9 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class ServiceProvider extends User {
+    public ServiceProvider() {
+
+    }
     private List<String> services;
 
     public ServiceProvider(String email, String username, String password) {

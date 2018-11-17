@@ -58,8 +58,6 @@ public class Common {
                 return new HomeOwner(email, username, password);
             case SERVICEPROVIDER:
                 return new ServiceProvider(email, username, password);
-            case ADMIN:
-                return new Administrator(email, username, password);
         }
 
         return null; // In theory impossible
