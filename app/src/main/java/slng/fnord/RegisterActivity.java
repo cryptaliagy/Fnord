@@ -94,7 +94,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     public void checkEmailExists(final User user) {
         String id = Common.makeMD5(user.getEmail());
-        Observable userObservable = DBHelper.makeObservableFromPath("users/"+id);
+        Observable<DataSnapshot> userObservable = DBHelper.makeObservableFromPath("users/"+id);
 
         DBObserver<DataSnapshot> userObserver = new DBObserver<DataSnapshot>() {
             @Override
