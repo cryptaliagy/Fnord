@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Availability">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <CalendarView
+            android:id="@+id/calendarView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="openCalendar" />
+
+        <Button
+            android:id="@+id/calendarButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:contentDescription="Create new Google Calendar event"
+            android:onClick="openCalendar"
+            android:text="Open Calendar"
+            tools:layout_editor_absoluteX="4dp"
+            tools:layout_editor_absoluteY="6dp"
+            tools:text="Open Calendar" />
+
+        <TextView
+            android:id="@+id/calendarExplanation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:contentDescription="Please note you must be signed in to use Google Calendar"
+            android:text="Please note you must be signed in to use Google Calendar"
+            android:textAlignment="center"
+            tools:padding="5dp"
+            tools:text="Please note you must be signed in to use Google Calendar" />
+
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>
