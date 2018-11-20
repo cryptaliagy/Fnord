@@ -13,6 +13,7 @@ public class Service {
     public Service(String serviceName, double serviceRate) {
         this.serviceName = serviceName;
         this.serviceRate = serviceRate;
+        providers = new HashMap<>();
     }
 
     public void addProvider(String name, boolean verified) {
@@ -24,6 +25,9 @@ public class Service {
     }
 
     public boolean isProvider(String name) {
+        if (!providers.containsKey(name)){
+            return false;
+        }
         Boolean checked = providers.get(name);
         if (checked == null) {
             return false;
