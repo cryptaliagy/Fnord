@@ -1,14 +1,19 @@
 package slng.fnord;
 
+
+import android.util.Pair;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
 public class ServiceProvider extends User {
-    private HashMap<String, Boolean> services;
+    private HashMap<String, Pair<Boolean, String>> services;
     private String phone;
     private String address;
+    private String company;
+    private String biography;
 
 
 
@@ -23,7 +28,7 @@ public class ServiceProvider extends User {
     }
 
     public void addService(String serviceName, boolean certified) {
-        services.put(serviceName, certified);
+        services.put(serviceName, new Pair<>(certified, ""));
         update();
     }
 
@@ -41,31 +46,19 @@ public class ServiceProvider extends User {
         addService(serviceName, certified);
     }
 
-    public void setSPAddress(String SPAddress) {
-        this.SPAddress = SPAddress;
+    public boolean isCertified(String serviceName) {
+        if (!services.containsKey(serviceName)) {
+            return false;
+        }
+
+        return services.get(serviceName).first;
     }
 
-    public String getSPPhoneNumber() {
-        return SPPhoneNumber;
-    }
+    public String getServiceBio(String serviceName) {
+        if (!services.containsKey(serviceName)) {
+            return "";
+        }
 
-    public void setSPPhoneNumber(String SPPhoneNumber) {
-        this.SPPhoneNumber = SPPhoneNumber;
-    }
-
-    public String getSPCompanyName() {
-        return SPCompanyName;
-    }
-
-    public void setSPCompanyName(String SPCompanyName) {
-        this.SPCompanyName = SPCompanyName;
-    }
-
-    public String getSPBiography() {
-        return SPBiography;
-    }
-
-    public void setSPBiography(String SPBiography) {
-        this.SPBiography = SPBiography;
+        return services.get(serviceName).second;
     }
 }
