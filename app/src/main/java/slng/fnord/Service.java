@@ -44,6 +44,26 @@ public class Service {
     }
 
     public ArrayList<String> providerList() {
-        return null;
+        return new ArrayList<>(providers.keySet());
+    }
+
+    public String getServiceName() {
+        return serviceName;
+    }
+
+    public void setServiceName(String serviceName) {
+        this.serviceName = serviceName;
+    }
+
+    public double getServiceRate() {
+        return serviceRate;
+    }
+
+    public void setServiceRate(double serviceRate) {
+        this.serviceRate = serviceRate;
+    }
+
+    public HashMap<String, Boolean> getProviders() {
+        return providers;
     }
 }
