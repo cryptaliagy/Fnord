@@ -62,6 +62,10 @@ public class DBHelper {
         });
     }
 
+    public static void updateUser(final String id, User user) {
+        DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();
 
+        dbRef.child("users").child(id).setValue(user);
+    }
 
 }

@@ -3,6 +3,7 @@ package slng.fnord;
 import java.security.SecureRandom;
 
 public abstract class User {
+    private String id;
     private String email;
     private String username;
     private String passwordHash;
@@ -24,6 +25,7 @@ public abstract class User {
         salt = Common.makeHex(saltBytes);
         passwordHash = Common.makeMD5(password + salt);
         this.type = type;
+        this.id = Common.makeMD5(email);
     }
 
     public boolean checkPassword (String password) {
@@ -45,4 +47,12 @@ public abstract class User {
     public String getPasswordHash() { return passwordHash; }
 
     public String getSalt() { return salt; }
+
+    public String getId() { return id; }
+
+    public void setEmail(String email) {  this.email = email; }
+
+    protected void update() {
+        DBHelper.updateUser(this.getId(), this);
+    }
 }

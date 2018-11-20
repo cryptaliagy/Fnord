@@ -112,7 +112,7 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     public void checkUsernameExists(final User user) {
-        Observable lookupObservable = DBHelper.makeObservableFromPath("lookup/"+user.getUsername());
+        Observable<DataSnapshot> lookupObservable = DBHelper.makeObservableFromPath("lookup/"+user.getUsername());
 
         DBObserver<DataSnapshot> lookupObserver = new DBObserver<DataSnapshot>() {
             @Override

@@ -72,7 +72,7 @@ public class SignInActivity extends AppCompatActivity {
                                     break;
                             }
 
-                            if (dbUser.checkPassword(password)) {
+                            if (password != null && dbUser.checkPassword(password)) {
                                 SignInActivity.currentUser = dbUser;
                                 openUserActivity(type);
                             } else {

@@ -1,72 +1,93 @@
 package slng.fnord;
 
-import java.util.LinkedList;
+
+import android.util.Pair;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class ServiceProvider extends User {
+    private HashMap<String, Pair<Boolean, String>> services;
+    private String phone;
+    private String address;
+    private String company;
+    private String biography;
+
+    // Necessary for DB
     public ServiceProvider() {
 
     }
-    private List<String> services;
-    private String SPAddress;
-    private String SPPhoneNumber;
-    private String SPCompanyName;
-    private String SPBiography;
 
     public ServiceProvider(String email, String username, String password) {
         super(email, username, password, UserTypes.SERVICEPROVIDER);
-        services = new LinkedList<>();
-        SPAddress = "";
-        SPPhoneNumber = "";
-        SPCompanyName = "";
-        SPBiography = "";
+        services = new HashMap<>();
+    }
+
+    public void addService(String serviceName, boolean certified) {
+        services.put(serviceName, new Pair<>(certified, ""));
     }
 
     public void addService(String serviceName) {
-        services.add(serviceName);
+        addService(serviceName, false);
     }
 
     public void removeService(String serviceName) {
         services.remove(serviceName);
     }
 
-    public void setServiceList(List<String> serviceList) {
-        this.services = serviceList;
-    }
-
     public List<String> getServiceList() {
-        return services;
+        return new ArrayList<>(services.keySet());
+
     }
 
-    public String getSPAddress() {
-        return SPAddress;
+    public void updateCertified(String serviceName, boolean certified) {
+        Pair<Boolean, String> info = services.get(serviceName);
+
+        if (info != null) {
+            Pair<Boolean, String> newInfo = new Pair<>(certified, info.second);
+        }
     }
 
-    public void setSPAddress(String SPAddress) {
-        this.SPAddress = SPAddress;
+    public boolean isCertified(String serviceName) {
+        if (!services.containsKey(serviceName)) {
+            return false;
+        }
+
+        return services.get(serviceName).first;
     }
 
-    public String getSPPhoneNumber() {
-        return SPPhoneNumber;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setSPPhoneNumber(String SPPhoneNumber) {
-        this.SPPhoneNumber = SPPhoneNumber;
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
-    public String getSPCompanyName() {
-        return SPCompanyName;
+    public String getAddress() {
+        return address;
     }
 
-    public void setSPCompanyName(String SPCompanyName) {
-        this.SPCompanyName = SPCompanyName;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
-    public String getSPBiography() {
-        return SPBiography;
+    public String getCompany() {
+        return company;
     }
 
-    public void setSPBiography(String SPBiography) {
-        this.SPBiography = SPBiography;
+    public void setCompany(String company) {
+        this.company = company;
     }
+
+    public String getBio() {
+        return biography;
+    }
+
+    public void setBio(String biography) {
+        this.biography = biography;
+    }
+
+
 }
