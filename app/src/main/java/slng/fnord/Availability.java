@@ -1,5 +1,7 @@
 package slng.fnord;
 
+import android.view.View;
+
 import java.util.HashMap;
 
 public class Availability {
@@ -50,5 +52,9 @@ public class Availability {
 
     public AvailabilityEnum[] getTimeSlots(WeekDay day){
         return savedSlots.get(day);
+    }
+
+    public void openCalendar(View view) {
+        
     }
 }
