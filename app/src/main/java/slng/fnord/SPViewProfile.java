@@ -13,16 +13,16 @@ public class SPViewProfile extends AppCompatActivity {
         final ServiceProvider ourSP = (ServiceProvider) SignInActivity.currentUser;
 
         final TextView addressView = (TextView) findViewById(R.id.viewAddress);
-        addressView.setText(ourSP.getSPAddress());
+        addressView.setText(ourSP.getAddress());
 
         final TextView phoneNumberView = (TextView) findViewById(R.id.viewPhoneNumber);
-        phoneNumberView.setText(ourSP.getSPPhoneNumber());
+        phoneNumberView.setText(ourSP.getPhone());
 
         final TextView companyNameView = (TextView) findViewById(R.id.viewCompanyName);
-        companyNameView.setText(ourSP.getSPCompanyName());
+        companyNameView.setText(ourSP.getCompany());
 
         final TextView bioView = (TextView) findViewById(R.id.viewBio);
-        bioView.setText(ourSP.getSPBiography());
+        bioView.setText(ourSP.getBio());
 
     }
 }

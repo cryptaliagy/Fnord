@@ -5,7 +5,6 @@ import android.util.Pair;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 
 public class ServiceProvider extends User {
@@ -14,8 +13,6 @@ public class ServiceProvider extends User {
     private String address;
     private String company;
     private String biography;
-
-
 
     // Necessary for DB
     public ServiceProvider() {
@@ -29,12 +26,14 @@ public class ServiceProvider extends User {
 
     public void addService(String serviceName, boolean certified) {
         services.put(serviceName, new Pair<>(certified, ""));
-        update();
+    }
+
+    public void addService(String serviceName) {
+        addService(serviceName, false);
     }
 
     public void removeService(String serviceName) {
         services.remove(serviceName);
-        update();
     }
 
     public List<String> getServiceList() {
@@ -56,6 +55,38 @@ public class ServiceProvider extends User {
         }
 
         return services.get(serviceName).first;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getCompany() {
+        return company;
+    }
+
+    public void setCompany(String company) {
+        this.company = company;
+    }
+
+    public String getBio() {
+        return biography;
+    }
+
+    public void setBio(String biography) {
+        this.biography = biography;
     }
 
 

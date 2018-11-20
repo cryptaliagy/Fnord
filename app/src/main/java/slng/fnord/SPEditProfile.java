@@ -16,26 +16,26 @@ public class SPEditProfile extends AppCompatActivity {
         final ServiceProvider ourSP = (ServiceProvider) SignInActivity.currentUser;
 
         final TextView addressView = (TextView) findViewById(R.id.SPProfileAddressEditText);
-        addressView.setText(ourSP.getSPAddress());
+        addressView.setText(ourSP.getAddress());
 
         final TextView phoneNumberView = (TextView) findViewById(R.id.SPProfilePhoneNumberEditText);
-        phoneNumberView.setText(ourSP.getSPPhoneNumber());
+        phoneNumberView.setText(ourSP.getPhone());
 
         final TextView companyNameView = (TextView) findViewById(R.id.SPProfileCompanyEditText);
-        companyNameView.setText(ourSP.getSPCompanyName());
+        companyNameView.setText(ourSP.getCompany());
 
         final TextView bioView = (TextView) findViewById(R.id.SPProfileBioEditText);
-        bioView.setText(ourSP.getSPBiography());
+        bioView.setText(ourSP.getBio());
 
         confirm = (Button) findViewById(R.id.SPProfileConfirmButton);
         confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //will need validations here - will add them once I confirm this works
-                ourSP.setSPAddress(addressView.getText().toString());
-                ourSP.setSPPhoneNumber(phoneNumberView.getText().toString());
-                ourSP.setSPCompanyName(companyNameView.getText().toString());
-                ourSP.setSPBiography(bioView.getText().toString());
+                ourSP.setAddress(addressView.getText().toString());
+                ourSP.setPhone(phoneNumberView.getText().toString());
+                ourSP.setCompany(companyNameView.getText().toString());
+                ourSP.setBio(bioView.getText().toString());
             }
         });
 
