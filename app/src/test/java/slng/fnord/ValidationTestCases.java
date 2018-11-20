@@ -59,4 +59,31 @@ public class ValidationTestCases {
         //assertThat(Common.validatePhoneNumber(null)).isFalse(); // null case (unlikely to actually occur)
     }
 
+    @Test
+    public void timeValidatorTest(){
+        assertThat(Common.validateTime("8h00")).isTrue();
+        assertThat(Common.validateTime("12:00")).isTrue();
+        assertThat(Common.validateTime("222:2222")).isFalse();
+        assertThat(Common.validateTime("")).isFalse(); // empty case
+    }
+
+    @Test
+    public void companyValidatorTest(){
+        assertThat(Common.validateCompany("Tesla Motors")).isTrue();
+        assertThat(Common.validateCompany("Cool Company Club")).isTrue();
+        assertThat(Common.validateCompany(" InGenius")).isFalse();
+        assertThat(Common.validateCompany("")).isFalse(); // empty case
+        assertThat(Common.validateCompany(" ")).isFalse(); // space case
+    }
+
+    @Test
+    public void addressValidatorTest(){
+        assertThat(Common.validateAddress("123 University Drive")).isTrue();
+        assertThat(Common.validateAddress("1 Victory Road")).isTrue();
+        assertThat(Common.validateAddress("123NoSpaceStreet")).isFalse();
+        assertThat(Common.validateAddress("This is not an address")).isFalse();
+        assertThat(Common.validateAddress("")).isFalse(); // empty case
+        assertThat(Common.validateAddress(" ")).isFalse(); // space case
+    }
+
 }
