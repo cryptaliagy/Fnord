@@ -28,7 +28,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:contentDescription="Create new Google Calendar event"
-            android:onClick="openCalendar"
             android:text="Check Your Calendar"
             tools:layout_editor_absoluteX="4dp"
             tools:layout_editor_absoluteY="6dp"
