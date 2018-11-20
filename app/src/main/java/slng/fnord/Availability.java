@@ -7,7 +7,7 @@ public class Availability {
     private HashMap<WeekDay, AvailabilityEnum[]> savedSlots= new HashMap<WeekDay, AvailabilityEnum[]>();
     private WeekDay[] weekDays = new WeekDay[]{WeekDay.SUNDAY, WeekDay.MONDAY, WeekDay.TUESDAY, WeekDay.WEDNESDAY, WeekDay.THURSDAY, WeekDay.FRIDAY, WeekDay.SATURDAY};
 
-    protected Availability() {
+    public Availability() {
         initTimeSlots();
     }
 
