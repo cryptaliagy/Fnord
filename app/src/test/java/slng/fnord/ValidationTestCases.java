@@ -47,4 +47,16 @@ public class ValidationTestCases {
         //assertThat(Common.validatePrice(null)).isFalse(); // null case (unlikely to actually occur)
     }
 
+    @Test
+    public void phoneValidatorTest(){
+        assertThat(Common.validatePhoneNumber("6132225030")).isTrue();
+        assertThat(Common.validatePhoneNumber("613 111-1111")).isTrue();
+        assertThat(Common.validatePhoneNumber("555-1234")).isTrue();
+        assertThat(Common.validatePhoneNumber("lol wut")).isFalse();
+        assertThat(Common.validatePhoneNumber("613 555 42423")).isFalse();
+        assertThat(Common.validatePhoneNumber("0118 999 881 999 119 7253")).isFalse(); // https://www.youtube.com/watch?v=ab8GtuPdrUQ
+        assertThat(Common.validatePhoneNumber("")).isFalse(); // empty case
+        //assertThat(Common.validatePhoneNumber(null)).isFalse(); // null case (unlikely to actually occur)
+    }
+
 }

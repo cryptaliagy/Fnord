@@ -51,6 +51,10 @@ public class Common {
         return Pattern.matches("^[a-zA-Z0-9._+=!@#$%^&*:,?-]{5,}$", password);
     }
 
+    public static boolean validatePhoneNumber(String phoneNumber){
+        return Pattern.matches("^(?:\\d{3}[\\-\\s]?)?\\d{3}[\\-\\s]?\\d{4}$", phoneNumber);
+    }
+
 
     public static User makeUser(String email, String username, String password, UserTypes type) {
         switch (type) {
