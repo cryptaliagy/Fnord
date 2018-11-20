@@ -12,10 +12,16 @@
         android:orientation="vertical">
 
         <CalendarView
-            android:id="@+id/calendarView"
+            android:id="@+id/availabilityCal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="openCalendar" />
+
+        <Button
+            android:id="@+id/availabilitySet"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Set Availability" />
 
         <Button
             android:id="@+id/calendarButton"
@@ -23,10 +29,10 @@
             android:layout_height="wrap_content"
             android:contentDescription="Create new Google Calendar event"
             android:onClick="openCalendar"
-            android:text="Open Calendar"
+            android:text="Check Your Calendar"
             tools:layout_editor_absoluteX="4dp"
             tools:layout_editor_absoluteY="6dp"
-            tools:text="Open Calendar" />
+            tools:text="Check Your Calendar" />
 
         <TextView
             android:id="@+id/calendarExplanation"

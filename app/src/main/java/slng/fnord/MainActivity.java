@@ -25,8 +25,7 @@ public class MainActivity extends AppCompatActivity {
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openActivity(Availability.class); // TEMP
-                //openActivity(RegisterActivity.class);
+                openActivity(RegisterActivity.class);
             }
         });
 
