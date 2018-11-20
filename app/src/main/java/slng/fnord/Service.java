@@ -28,10 +28,7 @@ public class Service {
         if (!providers.containsKey(name)){
             return false;
         }
-        Boolean checked = providers.get(name);
-        if (checked == null) {
-            return false;
-        }
+
         return true;
     }
 

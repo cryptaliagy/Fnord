@@ -43,7 +43,11 @@ public class ServiceProvider extends User {
     }
 
     public void updateCertified(String serviceName, boolean certified) {
-        addService(serviceName, certified);
+        Pair<Boolean, String> info = services.get(serviceName);
+
+        if (info != null) {
+            Pair<Boolean, String> newInfo = new Pair<>(certified, info.second);
+        }
     }
 
     public boolean isCertified(String serviceName) {
@@ -54,11 +58,5 @@ public class ServiceProvider extends User {
         return services.get(serviceName).first;
     }
 
-    public String getServiceBio(String serviceName) {
-        if (!services.containsKey(serviceName)) {
-            return "";
-        }
 
-        return services.get(serviceName).second;
-    }
 }
