@@ -18,8 +18,7 @@ public class Common {
 
         try {
             digestBytes = java.security.MessageDigest.getInstance("MD5").digest(textBytes);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
 
         }
         if (digestBytes == null) {

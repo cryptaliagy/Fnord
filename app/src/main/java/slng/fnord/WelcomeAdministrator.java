@@ -1,11 +1,19 @@
 package slng.fnord;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
+import com.google.firebase.database.DataSnapshot;
+
+import java.util.HashMap;
+
+import io.reactivex.Observable;
+import io.reactivex.Observer;
 
 public class WelcomeAdministrator extends AppCompatActivity {
     private Button cserve;
@@ -54,7 +62,7 @@ public class WelcomeAdministrator extends AppCompatActivity {
         });
     }
 
-    public void openView(Class<?> cls) {
+    public void openView(final Class<?> cls) {
         startActivity(new Intent(this, cls));
     }
 

@@ -6,19 +6,25 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.HashMap;
+
+import io.reactivex.Observable;
+import io.reactivex.Observer;
 
 public class MainActivity extends AppCompatActivity {
 
     private Button register;
     private Button signIn;
-    private static Accounts acc = new Accounts();
-    private static Services ser = new Services();
+    public static Services services;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        services = new Services();
 
         //setting register button on main screen to open to the register screen
         register = (Button) findViewById(R.id.registerChoiceButton);
@@ -37,14 +43,34 @@ public class MainActivity extends AppCompatActivity {
                 openActivity(SignInActivity.class);
             }
         });
+
+        Observable<DataSnapshot> observable = DBHelper.makeObservableFromPath("services");
+        Observer<DataSnapshot> observer = new DBObserver<DataSnapshot>() {
+            @Override
+            public void onNext(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    HashMap<String, Service> dbServ = new HashMap<>();
+                    for (DataSnapshot child : dataSnapshot.getChildren()) {
+                        String id = child.getKey();
+                        Service val = child.getValue(Service.class);
+                        dbServ.put(id, val);
+                    }
+
+                    services.setServices(dbServ);
+                }
+            }
+        };
+
+        observable.subscribe(observer);
+
     }
-
-    public static Accounts getAccounts() { return acc; }
-
-    public static Services getServices() { return ser; }
 
     public void openActivity(Class<?> cls) {
         startActivity(new Intent(this, cls));
+    }
+
+    public static Services getServices() {
+        return services;
     }
 
 }
