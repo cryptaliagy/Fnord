@@ -402,6 +402,7 @@
             android:id="@+id/updateAvailibility"
             android:layout_width="250dp"
             android:layout_height="wrap_content"
+            android:onClick="onClick"
             android:text="Update Availibility"
             tools:layout_editor_absoluteY="329dp" />
 

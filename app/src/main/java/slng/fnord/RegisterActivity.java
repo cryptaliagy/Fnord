@@ -153,6 +153,7 @@ public class RegisterActivity extends AppCompatActivity {
         DBHelper.makeCompletableFromPath("users/" + id, user).subscribe(new CompletableObserver() {
             @Override
             public void onSubscribe(Disposable d) {
+                System.out.println("Subscribed");
 
             }
 
@@ -165,6 +166,7 @@ public class RegisterActivity extends AppCompatActivity {
 
             @Override
             public void onError(Throwable e) {
+                e.printStackTrace();
 
             }
         });

@@ -1,7 +1,6 @@
 package slng.fnord;
 
 
-import android.util.Pair;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -13,6 +12,7 @@ public class ServiceProvider extends User {
     private String address;
     private String company;
     private String biography;
+    private HashMap<String, Pair<String, String>> availability;
 
     // Necessary for DB
     public ServiceProvider() {
@@ -22,6 +22,7 @@ public class ServiceProvider extends User {
     public ServiceProvider(String email, String username, String password) {
         super(email, username, password, UserTypes.SERVICEPROVIDER);
         services = new HashMap<>();
+        availability = Common.makeBlankAvail();
     }
 
     public void addService(String serviceName, boolean certified) {
@@ -39,6 +40,10 @@ public class ServiceProvider extends User {
     public List<String> getServiceList() {
         return new ArrayList<>(services.keySet());
 
+    }
+
+    public HashMap<String, Pair<Boolean, String>> getServices() {
+        return services;
     }
 
     public void updateCertified(String serviceName, boolean certified) {
@@ -87,6 +92,18 @@ public class ServiceProvider extends User {
 
     public void setBio(String biography) {
         this.biography = biography;
+    }
+
+    public void setAvailability(HashMap<String, Pair<String, String>> availability) {
+        this.availability = availability;
+    }
+
+    public HashMap<String, Pair<String, String>> getAvailability() {
+        return this.availability;
+    }
+
+    public Pair<String, String> getDayAvailability(String day) {
+        return availability.get(day);
     }
 
 
