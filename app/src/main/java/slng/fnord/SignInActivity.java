@@ -77,7 +77,7 @@ public class SignInActivity extends AppCompatActivity {
                                 Toast.makeText(getApplicationContext(), "Password is incorrect", Toast.LENGTH_SHORT).show();
                             }
                         } else {
-                            Toast.makeText(getApplicationContext(), "No account with this email exists", Toast.LENGTH_SHORT);
+                            Toast.makeText(getApplicationContext(), "No account with this email exists", Toast.LENGTH_SHORT).show();
                         }
 
                     }

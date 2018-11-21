@@ -1,6 +1,16 @@
 package slng.fnord;
 
+
+import java.util.HashMap;
 import java.util.regex.Pattern;
+
+import static slng.fnord.WeekDay.FRIDAY;
+import static slng.fnord.WeekDay.MONDAY;
+import static slng.fnord.WeekDay.SATURDAY;
+import static slng.fnord.WeekDay.SUNDAY;
+import static slng.fnord.WeekDay.THURSDAY;
+import static slng.fnord.WeekDay.TUESDAY;
+import static slng.fnord.WeekDay.WEDNESDAY;
 
 public class Common {
     public static String makeHex(byte[] bytes) {
@@ -76,6 +86,19 @@ public class Common {
         }
 
         return null; // In theory impossible
+    }
+
+    public static HashMap<String, Pair<String, String>> makeBlankAvail() {
+        HashMap<String, Pair<String, String>> availability = new HashMap<>();
+        Pair<String, String> blankAvail = new Pair<>("Time(24 hour)", "Time(24 hour)");
+        availability.put("Monday", blankAvail);
+        availability.put("Tuesday", blankAvail);
+        availability.put("Wednesday", blankAvail);
+        availability.put("Thursday", blankAvail);
+        availability.put("Friday", blankAvail);
+        availability.put("Saturday", blankAvail);
+        availability.put("Sunday", blankAvail);
+        return availability;
     }
 
 }
