@@ -39,7 +39,6 @@ public class ServiceProvider extends User {
 
     public List<String> getServiceList() {
         return new ArrayList<>(services.keySet());
-
     }
 
     public HashMap<String, Pair<Boolean, String>> getServices() {

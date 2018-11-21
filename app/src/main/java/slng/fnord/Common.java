@@ -4,14 +4,6 @@ package slng.fnord;
 import java.util.HashMap;
 import java.util.regex.Pattern;
 
-import static slng.fnord.WeekDay.FRIDAY;
-import static slng.fnord.WeekDay.MONDAY;
-import static slng.fnord.WeekDay.SATURDAY;
-import static slng.fnord.WeekDay.SUNDAY;
-import static slng.fnord.WeekDay.THURSDAY;
-import static slng.fnord.WeekDay.TUESDAY;
-import static slng.fnord.WeekDay.WEDNESDAY;
-
 public class Common {
     public static String makeHex(byte[] bytes) {
         StringBuffer hexText = new StringBuffer();

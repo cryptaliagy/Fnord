@@ -31,8 +31,6 @@ public class SPAddService extends AppCompatActivity {
             public void onClick(View v) {
                 currentService = addServicesSpinner.getSelectedItem().toString();
 
-                ((ServiceProvider) SignInActivity.currentUser).addService(currentService);
-
                 if (((ServiceProvider) SignInActivity.currentUser).getServiceList().contains(currentService)) {
                     Toast toast = Toast.makeText(getApplicationContext(), "Service has already been added", Toast.LENGTH_SHORT);
                     toast.show();
