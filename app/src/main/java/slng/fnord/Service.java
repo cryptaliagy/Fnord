@@ -10,6 +10,10 @@ public class Service {
     // HashMap holds 'true' if provider is certified, 'false' if not
     private HashMap<String, Boolean> providers;
 
+    public Service() {
+
+    }
+
     public Service(String serviceName, double serviceRate) {
         this.serviceName = serviceName;
         this.serviceRate = serviceRate;
@@ -62,5 +66,9 @@ public class Service {
 
     public HashMap<String, Boolean> getProviders() {
         return providers;
+    }
+
+    public void setProviders(HashMap<String, Boolean> providers) {
+        this.providers = providers;
     }
 }

@@ -32,7 +32,7 @@ public class EditServicesSelect extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 currentService = editServicesSpinner.getSelectedItem().toString();
-                currentServiceRate = Double.toString(ser.getServiceRate(currentService));
+                currentServiceRate = Double.toString(ser.getServiceRate(Common.makeMD5(currentService)));
                 openEditServicesView();
             }
         });

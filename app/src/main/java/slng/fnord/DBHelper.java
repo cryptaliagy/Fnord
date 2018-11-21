@@ -10,6 +10,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import io.reactivex.Completable;
 import io.reactivex.CompletableEmitter;
 import io.reactivex.CompletableOnSubscribe;
@@ -62,10 +65,30 @@ public class DBHelper {
         });
     }
 
-    public static void updateUser(final String id, User user) {
+    private static void updateFromPath(String path, Object object) {
         DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();
 
-        dbRef.child("users").child(id).setValue(user);
+        dbRef.child(path).setValue(object);
     }
 
+    public static void updateUser(User user) {
+        updateFromPath("users" + user.getId(), user);
+    }
+
+    public static void updateServices(Services services) {
+        DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();
+        Map<String, Object> children = new HashMap<>();
+
+        for (String key : services.getServices().keySet()) {
+            children.put(key, services.getService(key));
+        }
+
+        dbRef.child("services").updateChildren(children);
+    }
+
+    public static void deleteService(String service) {
+        String id = Common.makeMD5(service);
+
+        FirebaseDatabase.getInstance().getReference("services/"+id).removeValue();
+    }
 }
