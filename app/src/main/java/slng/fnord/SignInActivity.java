@@ -32,8 +32,6 @@ public class SignInActivity extends AppCompatActivity {
             public void onClick(View v) {
                 EditText emailText = (EditText) findViewById(R.id.signInEmail);
                 EditText passwordText = (EditText) findViewById(R.id.signInPassword);
-
-                Accounts acc = MainActivity.getAccounts();
                 User user = null;
 
                 password = passwordText.getText().toString();
@@ -78,6 +76,8 @@ public class SignInActivity extends AppCompatActivity {
                             } else {
                                 Toast.makeText(getApplicationContext(), "Password is incorrect", Toast.LENGTH_SHORT).show();
                             }
+                        } else {
+                            Toast.makeText(getApplicationContext(), "No account with this email exists", Toast.LENGTH_SHORT);
                         }
 
                     }

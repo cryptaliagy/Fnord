@@ -64,9 +64,11 @@ public class EditService extends AppCompatActivity {
                         return;
                     }
                     ser.deleteService(prevServiceName);
+                    DBHelper.deleteService(prevServiceName);
                 }
 
                 ser.addService(newServiceName, Double.valueOf(rate));
+                DBHelper.updateServices(ser);
                 Toast toastEdit = Toast.makeText(getApplicationContext(), "Service Edited.", Toast.LENGTH_SHORT);
                 toastEdit.show();
             }

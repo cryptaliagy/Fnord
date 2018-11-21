@@ -53,6 +53,6 @@ public abstract class User {
     public void setEmail(String email) {  this.email = email; }
 
     protected void update() {
-        DBHelper.updateUser(this.getId(), this);
+        DBHelper.updateUser(this);
     }
 }
