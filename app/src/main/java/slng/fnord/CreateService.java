@@ -7,7 +7,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import java.util.regex.Pattern;
+import com.google.firebase.database.DataSnapshot;
+
+import io.reactivex.Completable;
+import io.reactivex.Observable;
+import io.reactivex.Observer;
 
 public class CreateService extends AppCompatActivity {
     private Button createService;
@@ -18,6 +22,7 @@ public class CreateService extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_service);
+        final Services ser = MainActivity.getServices();
 
         createService = (Button) findViewById(R.id.createServiceButton);
         createService.setOnClickListener(new View.OnClickListener() {
@@ -45,18 +50,25 @@ public class CreateService extends AppCompatActivity {
                     return;
                 }
 
-                Services ser = MainActivity.getServices();
-                if(!ser.hasService(serviceToAdd)){
-                    ser.addService(serviceToAdd, Double.valueOf(rateOfService));
+                final String id = Common.makeMD5(serviceToAdd);
+                Observable<DataSnapshot> observable = DBHelper.makeObservableFromPath("services/"+id);
+                Observer<DataSnapshot> observer = new DBObserver<DataSnapshot>() {
+                    @Override
+                    public void onNext(DataSnapshot dataSnapshot) {
+                        if (dataSnapshot.exists()) {
+                            Toast.makeText(getApplicationContext(), "No Service created. Service already exists", Toast.LENGTH_SHORT).show();
+                        }
+                        else {
+                            Service service = new Service(serviceToAdd, Double.valueOf(rateOfService));
+                            dataSnapshot.getRef().setValue(service);
+                            ser.addService(service);
+                            Toast.makeText(getApplicationContext(), "Service Created.", Toast.LENGTH_SHORT).show();
+                        }
 
-                    Toast toastCreate = Toast.makeText(getApplicationContext(), "Service Created.", Toast.LENGTH_SHORT);
-                    toastCreate.show();
+                    }
+                };
 
-                }
-                else{
-                    Toast toastNoCreate = Toast.makeText(getApplicationContext(), "No Service Created. Service Already Exists.", Toast.LENGTH_SHORT);
-                    toastNoCreate.show();
-                }
+                observable.subscribe(observer);
             }
         });
 

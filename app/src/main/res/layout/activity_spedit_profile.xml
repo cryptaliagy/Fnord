@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background"
-    tools:context=".WelcomeServiceProvider">
+    tools:context=".SPEditProfile">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -15,93 +15,98 @@
 
         <Space
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="25dp" />
 
         <TextView
-            android:id="@+id/textView9"
+            android:id="@+id/textView23"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="cursive"
-            android:text="Service Provider Page"
+            android:text="Edit Profile"
             android:textAlignment="center"
-            android:textColor="@android:color/background_dark"
+            android:textColor="@color/common_google_signin_btn_text_light_pressed"
             android:textSize="36sp" />
 
-        <TextView
-            android:id="@+id/welcomeSP"
+        <Space
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="serif"
-            android:textAlignment="center"
-            android:textStyle="bold" />
+            android:layout_height="15dp" />
 
         <TextView
-            android:id="@+id/textView11"
+            android:id="@+id/textView24"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:text="Company Address" />
+
+        <EditText
+            android:id="@+id/SPProfileAddressEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="serif"
-            android:text="You are signed in as a service provider"
-            android:textAlignment="center"
-            android:textStyle="bold" />
+            android:ems="10"
+            android:hint="Enter your address"
+            android:inputType="textPersonName" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="15dp" />
+
+        <TextView
+            android:id="@+id/textView25"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Phone Number" />
+
+        <EditText
+            android:id="@+id/SPProfilePhoneNumberEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Enter your phone number"
+            android:inputType="textPersonName" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="15dp" />
+
+        <TextView
+            android:id="@+id/textView26"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Company Name" />
+
+        <EditText
+            android:id="@+id/SPProfileCompanyEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Enter your company name"
+            android:inputType="textPersonName" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="15dp" />
+
+        <TextView
+            android:id="@+id/textView31"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Company Biography" />
+
+        <EditText
+            android:id="@+id/SPProfileBioEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Enter your biography"
+            android:inputType="textMultiLine" />
 
         <Space
             android:layout_width="match_parent"
             android:layout_height="15dp" />
 
         <Button
-            android:id="@+id/SPViewInfoChoice"
+            android:id="@+id/SPProfileConfirmButton"
             android:layout_width="250dp"
             android:layout_height="wrap_content"
-            android:text="View Profile" />
-
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="15dp" />
-
-        <Button
-            android:id="@+id/SPEditInfoChoice"
-            android:layout_width="250dp"
-            android:layout_height="wrap_content"
-            android:text="Edit profile" />
-
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="15dp" />
-
-        <Button
-            android:id="@+id/SPAddServiceChoice"
-            android:layout_width="250dp"
-            android:layout_height="wrap_content"
-            android:text="add services to profile" />
-
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="15dp" />
-
-        <Button
-            android:id="@+id/SPDeleteServiceChoice"
-            android:layout_width="250dp"
-            android:layout_height="wrap_content"
-            android:text="Remove services from profile" />
-
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="15dp" />
-
-        <Button
-            android:id="@+id/SPViewServiceChoice"
-            android:layout_width="250dp"
-            android:layout_height="wrap_content"
-            android:text="view current services" />
-
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="15dp" />
-
-        <Button
-            android:id="@+id/SPAddAvailabilitiesChoice"
-            android:layout_width="250dp"
-            android:layout_height="wrap_content"
-            android:text="Add availabilities" />
+            android:text="Save changes" />
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

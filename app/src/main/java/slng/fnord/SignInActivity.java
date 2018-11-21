@@ -8,7 +8,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.firebase.database.DataSnapshot;
+
 import java.util.ArrayList;
+
+import io.reactivex.Observable;
 
 public class SignInActivity extends AppCompatActivity {
     private Button signIn2;
@@ -22,13 +26,12 @@ public class SignInActivity extends AppCompatActivity {
         setContentView(R.layout.activity_sign_in);
 
         signIn2 = (Button) findViewById(R.id.signInButton);
+        final SignInActivity act = this;
         signIn2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 EditText emailText = (EditText) findViewById(R.id.signInEmail);
                 EditText passwordText = (EditText) findViewById(R.id.signInPassword);
-
-                Accounts acc = MainActivity.getAccounts();
                 User user = null;
 
                 password = passwordText.getText().toString();
@@ -46,20 +49,41 @@ public class SignInActivity extends AppCompatActivity {
                     return;
                 }
 
-                if (acc.existsAccount(email)) {
-                    user = acc.getUser(email);
-                    if (user.checkPassword(password)) {
-                        currentUser = user;
-                        openUserActivity(user.getType());
-                    } else {
-                        Toast toastWrongPassword = Toast.makeText(getApplicationContext(), "Incorrect password", Toast.LENGTH_SHORT);
-                        toastWrongPassword.show();
+                String id = Common.makeMD5(email);
+
+                Observable<DataSnapshot> userObservable = DBHelper.makeObservableFromPath("users/"+id);
+                DBObserver<DataSnapshot> userObserver = new DBObserver<DataSnapshot>() {
+                    @Override
+                    public void onNext(DataSnapshot dataSnapshot) {
+                        if (dataSnapshot.exists()) {
+                            User dbUser = null;
+                            UserTypes type = dataSnapshot.child("type").getValue(UserTypes.class);
+                            switch (type) {
+                                case ADMIN:
+                                    dbUser = dataSnapshot.getValue(Administrator.class);
+                                    break;
+                                case HOMEOWNER:
+                                    dbUser = dataSnapshot.getValue(HomeOwner.class);
+                                    break;
+                                case SERVICEPROVIDER:
+                                    dbUser = dataSnapshot.getValue(ServiceProvider.class);
+                                    break;
+                            }
+
+                            if (password != null && dbUser.checkPassword(password)) {
+                                SignInActivity.currentUser = dbUser;
+                                openUserActivity(type);
+                            } else {
+                                Toast.makeText(getApplicationContext(), "Password is incorrect", Toast.LENGTH_SHORT).show();
+                            }
+                        } else {
+                            Toast.makeText(getApplicationContext(), "No account with this email exists", Toast.LENGTH_SHORT).show();
+                        }
+
                     }
-                } else {
-                    Toast toastNoSuchAccount = Toast.makeText(getApplicationContext(),
-                            "No account with that email exists", Toast.LENGTH_SHORT);
-                    toastNoSuchAccount.show();
-                }
+                };
+
+                userObservable.subscribe(userObserver);
             }
         });
     }

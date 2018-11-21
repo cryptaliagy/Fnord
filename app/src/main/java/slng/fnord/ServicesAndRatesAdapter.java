@@ -30,7 +30,7 @@ public class ServicesAndRatesAdapter extends ArrayAdapter<String> {
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         Services ser = MainActivity.getServices();
         String service = objects.get(position);
-        Double  rate = ser.getServiceRate(service);
+        Double  rate = ser.getServiceRate(Common.makeMD5(service));
 
         LayoutInflater inflater = LayoutInflater.from(mContext);
         convertView = inflater.inflate(mResource,parent,false);

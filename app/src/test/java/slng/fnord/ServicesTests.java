@@ -11,6 +11,5 @@ public class ServicesTests {
         services.addService("Lawnmowing", 0.5);
         assertThat(services.hasService("Lawnmowing")).isTrue();
         services.deleteService("Lawnmowing");
-
     }
 }

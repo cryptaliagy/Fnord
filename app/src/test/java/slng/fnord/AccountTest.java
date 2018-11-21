@@ -4,21 +4,23 @@ import org.junit.Test;
 import static com.google.common.truth.Truth.assertThat;
 
 public class AccountTest {
+
+    /* Unnecessary test as of commit 97fa70
     @Test
     public void adminAccountTest(){
         // values should be verified by now, so only valid strings will be used
         Accounts accounts = new Accounts();
-        accounts.makeUser("glitt073@uottawa.ca", "Graham", "1337Potato", UserTypes.ADMIN);
+        accounts.makeAccount("glitt073@uottawa.ca", "Graham", "1337Potato", UserTypes.ADMIN);
         User user = accounts.getUser("glitt073@uottawa.ca");
         assertThat(user!=null).isTrue();
         assertThat(user.getType()==UserTypes.ADMIN).isTrue();
-    }
+    }*/
 
     @Test
     public void spAccountTest(){
         // values should be verified by now, so only valid strings will be used
         Accounts accounts = new Accounts();
-        accounts.makeUser("glitt073@uottawa.ca", "Graham", "1337Potato", UserTypes.SERVICEPROVIDER);
+        accounts.makeAccount("glitt073@uottawa.ca", "Graham", "1337Potato", UserTypes.SERVICEPROVIDER);
         User user = accounts.getUser("glitt073@uottawa.ca");
         assertThat(user!=null).isTrue();
         assertThat(user.getType()==UserTypes.SERVICEPROVIDER).isTrue();
@@ -28,7 +30,7 @@ public class AccountTest {
     public void homeOwnerAccountTest(){
         // values should be verified by now, so only valid strings will be used
         Accounts accounts = new Accounts();
-        accounts.makeUser("glitt073@uottawa.ca", "Graham", "1337Potato", UserTypes.HOMEOWNER);
+        accounts.makeAccount("glitt073@uottawa.ca", "Graham", "1337Potato", UserTypes.HOMEOWNER);
         User user = accounts.getUser("glitt073@uottawa.ca");
         assertThat(user!=null).isTrue();
         assertThat(user.getType()==UserTypes.HOMEOWNER).isTrue();

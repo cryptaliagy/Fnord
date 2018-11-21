@@ -2,12 +2,19 @@ package slng.fnord;
 
 import java.security.SecureRandom;
 
-public class User {
+public abstract class User {
+    private String id;
     private String email;
     private String username;
     private String passwordHash;
     private String salt;
     private UserTypes type;
+
+
+    // Used by the DB callback
+    public User() {
+
+    }
 
     public User (String email, String username, String password, UserTypes type) {
         this.email = email;
@@ -18,6 +25,7 @@ public class User {
         salt = Common.makeHex(saltBytes);
         passwordHash = Common.makeMD5(password + salt);
         this.type = type;
+        this.id = Common.makeMD5(email);
     }
 
     public boolean checkPassword (String password) {
@@ -34,5 +42,17 @@ public class User {
 
     public UserTypes getType() {
         return type;
+    }
+
+    public String getPasswordHash() { return passwordHash; }
+
+    public String getSalt() { return salt; }
+
+    public String getId() { return id; }
+
+    public void setEmail(String email) {  this.email = email; }
+
+    protected void update() {
+        DBHelper.updateUser(this);
     }
 }

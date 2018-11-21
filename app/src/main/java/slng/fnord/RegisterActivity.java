@@ -11,8 +11,16 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.google.firebase.database.DataSnapshot;
+
 import java.util.ArrayList;
 import java.util.regex.Pattern;
+
+import io.reactivex.CompletableObserver;
+import io.reactivex.Observable;
+import io.reactivex.Observer;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.subscribers.DefaultSubscriber;
 
 import static slng.fnord.UserTypes.*;
 
@@ -51,31 +59,21 @@ public class RegisterActivity extends AppCompatActivity {
                 username = usernameText.getText().toString();
 
                 accountType = accountSpinner.getSelectedItem().toString();
-                Accounts acc = MainActivity.getAccounts();
 
                 Toast toast = null;
 
                 if (!Common.validateEmail(email)) {
-                    toast = Toast.makeText(getApplicationContext(), "Email is invalid", Toast.LENGTH_SHORT);
-                    toast.show();
+                    showToast("Email is invalid");
                     return;
                 }
 
                 if (!Common.validatePassword(password)) {
-                    toast = Toast.makeText(getApplicationContext(), "Password is invalid", Toast.LENGTH_SHORT);
-                    toast.show();
+                    showToast("Password is invalid");
                     return;
                 }
 
                 if (!Common.validateUser(username)) {
-                    toast = Toast.makeText(getApplicationContext(), "Username is invalid", Toast.LENGTH_SHORT);
-                    toast.show();
-                    return;
-                }
-
-                if (acc.existsAccount(email)) {
-                    toast = Toast.makeText(getApplicationContext(), "An account with this email already exists", Toast.LENGTH_SHORT);
-                    toast.show();
+                    showToast("Username is invalid");
                     return;
                 }
 
@@ -85,34 +83,60 @@ public class RegisterActivity extends AppCompatActivity {
                     type = HOMEOWNER;
                 } else if (accountType.equals("ServiceProvider")) {
                     type = SERVICEPROVIDER;
-                } else if (accountType.equals("Administrator")) {
-                    if (!acc.existsAdmin()) {
-                        type = ADMIN;
-                    }
-                    else {
-                        toast = Toast.makeText(getApplicationContext(), "An administrator account already exists", Toast.LENGTH_SHORT);
-                        toast.show();
-                        return;
-                    }
                 }
 
+                User user = Common.makeUser(email, username, password, type);
 
-                acc.makeUser(email, username, password, type);
-                SignInActivity.currentUser = acc.getUser(email);
-                toast = Toast.makeText(getApplicationContext(), "New account has been made", Toast.LENGTH_SHORT);
-                toast.show();
-                openUserActivity(type);
+                checkEmailExists(user);
             }
         });
+    }
+
+    public void checkEmailExists(final User user) {
+        String id = Common.makeMD5(user.getEmail());
+        Observable<DataSnapshot> userObservable = DBHelper.makeObservableFromPath("users/"+id);
+
+        DBObserver<DataSnapshot> userObserver = new DBObserver<DataSnapshot>() {
+            @Override
+            public void onNext(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    showToast("An account with this email already exists");
+                } else {
+                    checkUsernameExists(user);
+                }
+            }
+        };
+
+        userObservable.subscribe(userObserver);
+
+    }
+
+    public void checkUsernameExists(final User user) {
+        Observable<DataSnapshot> lookupObservable = DBHelper.makeObservableFromPath("lookup/"+user.getUsername());
+
+        DBObserver<DataSnapshot> lookupObserver = new DBObserver<DataSnapshot>() {
+            @Override
+            public void onNext(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    showToast("An account with this username already exists");
+                } else {
+                    registerUser(user);
+                }
+            }
+        };
+
+        lookupObservable.subscribe(lookupObserver);
+
+    }
+
+    public void showToast(String message) {
+        Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
     }
 
     //opens welcome screen for the user
     public void openUserActivity(UserTypes type) {
         Intent intent = null;
         switch (type) {
-            case ADMIN:
-                intent = new Intent(this, WelcomeAdministrator.class);
-                break;
             case HOMEOWNER:
                 intent = new Intent(this, WelcomeHomeOwner.class);
                 break;
@@ -121,6 +145,49 @@ public class RegisterActivity extends AppCompatActivity {
                 break;
         }
         startActivity(intent);
+    }
+
+    public void registerUser(final User user) {
+        String id = Common.makeMD5(user.getEmail());
+
+        DBHelper.makeCompletableFromPath("users/" + id, user).subscribe(new CompletableObserver() {
+            @Override
+            public void onSubscribe(Disposable d) {
+                System.out.println("Subscribed");
+
+            }
+
+            @Override
+            public void onComplete() {
+                SignInActivity.currentUser = user;
+                showToast("New account as been made");
+                openUserActivity(user.getType());
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                e.printStackTrace();
+
+            }
+        });
+
+        DBHelper.makeCompletableFromPath("lookup/"+user.getUsername(), id).subscribe(new CompletableObserver() {
+            @Override
+            public void onSubscribe(Disposable d) {
+
+            }
+
+            @Override
+            public void onComplete() {
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+        });
+
     }
 
 

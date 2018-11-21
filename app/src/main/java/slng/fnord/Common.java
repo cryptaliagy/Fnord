@@ -1,5 +1,7 @@
 package slng.fnord;
 
+
+import java.util.HashMap;
 import java.util.regex.Pattern;
 
 public class Common {
@@ -18,8 +20,7 @@ public class Common {
 
         try {
             digestBytes = java.security.MessageDigest.getInstance("MD5").digest(textBytes);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
 
         }
         if (digestBytes == null) {
@@ -51,5 +52,45 @@ public class Common {
         return Pattern.matches("^[a-zA-Z0-9._+=!@#$%^&*:,?-]{5,}$", password);
     }
 
+    public static boolean validatePhoneNumber(String phoneNumber){
+        return Pattern.matches("^(?:\\d{3}[\\-\\s]?)?\\d{3}[\\-\\s]?\\d{4}$", phoneNumber);
+    }
+
+    public static boolean validateTime(String time){
+        return Pattern.matches("^\\d{1,2}[:h]\\d{2}$", time);
+    }
+
+    public static boolean validateCompany(String company){
+        return Pattern.matches("^[^\\s].+?[^\\s]$", company);
+    }
+
+    public static boolean validateAddress(String address){
+        return Pattern.matches("^\\d+\\s[^\\d]+$", address);
+    }
+
+
+    public static User makeUser(String email, String username, String password, UserTypes type) {
+        switch (type) {
+            case HOMEOWNER:
+                return new HomeOwner(email, username, password);
+            case SERVICEPROVIDER:
+                return new ServiceProvider(email, username, password);
+        }
+
+        return null; // In theory impossible
+    }
+
+    public static HashMap<String, Pair<String, String>> makeBlankAvail() {
+        HashMap<String, Pair<String, String>> availability = new HashMap<>();
+        Pair<String, String> blankAvail = new Pair<>("Time(24 hour)", "Time(24 hour)");
+        availability.put("Monday", blankAvail);
+        availability.put("Tuesday", blankAvail);
+        availability.put("Wednesday", blankAvail);
+        availability.put("Thursday", blankAvail);
+        availability.put("Friday", blankAvail);
+        availability.put("Saturday", blankAvail);
+        availability.put("Sunday", blankAvail);
+        return availability;
+    }
 
 }
