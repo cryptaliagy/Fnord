@@ -39,11 +39,11 @@
             android:textAlignment="center" />
 
         <Spinner
-            android:id="@+id/spinner"
+            android:id="@+id/removeServiceSpinner"
             android:layout_width="350dp"
             android:layout_height="wrap_content"
-            android:background="@drawable/common_google_signin_btn_text_light_normal_background"
-            android:popupBackground="@drawable/common_google_signin_btn_icon_dark_normal_background" />
+            android:background="@android:drawable/btn_dropdown"
+            android:popupBackground="@android:drawable/editbox_dropdown_dark_frame" />
 
         <Space
             android:layout_width="match_parent"
