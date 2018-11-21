@@ -14,7 +14,6 @@ public class SPDeleteService extends AppCompatActivity {
 
     private Spinner removeServicesSpinner;
     private Button removeService;
-    public static ArrayList services = (ArrayList) ((ServiceProvider) SignInActivity.currentUser).getServiceList();
     public static String currentService;
 
     @Override
@@ -34,6 +33,7 @@ public class SPDeleteService extends AppCompatActivity {
                 Toast toast = Toast.makeText(getApplicationContext(), "Service removed", Toast.LENGTH_SHORT);
                 toast.show();
                 ((ServiceProvider) SignInActivity.currentUser).removeService(currentService);
+                DBHelper.updateUser(SignInActivity.currentUser);
                 initializeSpinner();
             }
 
@@ -50,6 +50,7 @@ public class SPDeleteService extends AppCompatActivity {
     }
 
     private void initializeSpinner(){
+        ArrayList services = (ArrayList) ((ServiceProvider) SignInActivity.currentUser).getServiceList();
         removeServicesSpinner = (Spinner) findViewById(R.id.removeServiceSpinner);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, services);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);

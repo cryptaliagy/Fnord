@@ -26,6 +26,9 @@ public class ServiceProvider extends User {
     }
 
     public void addService(String serviceName, boolean certified) {
+        if (services == null) {
+            services = new HashMap<>();
+        }
         services.put(serviceName, new Pair<>(certified, ""));
     }
 
@@ -38,6 +41,9 @@ public class ServiceProvider extends User {
     }
 
     public List<String> getServiceList() {
+        if (services == null) {
+            return new ArrayList<>();
+        }
         return new ArrayList<>(services.keySet());
     }
 

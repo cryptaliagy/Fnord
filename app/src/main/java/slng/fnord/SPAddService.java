@@ -40,6 +40,7 @@ public class SPAddService extends AppCompatActivity {
                     currentService = addServicesSpinner.getSelectedItem().toString();
                     ((ServiceProvider) SignInActivity.currentUser).addService(currentService);
                     Toast toast = Toast.makeText(getApplicationContext(), "Service has been added", Toast.LENGTH_SHORT);
+                    DBHelper.updateUser(SignInActivity.currentUser);
                     toast.show();
                     return;
                 }
