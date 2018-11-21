@@ -72,7 +72,7 @@ public class DBHelper {
     }
 
     public static void updateUser(User user) {
-        updateFromPath("users" + user.getId(), user);
+        updateFromPath("users/" + user.getId(), user);
     }
 
     public static void updateServices(Services services) {
