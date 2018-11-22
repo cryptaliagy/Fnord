@@ -1,10 +1,17 @@
 package slng.fnord;
 //
-import android.accounts.Account;
 
-import java.util.ArrayList;
 import java.util.HashMap;
+
+import slng.fnord.Helpers.Common;
+import slng.fnord.Structures.User;
+import slng.fnord.Structures.UserTypes;
 //
+
+
+/**
+ * DEPRECATED
+ */
 
 public class Accounts {
     //admin

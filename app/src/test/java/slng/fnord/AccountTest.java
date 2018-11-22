@@ -1,6 +1,10 @@
 package slng.fnord;
 
 import org.junit.Test;
+
+import slng.fnord.Structures.User;
+import slng.fnord.Structures.UserTypes;
+
 import static com.google.common.truth.Truth.assertThat;
 
 public class AccountTest {
