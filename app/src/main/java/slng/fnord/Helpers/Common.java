@@ -62,7 +62,7 @@ public class Common {
     }
 
     public static boolean validateTime(String time){
-        return Pattern.matches("^\\d{1,2}[:h]\\d{2}$", time);
+        return Pattern.matches("^([01]?[0-9]|2[0-3])?[:h][0-5][0-9]$", time);
     }
 
     public static boolean validateCompany(String company){
@@ -87,7 +87,7 @@ public class Common {
 
     public static HashMap<String, Pair<String, String>> makeBlankAvail() {
         HashMap<String, Pair<String, String>> availability = new HashMap<>();
-        Pair<String, String> blankAvail = new Pair<>("Time(24 hour)", "Time(24 hour)");
+        Pair<String, String> blankAvail = new Pair<>("", "");
         availability.put("Monday", blankAvail);
         availability.put("Tuesday", blankAvail);
         availability.put("Wednesday", blankAvail);
