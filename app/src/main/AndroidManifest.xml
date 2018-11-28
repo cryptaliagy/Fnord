@@ -100,7 +100,10 @@
         <activity android:name=".Activities.SPDeleteService" />
         <activity android:name=".Activities.SPViewService" />
         <activity android:name=".Activities.SPAddAvailability" />
-        <activity android:name=".Availability"></activity>
+        <activity android:name=".Availability" />
+        <activity
+            android:name=".Activities.SPServiceView"
+            android:label="@string/title_activity_spservice_view"></activity>
     </application>
 
 </manifest>

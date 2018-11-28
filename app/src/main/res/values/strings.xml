@@ -7,4 +7,5 @@
         <item>ServiceProvider</item>
     </string-array>
     <string name="title_activity_pleasedelete">PLEASEDELETE</string>
+    <string name="title_activity_spservice_view">SPServiceView</string>
 </resources>
