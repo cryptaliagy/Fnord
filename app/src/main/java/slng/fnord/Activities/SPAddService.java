@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -18,13 +19,18 @@ import slng.fnord.Structures.Services;
 public class SPAddService extends AppCompatActivity {
     private Spinner addServicesSpinner;
     private Button addService;
-    public static Services ser = MainActivity.getServices();
-    public static String currentService;
+    private static Services ser = MainActivity.getServices();
+    private static String currentService;
+    private static Boolean certified;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_spadd_service);
+
+        Switch certifiedSwitch = findViewById(R.id.switch1);
+
+        certifiedSwitch.setOnCheckedChangeListener(((buttonView, isChecked) -> certified = isChecked ));
 
         initializeSpinner();
 
@@ -35,6 +41,7 @@ public class SPAddService extends AppCompatActivity {
             public void onClick(View v) {
                 currentService = addServicesSpinner.getSelectedItem().toString();
 
+
                 if (((ServiceProvider) SignInActivity.currentUser).getServiceList().contains(currentService)) {
                     Toast toast = Toast.makeText(getApplicationContext(), "Service has already been added", Toast.LENGTH_SHORT);
                     toast.show();
@@ -42,7 +49,8 @@ public class SPAddService extends AppCompatActivity {
                 }
                 else {
                     currentService = addServicesSpinner.getSelectedItem().toString();
-                    ((ServiceProvider) SignInActivity.currentUser).addService(currentService);
+
+                    ((ServiceProvider) SignInActivity.currentUser).addService(currentService, certified);
                     Toast toast = Toast.makeText(getApplicationContext(), "Service has been added", Toast.LENGTH_SHORT);
                     DBHelper.updateUser(SignInActivity.currentUser);
                     toast.show();

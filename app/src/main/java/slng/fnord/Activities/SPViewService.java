@@ -37,4 +37,14 @@ public class SPViewService extends AppCompatActivity {
             startActivity(intent);
         });
     }
+
+    protected void onClick(View v) {
+        if (v.getId() == R.id.backSPViewService) {
+            Intent intent = new Intent(this, WelcomeServiceProvider.class);
+            startActivity(intent);
+        } else if (v.getId() == R.id.addSPViewService) {
+            Intent intent = new Intent(this, SPAddService.class);
+            startActivity(intent);
+        }
+    }
 }
