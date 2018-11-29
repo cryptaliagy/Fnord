@@ -100,7 +100,19 @@
         <activity android:name=".Activities.SPDeleteService" />
         <activity android:name=".Activities.SPViewService" />
         <activity android:name=".Activities.SPAddAvailability" />
-        <activity android:name=".Availability"></activity>
+        <activity android:name=".Availability" />
+        <activity android:name=".SearchSP" />
+        <activity
+            android:name=".HOviewSP"
+            android:label="@string/title_activity_hoview__sp" />
+        <activity
+            android:name=".Activities.HOServiceProfile"
+            android:label="@string/title_activity_ho_service_profile" />
+        <activity android:name=".Activities.HOBookService" />
+        <activity
+            android:name=".Activities.HOBookingList"
+            android:label="@string/title_activity_hobooking_list" />
+        <activity android:name=".Activities.HOBookingReview"></activity>
     </application>
 
 </manifest>
