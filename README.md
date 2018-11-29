@@ -1,4 +1,4 @@
-[![CircleCI](https://circleci.com/gh/NGnius/FnordProjectSEG2105.svg?style=svg)](https://circleci.com/gh/NGnius/FnordProjectSEG2105)
+Build Staus [![BuildStatus](https://circleci.com/gh/NGnius/FnordProjectSEG2105.png?branch=develop)](https://circleci.com/gh/NGnius/FnordProjectSEG2105)
 
 Team Members:
      Liam Wilford 8807534,
