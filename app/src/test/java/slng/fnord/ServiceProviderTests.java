@@ -1,6 +1,12 @@
 package slng.fnord;
 
 import org.junit.Test;
+
+import slng.fnord.Helpers.Common;
+import slng.fnord.Structures.Service;
+import slng.fnord.Structures.ServiceProvider;
+import slng.fnord.Structures.UserTypes;
+
 import static com.google.common.truth.Truth.assertThat;
 
 public class ServiceProviderTests {
