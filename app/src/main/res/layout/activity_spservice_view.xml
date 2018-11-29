@@ -4,77 +4,90 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background"
     tools:context=".Activities.SPServiceView">
 
-    <Button
-        android:id="@+id/removeSPServiceView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="249dp"
-        android:layout_marginEnd="42dp"
-        android:layout_marginBottom="114dp"
-        android:onClick="onClick"
-        android:text="Remove"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/backSPServiceView"
-        app:layout_constraintTop_toBottomOf="@+id/serviceNameTextView"
-        app:layout_constraintVertical_bias="0.26999998" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
 
-    <Button
-        android:id="@+id/backSPServiceView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="61dp"
-        android:layout_marginTop="141dp"
-        android:layout_marginEnd="105dp"
-        android:onClick="onClick"
-        android:text="Back"
-        app:layout_constraintEnd_toStartOf="@+id/removeSPServiceView"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rateTextView" />
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="25dp" />
 
-    <TextView
-        android:id="@+id/serviceNameTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="117dp"
-        android:layout_marginTop="119dp"
-        android:layout_marginEnd="117dp"
-        android:layout_marginBottom="37dp"
-        android:text="TextView"
-        android:textSize="36sp"
-        app:layout_constraintBottom_toTopOf="@+id/rateValueTextView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="cursive"
+            android:text="View Service"
+            android:textAlignment="center"
+            android:textColor="@color/common_google_signin_btn_text_dark_focused"
+            android:textSize="36sp" />
 
-    <TextView
-        android:id="@+id/rateTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="96dp"
-        android:layout_marginTop="62dp"
-        android:layout_marginEnd="34dp"
-        android:layout_marginBottom="168dp"
-        android:text="Rate"
-        app:layout_constraintBottom_toTopOf="@+id/backSPServiceView"
-        app:layout_constraintEnd_toStartOf="@+id/rateValueTextView"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/serviceNameTextView" />
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="75dp" />
 
-    <TextView
-        android:id="@+id/rateValueTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="37dp"
-        android:layout_marginEnd="164dp"
-        android:layout_marginBottom="343dp"
-        android:text="TextView"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/rateTextView"
-        app:layout_constraintTop_toBottomOf="@+id/serviceNameTextView" />
+        <TextView
+            android:id="@+id/serviceNameTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="TextView"
+            android:textAlignment="center" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="25dp" />
+
+        <LinearLayout
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/rateTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Rate" />
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <TextView
+                android:id="@+id/rateValueTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView" />
+        </LinearLayout>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="75dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/backSPServiceView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Back" />
+
+            <Button
+                android:id="@+id/removeSPServiceView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Remove" />
+        </LinearLayout>
+    </LinearLayout>
 </android.support.constraint.ConstraintLayout>
