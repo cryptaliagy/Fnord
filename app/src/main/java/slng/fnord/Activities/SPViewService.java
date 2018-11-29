@@ -38,7 +38,7 @@ public class SPViewService extends AppCompatActivity {
         });
     }
 
-    protected void onClick(View v) {
+    public void onClick(View v) {
         if (v.getId() == R.id.backSPViewService) {
             Intent intent = new Intent(this, WelcomeServiceProvider.class);
             startActivity(intent);
