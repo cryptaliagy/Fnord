@@ -22,16 +22,16 @@ public class WelcomeAdministrator extends AppCompatActivity {
         TextView textView = (TextView) findViewById(R.id.welcomeAdmin);
         textView.setText("Welcome " + SignInActivity.currentUser.getUsername() + ".");
 
-        cserve = (Button) findViewById(R.id.createServiceChoiceButton);
+        cserve = findViewById(R.id.createServiceChoiceButton);
         cserve.setOnClickListener(view -> openView(CreateService.class));
 
-        dserve = (Button) findViewById(R.id.deleteServiceChoiceButton);
+        dserve = findViewById(R.id.deleteServiceChoiceButton);
         dserve.setOnClickListener(view -> openView(DeleteService.class));
 
-        vserve = (Button) findViewById(R.id.viewServicesButton);
+        vserve = findViewById(R.id.viewServicesButton);
         vserve.setOnClickListener(view -> openView(ViewService.class));
 
-        eserve = (Button) findViewById(R.id.editServiceChoiceButton);
+        eserve = findViewById(R.id.editServiceChoiceButton);
         eserve.setOnClickListener(view -> openView(EditService.class));
     }
 

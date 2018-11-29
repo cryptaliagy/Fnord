@@ -13,7 +13,7 @@ public class WelcomeHomeOwner extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome_home_owner);
         //setting a custom message showing the username of the account
-        TextView textView = (TextView) findViewById(R.id.welcomeHO);
+        TextView textView = findViewById(R.id.welcomeHO);
         textView.setText("Welcome " + SignInActivity.currentUser.getUsername() + ".");
     }
 }

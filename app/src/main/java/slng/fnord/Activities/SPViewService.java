@@ -2,8 +2,10 @@ package slng.fnord.Activities;
 
 import android.content.Intent;
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AbsListView;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -14,7 +16,6 @@ import slng.fnord.Structures.ServiceProvider;
 import slng.fnord.Helpers.ServicesAndRatesAdapter;
 
 public class SPViewService extends AppCompatActivity {
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,11 +23,12 @@ public class SPViewService extends AppCompatActivity {
 
         ArrayList<String> services = (ArrayList<String>) ((ServiceProvider) SignInActivity.currentUser).getServiceList();
 
-        ListView lv = (ListView) findViewById(R.id.listOfServices);
+        ListView lv = findViewById(R.id.listOfServices);
         ServicesAndRatesAdapter adapter = new ServicesAndRatesAdapter(this, R.layout.adapter_view_layout,
                 services);
         lv.setAdapter(adapter);
 
+        lv.setChoiceMode(AbsListView.CHOICE_MODE_MULTIPLE);
         lv.setOnItemClickListener((parent, view, position, id) -> {
             String serviceName = services.get(position);
             SPServiceView.serviceName = serviceName;

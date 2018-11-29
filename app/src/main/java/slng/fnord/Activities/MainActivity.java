@@ -30,11 +30,11 @@ public class MainActivity extends AppCompatActivity {
         services = new Services();
 
         //setting register button on main screen to open to the register screen
-        register = (Button) findViewById(R.id.registerChoiceButton);
+        register = findViewById(R.id.registerChoiceButton);
         register.setOnClickListener(view -> openActivity(RegisterActivity.class));
 
         //setting sign in button on main screen to open to the sign in screen
-        signIn = (Button) findViewById(R.id.signInChoiceButton);
+        signIn = findViewById(R.id.signInChoiceButton);
         signIn.setOnClickListener(view -> openActivity(SignInActivity.class));
 
         Observable<DataSnapshot> observable = DBHelper.makeObservableFromPath("services");

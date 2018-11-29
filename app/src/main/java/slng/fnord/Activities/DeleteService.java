@@ -1,6 +1,7 @@
 package slng.fnord.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -27,35 +28,30 @@ public class DeleteService extends AppCompatActivity {
         setContentView(R.layout.activity_delete_service);
 
         initializeSpinner(services.asArrayList());
-        deleteService = (Button) findViewById(R.id.deleteServiceBtn);
-        deleteService.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //setting the text of the selected service in the list, then deleting it and the rate associated with it
-                if(services.size() != 0) {
-                    serviceToDelete = deleteServicesSpinner.getSelectedItem().toString();
-                    services.deleteService(serviceToDelete);
-                    DBHelper.deleteService(serviceToDelete);
-                    Toast toastDelete = Toast.makeText(getApplicationContext(), "Service Deleted.", Toast.LENGTH_SHORT);
-                    toastDelete.show();
-                    initializeSpinner(services.asArrayList());
-                }
-                else{
-                    Toast toastNoDelete = Toast.makeText(getApplicationContext(), "No Services Selected.", Toast.LENGTH_SHORT);
-                    toastNoDelete.show();
-                }
+        deleteService = findViewById(R.id.deleteServiceBtn);
+        deleteService.setOnClickListener(view -> {
+            //setting the text of the selected service in the list, then deleting it and the rate associated with it
+            if (services.size() != 0) {
+                serviceToDelete = deleteServicesSpinner.getSelectedItem().toString();
+                services.deleteService(serviceToDelete);
+                DBHelper.deleteService(serviceToDelete);
+                Toast toastDelete = Toast.makeText(getApplicationContext(), "Service Deleted.", Toast.LENGTH_SHORT);
+                toastDelete.show();
+                initializeSpinner(services.asArrayList());
+            } else {
+                Toast toastNoDelete = Toast.makeText(getApplicationContext(), "No Services Selected.", Toast.LENGTH_SHORT);
+                toastNoDelete.show();
             }
         });
     }
 
     //helper function that creates/initializes the spinner aka the dropdown list
-    private void initializeSpinner(ArrayList<String> services){
-        deleteServicesSpinner = (Spinner) findViewById(R.id.servicesSpinner);
+    private void initializeSpinner(ArrayList<String> services) {
+        deleteServicesSpinner = findViewById(R.id.servicesSpinner);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, services);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         deleteServicesSpinner.setAdapter(adapter);
     }
-
 
 
 }

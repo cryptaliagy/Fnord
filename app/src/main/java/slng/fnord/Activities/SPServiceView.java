@@ -36,7 +36,10 @@ public class SPServiceView extends Activity {
             Intent intent = new Intent(this, SPViewService.class);
             startActivity(intent);
         } else if (v.getId() == R.id.removeSPServiceView) {
-            if (((ServiceProvider) SignInActivity.currentUser).getServiceList().contains(serviceName)) {
+            ServiceProvider user = (ServiceProvider) SignInActivity.currentUser;
+
+
+            if (user.getServiceList().contains(serviceName)) {
                 ((ServiceProvider) SignInActivity.currentUser).removeService(serviceName);
                 DBHelper.updateUser(SignInActivity.currentUser);
                 Toast.makeText(getApplicationContext(), "Service removed", Toast.LENGTH_SHORT).show();

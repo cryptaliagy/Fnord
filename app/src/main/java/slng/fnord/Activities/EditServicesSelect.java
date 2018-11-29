@@ -1,7 +1,9 @@
 package slng.fnord.Activities;
 
 import android.content.Intent;
+
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -30,20 +32,17 @@ public class EditServicesSelect extends AppCompatActivity {
         setContentView(R.layout.activity_edit_services);
         initializeSpinner();
 
-        editService = (Button) findViewById(R.id.editServiceBtn);
-        editService.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                currentService = editServicesSpinner.getSelectedItem().toString();
-                currentServiceRate = Double.toString(ser.getServiceRate(Common.makeMD5(currentService)));
-                openEditServicesView();
-            }
+        editService = findViewById(R.id.editServiceBtn);
+        editService.setOnClickListener(view -> {
+            currentService = editServicesSpinner.getSelectedItem().toString();
+            currentServiceRate = Double.toString(ser.getServiceRate(Common.makeMD5(currentService)));
+            openEditServicesView();
         });
 
     }
 
-    private void initializeSpinner(){
-        editServicesSpinner = (Spinner) findViewById(R.id.editServiceSpinner);
+    private void initializeSpinner() {
+        editServicesSpinner = findViewById(R.id.editServiceSpinner);
         ArrayList<String> services = ser.asArrayList();
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, services);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -51,7 +50,7 @@ public class EditServicesSelect extends AppCompatActivity {
 
     }
 
-    public void openEditServicesView(){
+    public void openEditServicesView() {
         Intent intent = new Intent(this, EditService.class);
         startActivity(intent);
     }
@@ -63,7 +62,6 @@ public class EditServicesSelect extends AppCompatActivity {
         //Do what you want on the refresh procedure here
         initializeSpinner();
     }
-
 
 
 }

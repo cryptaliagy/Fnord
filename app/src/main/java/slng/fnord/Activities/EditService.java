@@ -20,13 +20,13 @@ public class EditService extends AppCompatActivity {
         setContentView(R.layout.activity_edit_services2);
 
         //two textviews for the editable service and service rate
-        final TextView serviceView = (TextView) findViewById(R.id.serviceNameEditField);
+        final TextView serviceView = findViewById(R.id.serviceNameEditField);
         serviceView.setText(EditServicesSelect.currentService);
 
-        final TextView rateView = (TextView) findViewById(R.id.serviceRateEditField);
+        final TextView rateView = findViewById(R.id.serviceRateEditField);
         rateView.setText(EditServicesSelect.currentServiceRate);
 
-        confirm = (Button) findViewById(R.id.confirmChangesBtn);
+        confirm = findViewById(R.id.confirmChangesBtn);
         confirm.setOnClickListener(view -> {
             //will need to make some validations on the new service name and rate before we actually add it
             //i.e. if the new service we are trying to add is blank or if it already exists, we make a toast saying it was not added (and ofc it wasnt added)

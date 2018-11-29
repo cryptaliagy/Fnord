@@ -38,8 +38,8 @@ public class ServicesAndRatesAdapter extends ArrayAdapter<String> {
         LayoutInflater inflater = LayoutInflater.from(mContext);
         convertView = inflater.inflate(mResource,parent,false);
 
-        TextView tvService = (TextView) convertView.findViewById(R.id.srv);
-        TextView tvRate = (TextView) convertView.findViewById(R.id.rateField);
+        TextView tvService = convertView.findViewById(R.id.srv);
+        TextView tvRate = convertView.findViewById(R.id.rateField);
 
         tvService.setText(service);
         tvRate.setText(String.format("%.2f", rate));

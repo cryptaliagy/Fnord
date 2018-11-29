@@ -1,6 +1,9 @@
 package slng.fnord.Helpers;
 
 
+import android.app.Activity;
+import android.widget.Toast;
+
 import java.util.HashMap;
 import java.util.regex.Pattern;
 

@@ -1,6 +1,7 @@
 package slng.fnord.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -15,7 +16,6 @@ import slng.fnord.R;
 import slng.fnord.Structures.ServiceProvider;
 
 public class SPDeleteService extends AppCompatActivity {
-
     private Spinner removeServicesSpinner;
     private Button removeService;
     public static String currentService;
@@ -26,37 +26,26 @@ public class SPDeleteService extends AppCompatActivity {
         setContentView(R.layout.activity_spdelete_service);
         initializeSpinner();
 
-        removeService = (Button) findViewById(R.id.SPRemoveServiceButton);
+        removeService = findViewById(R.id.SPRemoveServiceButton);
 
-         removeService.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        removeService.setOnClickListener(view -> {
             currentService = removeServicesSpinner.getSelectedItem().toString();
 
             if (((ServiceProvider) SignInActivity.currentUser).getServiceList().contains(currentService)) {
                 ((ServiceProvider) SignInActivity.currentUser).removeService(currentService);
                 DBHelper.updateUser(SignInActivity.currentUser);
-                Toast toast = Toast.makeText(getApplicationContext(), "Service removed", Toast.LENGTH_SHORT);
-                toast.show();
+                Toast.makeText(getApplicationContext(), "Service removed", Toast.LENGTH_SHORT).show();
                 DBHelper.updateUser(SignInActivity.currentUser);
                 initializeSpinner();
+            } else {
+                Toast.makeText(getApplicationContext(), "Error Removing Service", Toast.LENGTH_SHORT).show();
             }
-
-            else{
-                Toast toast = Toast.makeText(getApplicationContext(), "Error Removing Service", Toast.LENGTH_SHORT);
-                toast.show();
-            }
-
-        }
-
         });
-
-
     }
 
-    private void initializeSpinner(){
+    private void initializeSpinner() {
         ArrayList<String> services = (ArrayList<String>) ((ServiceProvider) SignInActivity.currentUser).getServiceList();
-        removeServicesSpinner = (Spinner) findViewById(R.id.removeServiceSpinner);
+        removeServicesSpinner = findViewById(R.id.removeServiceSpinner);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, services);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         removeServicesSpinner.setAdapter(adapter);

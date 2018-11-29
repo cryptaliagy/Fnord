@@ -1,6 +1,7 @@
 package slng.fnord.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -29,52 +30,48 @@ public class CreateService extends AppCompatActivity {
         setContentView(R.layout.activity_create_service);
         final Services ser = MainActivity.getServices();
 
-        createService = (Button) findViewById(R.id.createServiceButton);
-        createService.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //editable field to specify a service
-                EditText serviceToAddText = (EditText) findViewById(R.id.serviceToAddField);
-                serviceToAdd = serviceToAddText.getText().toString();
+        createService = findViewById(R.id.createServiceButton);
+        createService.setOnClickListener(view -> {
+            //editable field to specify a service
+            EditText serviceToAddText = findViewById(R.id.serviceToAddField);
+            serviceToAdd = serviceToAddText.getText().toString();
 
-                //editable field to specify rate of the service
-                EditText rateOfServiceText = (EditText) findViewById(R.id.ratePerHourField);
-                rateOfService = rateOfServiceText.getText().toString();
-                Toast toast;
+            //editable field to specify rate of the service
+            EditText rateOfServiceText = findViewById(R.id.ratePerHourField);
+            rateOfService = rateOfServiceText.getText().toString();
+            Toast toast;
 
-                if (!Common.validateService(serviceToAdd)) {
-                    toast = Toast.makeText(getApplicationContext(), "Service name invalid", Toast.LENGTH_SHORT);
-                    toast.show();
-                    return;
-                }
-
-                if (!Common.validatePrice(rateOfService)) {
-                    toast = Toast.makeText(getApplicationContext(),
-                            "Service price invalid, must be a number with at most 2 decimal places", Toast.LENGTH_SHORT);
-                    toast.show();
-                    return;
-                }
-
-                final String id = Common.makeMD5(serviceToAdd);
-                Observable<DataSnapshot> observable = DBHelper.makeObservableFromPath("services/"+id);
-                Observer<DataSnapshot> observer = new DBObserver<DataSnapshot>() {
-                    @Override
-                    public void onNext(DataSnapshot dataSnapshot) {
-                        if (dataSnapshot.exists()) {
-                            Toast.makeText(getApplicationContext(), "No Service created. Service already exists", Toast.LENGTH_SHORT).show();
-                        }
-                        else {
-                            Service service = new Service(serviceToAdd, Double.valueOf(rateOfService));
-                            dataSnapshot.getRef().setValue(service);
-                            ser.addService(service);
-                            Toast.makeText(getApplicationContext(), "Service Created.", Toast.LENGTH_SHORT).show();
-                        }
-
-                    }
-                };
-
-                observable.subscribe(observer);
+            if (!Common.validateService(serviceToAdd)) {
+                toast = Toast.makeText(getApplicationContext(), "Service name invalid", Toast.LENGTH_SHORT);
+                toast.show();
+                return;
             }
+
+            if (!Common.validatePrice(rateOfService)) {
+                toast = Toast.makeText(getApplicationContext(),
+                        "Service price invalid, must be a number with at most 2 decimal places", Toast.LENGTH_SHORT);
+                toast.show();
+                return;
+            }
+
+            final String id = Common.makeMD5(serviceToAdd);
+            Observable<DataSnapshot> observable = DBHelper.makeObservableFromPath("services/" + id);
+            Observer<DataSnapshot> observer = new DBObserver<DataSnapshot>() {
+                @Override
+                public void onNext(DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.exists()) {
+                        Toast.makeText(getApplicationContext(), "No Service created. Service already exists", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Service service = new Service(serviceToAdd, Double.valueOf(rateOfService));
+                        dataSnapshot.getRef().setValue(service);
+                        ser.addService(service);
+                        Toast.makeText(getApplicationContext(), "Service Created.", Toast.LENGTH_SHORT).show();
+                    }
+
+                }
+            };
+
+            observable.subscribe(observer);
         });
 
     }

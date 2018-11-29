@@ -36,7 +36,7 @@ public class RegisterActivity extends AppCompatActivity {
         setContentView(R.layout.activity_register);
 
         //creating a spinner/dropdown list for the register screen
-        final Spinner accountSpinner = (Spinner) findViewById(R.id.accountTypeSpinner);
+        final Spinner accountSpinner = findViewById(R.id.accountTypeSpinner);
         ArrayAdapter<String> myAdapter = new ArrayAdapter<>(RegisterActivity.this,
                 android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.accountTypes));
         myAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -44,20 +44,18 @@ public class RegisterActivity extends AppCompatActivity {
 
         //making register button on register screen work/add stuff to account Accounts arraylists
         //it shall open the appropriate welcome screen, as well as add the account to the list
-        register2 = (Button) findViewById(R.id.registerButton);
+        register2 = findViewById(R.id.registerButton);
         register2.setOnClickListener(view -> {
-            EditText emailText = (EditText) findViewById(R.id.registerEmail);
+            EditText emailText = findViewById(R.id.registerEmail);
             email = emailText.getText().toString();
 
-            EditText passwordText = (EditText) findViewById(R.id.registerPassword);
+            EditText passwordText = findViewById(R.id.registerPassword);
             password = passwordText.getText().toString();
 
-            EditText usernameText = (EditText) findViewById(R.id.registerUsername);
+            EditText usernameText = findViewById(R.id.registerUsername);
             username = usernameText.getText().toString();
 
             accountType = accountSpinner.getSelectedItem().toString();
-
-            Toast toast = null;
 
             if (!Common.validateEmail(email)) {
                 showToast("Email is invalid");
@@ -74,7 +72,7 @@ public class RegisterActivity extends AppCompatActivity {
                 return;
             }
 
-            UserTypes type = null;
+            UserTypes type;
 
             if (accountType.equals("HomeOwner")) {
                 type = HOMEOWNER;
@@ -149,7 +147,6 @@ public class RegisterActivity extends AppCompatActivity {
         DBHelper.makeCompletableFromPath("users/" + id, user).subscribe(new CompletableObserver() {
             @Override
             public void onSubscribe(Disposable d) {
-                System.out.println("Subscribed");
 
             }
 
@@ -163,7 +160,6 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onError(Throwable e) {
                 e.printStackTrace();
-
             }
         });
 

@@ -1,6 +1,7 @@
 package slng.fnord.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -20,30 +21,27 @@ public class SPEditProfile extends AppCompatActivity {
         setContentView(R.layout.activity_spedit_profile);
         final ServiceProvider serviceProvider = (ServiceProvider) SignInActivity.currentUser;
 
-        final TextView addressView = (TextView) findViewById(R.id.SPProfileAddressEditText);
+        final TextView addressView = findViewById(R.id.SPProfileAddressEditText);
         addressView.setText(serviceProvider.getAddress());
 
-        final TextView phoneNumberView = (TextView) findViewById(R.id.SPProfilePhoneNumberEditText);
+        final TextView phoneNumberView = findViewById(R.id.SPProfilePhoneNumberEditText);
         phoneNumberView.setText(serviceProvider.getPhone());
 
-        final TextView companyNameView = (TextView) findViewById(R.id.SPProfileCompanyEditText);
+        final TextView companyNameView = findViewById(R.id.SPProfileCompanyEditText);
         companyNameView.setText(serviceProvider.getCompany());
 
-        final TextView bioView = (TextView) findViewById(R.id.SPProfileBioEditText);
+        final TextView bioView = findViewById(R.id.SPProfileBioEditText);
         bioView.setText(serviceProvider.getBio());
 
-        confirm = (Button) findViewById(R.id.SPProfileConfirmButton);
-        confirm.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //will need validations here - will add them once I confirm this works
-                serviceProvider.setAddress(addressView.getText().toString());
-                serviceProvider.setPhone(phoneNumberView.getText().toString());
-                serviceProvider.setCompany(companyNameView.getText().toString());
-                serviceProvider.setBio(bioView.getText().toString());
-                DBHelper.updateUser(serviceProvider);
-                Toast.makeText(getApplicationContext(), "Profile updated!", Toast.LENGTH_SHORT).show();
-            }
+        confirm = findViewById(R.id.SPProfileConfirmButton);
+        confirm.setOnClickListener(view -> {
+            // TODO: validation
+            serviceProvider.setAddress(addressView.getText().toString());
+            serviceProvider.setPhone(phoneNumberView.getText().toString());
+            serviceProvider.setCompany(companyNameView.getText().toString());
+            serviceProvider.setBio(bioView.getText().toString());
+            DBHelper.updateUser(serviceProvider);
+            Toast.makeText(getApplicationContext(), "Profile updated!", Toast.LENGTH_SHORT).show();
         });
 
     }

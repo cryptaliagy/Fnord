@@ -34,24 +34,19 @@ public class SPAddService extends AppCompatActivity {
 
         initializeSpinner();
 
-        addService = (Button) findViewById(R.id.SPAddServiceButton);
+        addService = findViewById(R.id.SPAddServiceButton);
 
         addService.setOnClickListener(view -> {
             currentService = addServicesSpinner.getSelectedItem().toString();
 
-
             if (((ServiceProvider) SignInActivity.currentUser).getServiceList().contains(currentService)) {
-                Toast toast = Toast.makeText(getApplicationContext(), "Service has already been added", Toast.LENGTH_SHORT);
-                toast.show();
-                return;
+                Toast.makeText(getApplicationContext(), "Service has already been added", Toast.LENGTH_SHORT).show();
             } else {
                 currentService = addServicesSpinner.getSelectedItem().toString();
 
                 ((ServiceProvider) SignInActivity.currentUser).addService(currentService, certified);
-                Toast toast = Toast.makeText(getApplicationContext(), "Service has been added", Toast.LENGTH_SHORT);
                 DBHelper.updateUser(SignInActivity.currentUser);
-                toast.show();
-                return;
+                Toast.makeText(getApplicationContext(), "Service has been added", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -61,7 +56,7 @@ public class SPAddService extends AppCompatActivity {
 
 
     private void initializeSpinner() {
-        addServicesSpinner = (Spinner) findViewById(R.id.addServiceSpinner);
+        addServicesSpinner = findViewById(R.id.addServiceSpinner);
         ArrayList<String> services = ser.asArrayList();
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, services);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);

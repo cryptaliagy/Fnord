@@ -9,32 +9,32 @@ import android.widget.TextView;
 import slng.fnord.R;
 
 public class WelcomeServiceProvider extends AppCompatActivity {
-    private Button SPViewProfile;
-    private Button SPEditProfile;
-    private Button SPAddService;
-    private Button SPDeleteService;
-    private Button SPViewService;
-    private Button SPAddAvailability;
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Button SPViewProfile;
+        Button SPEditProfile;
+        Button SPAddService;
+        Button SPDeleteService;
+        Button SPViewService;
+        Button SPAddAvailability;
+
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome_service_provider);
         //setting a custom message showing the username of the account
-        TextView textView = (TextView) findViewById(R.id.welcomeSP);
+        TextView textView = findViewById(R.id.welcomeSP);
         textView.setText("Welcome " + SignInActivity.currentUser.getUsername() + ".");
 
-        SPViewProfile = (Button) findViewById(R.id.SPViewInfoChoice);
+        SPViewProfile = findViewById(R.id.SPViewInfoChoice);
         SPViewProfile.setOnClickListener(view -> openView(SPViewProfile.class));
 
-        SPEditProfile = (Button) findViewById(R.id.SPEditInfoChoice);
+        SPEditProfile = findViewById(R.id.SPEditInfoChoice);
         SPEditProfile.setOnClickListener(view -> openView(SPEditProfile.class));
 
-        SPViewService = (Button) findViewById(R.id.SPViewServiceChoice);
+        SPViewService = findViewById(R.id.SPViewServiceChoice);
         SPViewService.setOnClickListener(view -> openView(SPViewService.class));
 
-        SPAddAvailability = (Button) findViewById(R.id.SPAddAvailabilitiesChoice);
+        SPAddAvailability = findViewById(R.id.SPAddAvailabilitiesChoice);
         SPAddAvailability.setOnClickListener(view -> openView(SPAddAvailability.class));
 
 
