@@ -1,6 +1,8 @@
+[![CircleCI](https://circleci.com/gh/NGnius/FnordProjectSEG2105.svg?style=svg)](https://circleci.com/gh/NGnius/FnordProjectSEG2105)
+
 Team Members:
-     Liam Wilford 8807534, 
-     Graham Littlewood 300013668, 
+     Liam Wilford 8807534,
+     Graham Littlewood 300013668,
      Subhan Sediqi 6789148,
      Natalia Maximo 8756866
 
