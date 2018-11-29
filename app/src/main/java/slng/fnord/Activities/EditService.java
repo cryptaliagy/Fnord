@@ -32,7 +32,6 @@ public class EditService extends AppCompatActivity {
             //i.e. if the new service we are trying to add is blank or if it already exists, we make a toast saying it was not added (and ofc it wasnt added)
 
             if (serviceView.getText().toString().isEmpty() || rateView.getText().toString().isEmpty()) {
-
                 Toast toastBlank = Toast.makeText(getApplicationContext(), "That Field Cannot Be Blank.", Toast.LENGTH_SHORT);
                 toastBlank.show();
                 return;

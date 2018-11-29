@@ -1,6 +1,10 @@
 package slng.fnord.Activities;
 
+import android.app.Activity;
+import android.app.Dialog;
 import android.content.Intent;
+
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
@@ -10,6 +14,7 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 
+import slng.fnord.Database.DBHelper;
 import slng.fnord.Helpers.Common;
 import slng.fnord.R;
 import slng.fnord.Structures.ServiceProvider;
@@ -28,13 +33,32 @@ public class SPViewService extends AppCompatActivity {
                 services);
         lv.setAdapter(adapter);
 
-        lv.setChoiceMode(AbsListView.CHOICE_MODE_MULTIPLE);
+        ServiceProvider user = (ServiceProvider) SignInActivity.currentUser;
+
+        Activity activity = this;
+
+        //lv.setChoiceMode(AbsListView.CHOICE_MODE_MULTIPLE);
         lv.setOnItemClickListener((parent, view, position, id) -> {
             String serviceName = services.get(position);
-            SPServiceView.serviceName = serviceName;
-            SPServiceView.serviceRate = MainActivity.getServices().getServiceRate(Common.makeMD5(serviceName));
-            Intent intent = new Intent(this, SPServiceView.class);
-            startActivity(intent);
+            boolean certified = user.isCertified(serviceName);
+            System.out.println(certified);
+            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
+            dialogBuilder.setTitle(serviceName)
+                    //.setMessage(services.get(position))
+                    .setMultiChoiceItems(new CharSequence[]{"Certified"}, new boolean[]{certified},
+                            (dialog, which, isChecked) -> user.updateCertified(serviceName, isChecked))
+                    .setPositiveButton("Done", (dialog, buttonID) -> {
+                        DBHelper.updateUser(user);
+                        dialog.dismiss();
+                    })
+                    .setNegativeButton("Remove", (dialog, buttonID) -> {
+                        user.removeService(serviceName);
+                        DBHelper.updateUser(user);
+                        adapter.remove(serviceName);
+                        dialog.dismiss();
+                    });
+            AlertDialog dialog = dialogBuilder.create();
+            dialog.show();
         });
     }
 

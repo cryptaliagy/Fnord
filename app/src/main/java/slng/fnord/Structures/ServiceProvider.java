@@ -1,7 +1,6 @@
 package slng.fnord.Structures;
 
 
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -39,9 +38,7 @@ public class ServiceProvider extends User {
         addService(serviceName, false);
     }
 
-    public void removeService(String serviceName) {
-        services.remove(serviceName);
-    }
+    public void removeService(String id) { services.remove(id); }
 
     public List<String> getServiceList() {
         if (services == null) {
@@ -56,10 +53,15 @@ public class ServiceProvider extends User {
 
     public void updateCertified(String serviceName, boolean certified) {
         Pair<Boolean, String> info = services.get(serviceName);
+        Pair<Boolean, String> newInfo;
 
         if (info != null) {
-            Pair<Boolean, String> newInfo = new Pair<>(certified, info.second);
+            newInfo = new Pair<>(certified, info.second);
+        } else {
+            newInfo = new Pair<>(certified, "");
         }
+
+        services.put(serviceName, newInfo);
     }
 
     public boolean isCertified(String serviceName) {
