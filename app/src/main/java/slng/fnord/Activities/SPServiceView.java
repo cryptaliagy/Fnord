@@ -28,7 +28,7 @@ public class SPServiceView extends Activity {
         rateText.setText(String.format("%.2f", serviceRate));
     }
 
-    protected void onClick(View v) {
+    public void onClick(View v) {
         if (v.getId() == R.id.backSPServiceView) {
             // Cleanup, just in case
             serviceRate = null;

@@ -46,55 +46,52 @@ public class RegisterActivity extends AppCompatActivity {
         //making register button on register screen work/add stuff to account Accounts arraylists
         //it shall open the appropriate welcome screen, as well as add the account to the list
         register2 = (Button) findViewById(R.id.registerButton);
-        register2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                EditText emailText = (EditText) findViewById(R.id.registerEmail);
-                email = emailText.getText().toString();
+        register2.setOnClickListener(view -> {
+            EditText emailText = (EditText) findViewById(R.id.registerEmail);
+            email = emailText.getText().toString();
 
-                EditText passwordText = (EditText) findViewById(R.id.registerPassword);
-                password = passwordText.getText().toString();
+            EditText passwordText = (EditText) findViewById(R.id.registerPassword);
+            password = passwordText.getText().toString();
 
-                EditText usernameText = (EditText) findViewById(R.id.registerUsername);
-                username = usernameText.getText().toString();
+            EditText usernameText = (EditText) findViewById(R.id.registerUsername);
+            username = usernameText.getText().toString();
 
-                accountType = accountSpinner.getSelectedItem().toString();
+            accountType = accountSpinner.getSelectedItem().toString();
 
-                Toast toast = null;
+            Toast toast = null;
 
-                if (!Common.validateEmail(email)) {
-                    showToast("Email is invalid");
-                    return;
-                }
-
-                if (!Common.validatePassword(password)) {
-                    showToast("Password is invalid");
-                    return;
-                }
-
-                if (!Common.validateUser(username)) {
-                    showToast("Username is invalid");
-                    return;
-                }
-
-                UserTypes type = null;
-
-                if (accountType.equals("HomeOwner")) {
-                    type = HOMEOWNER;
-                } else if (accountType.equals("ServiceProvider")) {
-                    type = SERVICEPROVIDER;
-                }
-
-                User user = Common.makeUser(email, username, password, type);
-
-                checkEmailExists(user);
+            if (!Common.validateEmail(email)) {
+                showToast("Email is invalid");
+                return;
             }
+
+            if (!Common.validatePassword(password)) {
+                showToast("Password is invalid");
+                return;
+            }
+
+            if (!Common.validateUser(username)) {
+                showToast("Username is invalid");
+                return;
+            }
+
+            UserTypes type = null;
+
+            if (accountType.equals("HomeOwner")) {
+                type = HOMEOWNER;
+            } else  {
+                type = SERVICEPROVIDER;
+            }
+
+            User user = Common.makeUser(email, username, password, type);
+
+            checkEmailExists(user);
         });
     }
 
     public void checkEmailExists(final User user) {
         String id = Common.makeMD5(user.getEmail());
-        Observable<DataSnapshot> userObservable = DBHelper.makeObservableFromPath("users/"+id);
+        Observable<DataSnapshot> userObservable = DBHelper.makeObservableFromPath("users/" + id);
 
         DBObserver<DataSnapshot> userObserver = new DBObserver<DataSnapshot>() {
             @Override
@@ -112,7 +109,7 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     public void checkUsernameExists(final User user) {
-        Observable<DataSnapshot> lookupObservable = DBHelper.makeObservableFromPath("lookup/"+user.getUsername());
+        Observable<DataSnapshot> lookupObservable = DBHelper.makeObservableFromPath("lookup/" + user.getUsername());
 
         DBObserver<DataSnapshot> lookupObserver = new DBObserver<DataSnapshot>() {
             @Override
@@ -171,7 +168,7 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
 
-        DBHelper.makeCompletableFromPath("lookup/"+user.getUsername(), id).subscribe(new CompletableObserver() {
+        DBHelper.makeCompletableFromPath("lookup/" + user.getUsername(), id).subscribe(new CompletableObserver() {
             @Override
             public void onSubscribe(Disposable d) {
 

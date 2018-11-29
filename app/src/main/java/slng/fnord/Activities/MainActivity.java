@@ -32,21 +32,11 @@ public class MainActivity extends AppCompatActivity {
 
         //setting register button on main screen to open to the register screen
         register = (Button) findViewById(R.id.registerChoiceButton);
-        register.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openActivity(RegisterActivity.class);
-            }
-        });
+        register.setOnClickListener(view -> openActivity(RegisterActivity.class));
 
         //setting sign in button on main screen to open to the sign in screen
         signIn = (Button) findViewById(R.id.signInChoiceButton);
-        signIn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openActivity(SignInActivity.class);
-            }
-        });
+        signIn.setOnClickListener(view -> openActivity(SignInActivity.class));
 
         Observable<DataSnapshot> observable = DBHelper.makeObservableFromPath("services");
         Observer<DataSnapshot> observer = new DBObserver<DataSnapshot>() {

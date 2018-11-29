@@ -24,36 +24,16 @@ public class WelcomeAdministrator extends AppCompatActivity {
         textView.setText("Welcome " + SignInActivity.currentUser.getUsername() + ".");
 
         cserve = (Button) findViewById(R.id.createServiceChoiceButton);
-        cserve.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openView(CreateService.class);
-            }
-        });
+        cserve.setOnClickListener(view -> openView(CreateService.class));
 
         dserve = (Button) findViewById(R.id.deleteServiceChoiceButton);
-        dserve.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openView(DeleteService.class);
-            }
-        });
+        dserve.setOnClickListener(view -> openView(DeleteService.class));
 
         vserve = (Button) findViewById(R.id.viewServicesButton);
-        vserve.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openView(ViewService.class);
-            }
-        });
+        vserve.setOnClickListener(view -> openView(ViewService.class));
 
         eserve = (Button) findViewById(R.id.editServiceChoiceButton);
-        eserve.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openView(EditServicesSelect.class);
-            }
-        });
+        eserve.setOnClickListener(view -> openView(EditService.class));
     }
 
     public void openView(final Class<?> cls) {

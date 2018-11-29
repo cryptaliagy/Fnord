@@ -27,52 +27,16 @@ public class WelcomeServiceProvider extends AppCompatActivity {
         textView.setText("Welcome " + SignInActivity.currentUser.getUsername() + ".");
 
         SPViewProfile = (Button) findViewById(R.id.SPViewInfoChoice);
-        SPViewProfile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openView(SPViewProfile.class);
-            }
-        });
+        SPViewProfile.setOnClickListener(view -> openView(SPViewProfile.class));
 
         SPEditProfile = (Button) findViewById(R.id.SPEditInfoChoice);
-        SPEditProfile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openView(SPEditProfile.class);
-            }
-        });
-
-        SPAddService = (Button) findViewById(R.id.SPAddServiceChoice);
-        SPAddService.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openView(SPAddService.class);
-            }
-        });
-
-        SPDeleteService = (Button) findViewById(R.id.SPDeleteServiceChoice);
-        SPDeleteService.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openView(SPDeleteService.class);
-            }
-        });
+        SPEditProfile.setOnClickListener(view -> openView(SPEditProfile.class));
 
         SPViewService = (Button) findViewById(R.id.SPViewServiceChoice);
-        SPViewService.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openView(SPViewService.class);
-            }
-        });
+        SPViewService.setOnClickListener(view -> openView(SPViewService.class));
 
         SPAddAvailability = (Button) findViewById(R.id.SPAddAvailabilitiesChoice);
-        SPAddAvailability.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openView(SPAddAvailability.class);
-            }
-        });
+        SPAddAvailability.setOnClickListener(view -> openView(SPAddAvailability.class));
 
 
 

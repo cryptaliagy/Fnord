@@ -1,5 +1,6 @@
 package slng.fnord.Activities;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -21,7 +22,7 @@ public class SPAddService extends AppCompatActivity {
     private Button addService;
     private static Services ser = MainActivity.getServices();
     private static String currentService;
-    private static Boolean certified;
+    private static Boolean certified = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,39 +31,37 @@ public class SPAddService extends AppCompatActivity {
 
         Switch certifiedSwitch = findViewById(R.id.switch1);
 
-        certifiedSwitch.setOnCheckedChangeListener(((buttonView, isChecked) -> certified = isChecked ));
+        certifiedSwitch.setOnCheckedChangeListener(((buttonView, isChecked) -> certified = isChecked));
 
         initializeSpinner();
 
         addService = (Button) findViewById(R.id.SPAddServiceButton);
 
-        addService.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        addService.setOnClickListener(view -> {
+            currentService = addServicesSpinner.getSelectedItem().toString();
+
+
+            if (((ServiceProvider) SignInActivity.currentUser).getServiceList().contains(currentService)) {
+                Toast toast = Toast.makeText(getApplicationContext(), "Service has already been added", Toast.LENGTH_SHORT);
+                toast.show();
+                return;
+            } else {
                 currentService = addServicesSpinner.getSelectedItem().toString();
 
-
-                if (((ServiceProvider) SignInActivity.currentUser).getServiceList().contains(currentService)) {
-                    Toast toast = Toast.makeText(getApplicationContext(), "Service has already been added", Toast.LENGTH_SHORT);
-                    toast.show();
-                    return;
-                }
-                else {
-                    currentService = addServicesSpinner.getSelectedItem().toString();
-
-                    ((ServiceProvider) SignInActivity.currentUser).addService(currentService, certified);
-                    Toast toast = Toast.makeText(getApplicationContext(), "Service has been added", Toast.LENGTH_SHORT);
-                    DBHelper.updateUser(SignInActivity.currentUser);
-                    toast.show();
-                    return;
-                }
+                ((ServiceProvider) SignInActivity.currentUser).addService(currentService, certified);
+                Toast toast = Toast.makeText(getApplicationContext(), "Service has been added", Toast.LENGTH_SHORT);
+                DBHelper.updateUser(SignInActivity.currentUser);
+                toast.show();
+                return;
             }
         });
+
+        findViewById(R.id.backSPAddService).setOnClickListener(view -> startActivity(new Intent(this, SPViewService.class)));
 
     }
 
 
-    private void initializeSpinner(){
+    private void initializeSpinner() {
         addServicesSpinner = (Spinner) findViewById(R.id.addServiceSpinner);
         ArrayList<String> services = ser.asArrayList();
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, services);
