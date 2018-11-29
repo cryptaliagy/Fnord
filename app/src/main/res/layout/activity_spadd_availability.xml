@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -53,16 +53,6 @@
                 android:layout_weight="1"
                 android:text="Start" />
 
-            <EditText
-                android:id="@+id/mondayStartTime"
-                android:layout_width="50dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:ems="10"
-                android:hint="Time (24hr)"
-                android:inputType="time"
-                android:textSize="10sp" />
-
             <TextView
                 android:id="@+id/textView39"
                 android:layout_width="50dp"
@@ -71,15 +61,6 @@
                 android:text="End"
                 android:textAlignment="center" />
 
-            <EditText
-                android:id="@+id/mondayEndTime"
-                android:layout_width="50dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:ems="10"
-                android:hint="Time (24hr)"
-                android:inputType="time"
-                android:textSize="10sp" />
         </LinearLayout>
 
         <Space
@@ -105,16 +86,6 @@
                 android:layout_weight="1"
                 android:text="Start" />
 
-            <EditText
-                android:id="@+id/tuesdayStartTime"
-                android:layout_width="50dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:ems="10"
-                android:hint="Time (24hr)"
-                android:inputType="time"
-                android:textSize="10sp" />
-
             <TextView
                 android:id="@+id/textView71"
                 android:layout_width="50dp"
@@ -123,15 +94,6 @@
                 android:text="End"
                 android:textAlignment="center" />
 
-            <EditText
-                android:id="@+id/tuesdayEndTime"
-                android:layout_width="50dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:ems="10"
-                android:hint="Time (24hr)"
-                android:inputType="time"
-                android:textSize="10sp" />
         </LinearLayout>
 
         <Space
@@ -157,16 +119,6 @@
                 android:layout_weight="1"
                 android:text="Start" />
 
-            <EditText
-                android:id="@+id/wednesdayStartTime"
-                android:layout_width="50dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:ems="10"
-                android:hint="Time (24hr)"
-                android:inputType="time"
-                android:textSize="10sp" />
-
             <TextView
                 android:id="@+id/textView74"
                 android:layout_width="50dp"
@@ -175,15 +127,6 @@
                 android:text="End"
                 android:textAlignment="center" />
 
-            <EditText
-                android:id="@+id/wednesdayEndTime"
-                android:layout_width="50dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:ems="10"
-                android:hint="Time (24hr)"
-                android:inputType="time"
-                android:textSize="10sp" />
         </LinearLayout>
 
         <Space
@@ -209,16 +152,6 @@
                 android:layout_weight="1"
                 android:text="Start" />
 
-            <EditText
-                android:id="@+id/thursdayStartTime"
-                android:layout_width="50dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:ems="10"
-                android:hint="Time (24hr)"
-                android:inputType="time"
-                android:textSize="10sp" />
-
             <TextView
                 android:id="@+id/textView77"
                 android:layout_width="50dp"
@@ -227,15 +160,6 @@
                 android:text="End"
                 android:textAlignment="center" />
 
-            <EditText
-                android:id="@+id/thursdayEndTime"
-                android:layout_width="50dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:ems="10"
-                android:hint="Time (24hr)"
-                android:inputType="time"
-                android:textSize="10sp" />
         </LinearLayout>
 
         <Space
@@ -261,16 +185,6 @@
                 android:layout_weight="1"
                 android:text="Start" />
 
-            <EditText
-                android:id="@+id/fridayStartTime"
-                android:layout_width="50dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:ems="10"
-                android:hint="Time (24hr)"
-                android:inputType="time"
-                android:textSize="10sp" />
-
             <TextView
                 android:id="@+id/textView80"
                 android:layout_width="50dp"
@@ -279,15 +193,6 @@
                 android:text="End"
                 android:textAlignment="center" />
 
-            <EditText
-                android:id="@+id/fridayEndTime"
-                android:layout_width="50dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:ems="10"
-                android:hint="Time (24hr)"
-                android:inputType="time"
-                android:textSize="10sp" />
         </LinearLayout>
 
         <Space
@@ -313,16 +218,6 @@
                 android:layout_weight="1"
                 android:text="Start" />
 
-            <EditText
-                android:id="@+id/saturdayStartTime"
-                android:layout_width="50dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:ems="10"
-                android:hint="Time (24hr)"
-                android:inputType="time"
-                android:textSize="10sp" />
-
             <TextView
                 android:id="@+id/textView83"
                 android:layout_width="50dp"
@@ -331,15 +226,6 @@
                 android:text="End"
                 android:textAlignment="center" />
 
-            <EditText
-                android:id="@+id/saturdayEndTime"
-                android:layout_width="50dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:ems="10"
-                android:hint="Time (24hr)"
-                android:inputType="time"
-                android:textSize="10sp" />
         </LinearLayout>
 
         <Space
@@ -365,16 +251,6 @@
                 android:layout_weight="1"
                 android:text="Start" />
 
-            <EditText
-                android:id="@+id/sundayStartTime"
-                android:layout_width="50dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:ems="10"
-                android:hint="Time (24hr)"
-                android:inputType="time"
-                android:textSize="10sp" />
-
             <TextView
                 android:id="@+id/textView86"
                 android:layout_width="50dp"
@@ -383,15 +259,6 @@
                 android:text="End"
                 android:textAlignment="center" />
 
-            <EditText
-                android:id="@+id/sundayEndTime"
-                android:layout_width="50dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:ems="10"
-                android:hint="Time (24hr)"
-                android:inputType="time"
-                android:textSize="10sp" />
         </LinearLayout>
 
         <Space
@@ -408,4 +275,4 @@
 
     </LinearLayout>
 
-</android.support.constraint.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
