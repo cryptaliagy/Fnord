@@ -15,8 +15,12 @@ import java.util.function.Consumer;
 import io.reactivex.Completable;
 import io.reactivex.Observable;
 import slng.fnord.Helpers.Common;
+import slng.fnord.Structures.Administrator;
+import slng.fnord.Structures.HomeOwner;
+import slng.fnord.Structures.ServiceProvider;
 import slng.fnord.Structures.Services;
 import slng.fnord.Structures.User;
+import slng.fnord.Structures.UserTypes;
 
 public class DBHelper {
     public static Observable<DataSnapshot> makeObservableFromPath(final String path) {
@@ -97,4 +101,44 @@ public class DBHelper {
             }
         });
     }
+
+    public static void getUserByID(String id, Consumer<User> callback) {
+        DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference("users/" + id);
+
+        dbRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (!dataSnapshot.exists()) {
+                    callback.accept(null);
+                }
+
+                User dbUser = null;
+                UserTypes type = dataSnapshot.child("type").getValue(UserTypes.class);
+                switch (type) {
+                    case ADMIN:
+                        dbUser = dataSnapshot.getValue(Administrator.class);
+                        break;
+                    case HOMEOWNER:
+                        dbUser = dataSnapshot.getValue(HomeOwner.class);
+                        break;
+                    case SERVICEPROVIDER:
+                        dbUser = dataSnapshot.getValue(ServiceProvider.class);
+                        break;
+                }
+
+                callback.accept(dbUser);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                callback.accept(null);
+
+            }
+        });
+    }
+
+    public static void getUser(String email, Consumer<User> callback) {
+        getUserByID(Common.makeMD5(email), callback);
+    }
+
 }
