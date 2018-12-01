@@ -88,9 +88,9 @@ public class Common {
         return null; // In theory impossible
     }
 
-    public static HashMap<String, Pair<String, String>> makeBlankAvail() {
-        HashMap<String, Pair<String, String>> availability = new HashMap<>();
-        Pair<String, String> blankAvail = new Pair<>("", "");
+    public static HashMap<String, Pair<Integer, Integer>> makeBlankAvail() {
+        HashMap<String, Pair<Integer, Integer>> availability = new HashMap<>();
+        Pair<Integer, Integer> blankAvail = new Pair<>(-1, -1);
         availability.put("Monday", blankAvail);
         availability.put("Tuesday", blankAvail);
         availability.put("Wednesday", blankAvail);

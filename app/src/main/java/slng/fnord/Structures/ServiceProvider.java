@@ -14,7 +14,7 @@ public class ServiceProvider extends User {
     private String address;
     private String company;
     private String biography;
-    private HashMap<String, Pair<String, String>> availability;
+    private HashMap<String, Pair<Integer, Integer>> availability;
 
     // Necessary for DB
     public ServiceProvider() {
@@ -56,7 +56,7 @@ public class ServiceProvider extends User {
         Pair<Boolean, String> newInfo;
 
         if (info != null) {
-            newInfo = new Pair<>(certified, info.second);
+            newInfo = new Pair<>(certified, info.getSecond());
         } else {
             newInfo = new Pair<>(certified, "");
         }
@@ -69,7 +69,7 @@ public class ServiceProvider extends User {
             return false;
         }
 
-        return services.get(serviceName).first;
+        return services.get(serviceName).getFirst();
     }
 
     public String getPhone() {
@@ -104,16 +104,20 @@ public class ServiceProvider extends User {
         this.biography = biography;
     }
 
-    public void setAvailability(HashMap<String, Pair<String, String>> availability) {
+    public void setAvailability(HashMap<String, Pair<Integer, Integer>> availability) {
         this.availability = availability;
     }
 
-    public HashMap<String, Pair<String, String>> getAvailability() {
+    public HashMap<String, Pair<Integer, Integer>> getAvailability() {
         return this.availability;
     }
 
-    public Pair<String, String> getDayAvailability(String day) {
+    public Pair<Integer, Integer> getDayAvailability(String day) {
         return availability.get(day);
+    }
+
+    public void setDayAvailability(String day, Pair<Integer, Integer> availability) {
+        this.availability.put(day, availability);
     }
 
 
