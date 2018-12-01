@@ -100,13 +100,5 @@ public class ServicesManager {
         });
     }
 
-    private void printCalled(Optional<Service> optionalService) {
-        if (optionalService.isPresent()) {
-            System.out.println(optionalService.get().getServiceRate());
-        } else {
-            System.out.println("null");
-        }
-    }
-
 
 }
