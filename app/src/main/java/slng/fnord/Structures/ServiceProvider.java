@@ -1,7 +1,6 @@
 package slng.fnord.Structures;
 
 
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -15,7 +14,7 @@ public class ServiceProvider extends User {
     private String address;
     private String company;
     private String biography;
-    private HashMap<String, Pair<String, String>> availability;
+    private HashMap<String, Pair<Integer, Integer>> availability;
 
     // Necessary for DB
     public ServiceProvider() {
@@ -39,9 +38,7 @@ public class ServiceProvider extends User {
         addService(serviceName, false);
     }
 
-    public void removeService(String serviceName) {
-        services.remove(serviceName);
-    }
+    public void removeService(String id) { services.remove(id); }
 
     public List<String> getServiceList() {
         if (services == null) {
@@ -56,10 +53,15 @@ public class ServiceProvider extends User {
 
     public void updateCertified(String serviceName, boolean certified) {
         Pair<Boolean, String> info = services.get(serviceName);
+        Pair<Boolean, String> newInfo;
 
         if (info != null) {
-            Pair<Boolean, String> newInfo = new Pair<>(certified, info.second);
+            newInfo = new Pair<>(certified, info.getSecond());
+        } else {
+            newInfo = new Pair<>(certified, "");
         }
+
+        services.put(serviceName, newInfo);
     }
 
     public boolean isCertified(String serviceName) {
@@ -67,7 +69,7 @@ public class ServiceProvider extends User {
             return false;
         }
 
-        return services.get(serviceName).first;
+        return services.get(serviceName).getFirst();
     }
 
     public String getPhone() {
@@ -102,16 +104,20 @@ public class ServiceProvider extends User {
         this.biography = biography;
     }
 
-    public void setAvailability(HashMap<String, Pair<String, String>> availability) {
+    public void setAvailability(HashMap<String, Pair<Integer, Integer>> availability) {
         this.availability = availability;
     }
 
-    public HashMap<String, Pair<String, String>> getAvailability() {
+    public HashMap<String, Pair<Integer, Integer>> getAvailability() {
         return this.availability;
     }
 
-    public Pair<String, String> getDayAvailability(String day) {
+    public Pair<Integer, Integer> getDayAvailability(String day) {
         return availability.get(day);
+    }
+
+    public void setDayAvailability(String day, Pair<Integer, Integer> availability) {
+        this.availability.put(day, availability);
     }
 
 

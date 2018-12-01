@@ -1,9 +1,8 @@
 package slng.fnord.Activities;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -23,37 +22,17 @@ public class WelcomeAdministrator extends AppCompatActivity {
         TextView textView = (TextView) findViewById(R.id.welcomeAdmin);
         textView.setText("Welcome " + SignInActivity.currentUser.getUsername() + ".");
 
-        cserve = (Button) findViewById(R.id.createServiceChoiceButton);
-        cserve.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openView(CreateService.class);
-            }
-        });
+        cserve = findViewById(R.id.createServiceChoiceButton);
+        cserve.setOnClickListener(view -> openView(CreateService.class));
 
-        dserve = (Button) findViewById(R.id.deleteServiceChoiceButton);
-        dserve.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openView(DeleteService.class);
-            }
-        });
+        dserve = findViewById(R.id.deleteServiceChoiceButton);
+        dserve.setOnClickListener(view -> openView(DeleteService.class));
 
-        vserve = (Button) findViewById(R.id.viewServicesButton);
-        vserve.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openView(ViewService.class);
-            }
-        });
+        vserve = findViewById(R.id.viewServicesButton);
+        vserve.setOnClickListener(view -> openView(ViewService.class));
 
-        eserve = (Button) findViewById(R.id.editServiceChoiceButton);
-        eserve.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openView(EditServicesSelect.class);
-            }
-        });
+        eserve = findViewById(R.id.editServiceChoiceButton);
+        eserve.setOnClickListener(view -> openView(EditService.class));
     }
 
     public void openView(final Class<?> cls) {

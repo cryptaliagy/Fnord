@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background"
-    tools:context=".Activities.SPAddService">
+    tools:context=".Activities.SPServiceView">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -18,78 +18,78 @@
             android:layout_height="25dp" />
 
         <TextView
-            android:id="@+id/textView32"
+            android:id="@+id/textView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="cursive"
-            android:text="Add Service"
+            android:text="View Service"
             android:textAlignment="center"
             android:textColor="@color/common_google_signin_btn_text_dark_focused"
             android:textSize="36sp" />
 
         <Space
             android:layout_width="match_parent"
-            android:layout_height="25dp" />
+            android:layout_height="75dp" />
 
         <TextView
-            android:id="@+id/textView33"
+            android:id="@+id/serviceNameTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Select a Service to add to your profile:"
+            android:text="TextView"
             android:textAlignment="center" />
-
-        <Spinner
-            android:id="@+id/addServiceSpinner"
-            android:layout_width="350dp"
-            android:layout_height="wrap_content"
-            android:background="@android:drawable/btn_dropdown"
-            android:popupBackground="@android:drawable/editbox_dropdown_light_frame" />
-
-        <Switch
-            android:id="@+id/switch1"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:checked="false"
-            android:text="Certified" />
 
         <Space
             android:layout_width="match_parent"
             android:layout_height="25dp" />
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
             android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/rateTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Rate" />
 
             <Space
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1" />
 
+            <TextView
+                android:id="@+id/rateValueTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView" />
+        </LinearLayout>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="75dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
             <Button
-                android:id="@+id/backSPAddService"
-                android:layout_width="100dp"
+                android:id="@+id/backSPServiceView"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:onClick="onClick"
                 android:text="Back" />
 
-            <Space
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1" />
-
             <Button
-                android:id="@+id/SPAddServiceButton"
-                android:layout_width="150dp"
-                android:layout_height="wrap_content"
-                android:text="Add Service" />
-
-            <Space
+                android:id="@+id/removeSPServiceView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:onClick="onClick"
+                android:text="Remove" />
         </LinearLayout>
-
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

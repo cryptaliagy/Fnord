@@ -1,9 +1,8 @@
 package slng.fnord.Activities;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -37,7 +36,7 @@ public class RegisterActivity extends AppCompatActivity {
         setContentView(R.layout.activity_register);
 
         //creating a spinner/dropdown list for the register screen
-        final Spinner accountSpinner = (Spinner) findViewById(R.id.accountTypeSpinner);
+        final Spinner accountSpinner = findViewById(R.id.accountTypeSpinner);
         ArrayAdapter<String> myAdapter = new ArrayAdapter<>(RegisterActivity.this,
                 android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.accountTypes));
         myAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -45,56 +44,51 @@ public class RegisterActivity extends AppCompatActivity {
 
         //making register button on register screen work/add stuff to account Accounts arraylists
         //it shall open the appropriate welcome screen, as well as add the account to the list
-        register2 = (Button) findViewById(R.id.registerButton);
-        register2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                EditText emailText = (EditText) findViewById(R.id.registerEmail);
-                email = emailText.getText().toString();
+        register2 = findViewById(R.id.registerButton);
+        register2.setOnClickListener(view -> {
+            EditText emailText = findViewById(R.id.registerEmail);
+            email = emailText.getText().toString();
 
-                EditText passwordText = (EditText) findViewById(R.id.registerPassword);
-                password = passwordText.getText().toString();
+            EditText passwordText = findViewById(R.id.registerPassword);
+            password = passwordText.getText().toString();
 
-                EditText usernameText = (EditText) findViewById(R.id.registerUsername);
-                username = usernameText.getText().toString();
+            EditText usernameText = findViewById(R.id.registerUsername);
+            username = usernameText.getText().toString();
 
-                accountType = accountSpinner.getSelectedItem().toString();
+            accountType = accountSpinner.getSelectedItem().toString();
 
-                Toast toast = null;
-
-                if (!Common.validateEmail(email)) {
-                    showToast("Email is invalid");
-                    return;
-                }
-
-                if (!Common.validatePassword(password)) {
-                    showToast("Password is invalid");
-                    return;
-                }
-
-                if (!Common.validateUser(username)) {
-                    showToast("Username is invalid");
-                    return;
-                }
-
-                UserTypes type = null;
-
-                if (accountType.equals("HomeOwner")) {
-                    type = HOMEOWNER;
-                } else if (accountType.equals("ServiceProvider")) {
-                    type = SERVICEPROVIDER;
-                }
-
-                User user = Common.makeUser(email, username, password, type);
-
-                checkEmailExists(user);
+            if (!Common.validateEmail(email)) {
+                showToast("Email is invalid");
+                return;
             }
+
+            if (!Common.validatePassword(password)) {
+                showToast("Password is invalid");
+                return;
+            }
+
+            if (!Common.validateUser(username)) {
+                showToast("Username is invalid");
+                return;
+            }
+
+            UserTypes type;
+
+            if (accountType.equals("HomeOwner")) {
+                type = HOMEOWNER;
+            } else  {
+                type = SERVICEPROVIDER;
+            }
+
+            User user = Common.makeUser(email, username, password, type);
+
+            checkEmailExists(user);
         });
     }
 
     public void checkEmailExists(final User user) {
         String id = Common.makeMD5(user.getEmail());
-        Observable<DataSnapshot> userObservable = DBHelper.makeObservableFromPath("users/"+id);
+        Observable<DataSnapshot> userObservable = DBHelper.makeObservableFromPath("users/" + id);
 
         DBObserver<DataSnapshot> userObserver = new DBObserver<DataSnapshot>() {
             @Override
@@ -112,7 +106,7 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     public void checkUsernameExists(final User user) {
-        Observable<DataSnapshot> lookupObservable = DBHelper.makeObservableFromPath("lookup/"+user.getUsername());
+        Observable<DataSnapshot> lookupObservable = DBHelper.makeObservableFromPath("lookup/" + user.getUsername());
 
         DBObserver<DataSnapshot> lookupObserver = new DBObserver<DataSnapshot>() {
             @Override
@@ -153,7 +147,6 @@ public class RegisterActivity extends AppCompatActivity {
         DBHelper.makeCompletableFromPath("users/" + id, user).subscribe(new CompletableObserver() {
             @Override
             public void onSubscribe(Disposable d) {
-                System.out.println("Subscribed");
 
             }
 
@@ -167,11 +160,10 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onError(Throwable e) {
                 e.printStackTrace();
-
             }
         });
 
-        DBHelper.makeCompletableFromPath("lookup/"+user.getUsername(), id).subscribe(new CompletableObserver() {
+        DBHelper.makeCompletableFromPath("lookup/" + user.getUsername(), id).subscribe(new CompletableObserver() {
             @Override
             public void onSubscribe(Disposable d) {
 

@@ -1,9 +1,8 @@
 package slng.fnord.Activities;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 
 import com.google.firebase.database.DataSnapshot;
@@ -34,22 +33,12 @@ public class MainActivity extends AppCompatActivity {
         services = new Services();
 
         //setting register button on main screen to open to the register screen
-        register = (Button) findViewById(R.id.registerChoiceButton);
-        register.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openActivity(RegisterActivity.class);
-            }
-        });
+        register = findViewById(R.id.registerChoiceButton);
+        register.setOnClickListener(view -> openActivity(RegisterActivity.class));
 
         //setting sign in button on main screen to open to the sign in screen
-        signIn = (Button) findViewById(R.id.signInChoiceButton);
-        signIn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openActivity(SignInActivity.class);
-            }
-        });
+        signIn = findViewById(R.id.signInChoiceButton);
+        signIn.setOnClickListener(view -> openActivity(SignInActivity.class));
 
         Observable<DataSnapshot> observable = DBHelper.makeObservableFromPath("services");
         Observer<DataSnapshot> observer = new DBObserver<DataSnapshot>() {

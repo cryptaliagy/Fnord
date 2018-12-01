@@ -1,13 +1,18 @@
 package slng.fnord.Activities;
 
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
+
 import java.util.HashMap;
 
+import slng.fnord.Database.DBHelper;
 import slng.fnord.Helpers.Common;
 import slng.fnord.Helpers.Pair;
 import slng.fnord.R;
@@ -15,131 +20,111 @@ import slng.fnord.Structures.ServiceProvider;
 
 public class SPAddAvailability extends AppCompatActivity {
     ServiceProvider serviceProvider = (ServiceProvider) SignInActivity.currentUser;
+    HashMap<String, Pair<Integer, Integer>> currentAvailability = serviceProvider.getAvailability();
+    HashMap<String, Pair<Integer, Integer>> newAvailability = new HashMap<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_spadd_availability);
 
-        EditText mondayStart = (EditText) findViewById(R.id.mondayStartTime);
-        EditText mondayEnd = (EditText) findViewById(R.id.mondayEndTime);
-
-        EditText tuesdayStart = (EditText) findViewById(R.id.tuesdayStartTime);
-        EditText tuesdayEnd = (EditText) findViewById(R.id.tuesdayEndTime);
-
-        EditText wednesdayStart = (EditText) findViewById(R.id.wednesdayStartTime);
-        EditText wednesdayEnd = (EditText) findViewById(R.id.wednesdayEndTime);
-
-        EditText thursdayStart = (EditText) findViewById(R.id.thursdayStartTime);
-        EditText thursdayEnd = (EditText) findViewById(R.id.thursdayEndTime);
-
-        EditText fridayStart = (EditText) findViewById(R.id.fridayStartTime);
-        EditText fridayEnd = (EditText) findViewById(R.id.fridayEndTime);
-
-        EditText saturdayStart = (EditText) findViewById(R.id.saturdayStartTime);
-        EditText saturdayEnd = (EditText) findViewById(R.id.saturdayEndTime);
-
-        EditText sundayStart = (EditText) findViewById(R.id.sundayStartTime);
-        EditText sundayEnd = (EditText) findViewById(R.id.sundayEndTime);
-
-        mondayStart.setText(serviceProvider.getDayAvailability("Monday").first);
-        mondayEnd.setText(serviceProvider.getDayAvailability("Monday").second);
-
-        tuesdayStart.setText(serviceProvider.getDayAvailability("Tuesday").first);
-        tuesdayEnd.setText(serviceProvider.getDayAvailability("Tuesday").second);
-
-        wednesdayStart.setText(serviceProvider.getDayAvailability("Wednesday").first);
-        wednesdayEnd.setText(serviceProvider.getDayAvailability("Wednesday").second);
-
-        thursdayStart.setText(serviceProvider.getDayAvailability("Thursday").first);
-        thursdayEnd.setText(serviceProvider.getDayAvailability("Thursday").second);
-
-        fridayStart.setText(serviceProvider.getDayAvailability("Friday").first);
-        fridayEnd.setText(serviceProvider.getDayAvailability("Friday").second);
-
-        saturdayStart.setText(serviceProvider.getDayAvailability("Saturday").first);
-        saturdayEnd.setText(serviceProvider.getDayAvailability("Saturday").second);
-
-        sundayStart.setText(serviceProvider.getDayAvailability("Sunday").first);
-        sundayEnd.setText(serviceProvider.getDayAvailability("Sunday").second);
-
-
-    }
-
-    public void onClick(View view) {
-        EditText mondayStart = (EditText) findViewById(R.id.mondayStartTime);
-        EditText mondayEnd = (EditText) findViewById(R.id.mondayEndTime);
-
-        EditText tuesdayStart = (EditText) findViewById(R.id.tuesdayStartTime);
-        EditText tuesdayEnd = (EditText) findViewById(R.id.tuesdayEndTime);
-
-        EditText wednesdayStart = (EditText) findViewById(R.id.wednesdayStartTime);
-        EditText wednesdayEnd = (EditText) findViewById(R.id.wednesdayEndTime);
-
-        EditText thursdayStart = (EditText) findViewById(R.id.thursdayStartTime);
-        EditText thursdayEnd = (EditText) findViewById(R.id.thursdayEndTime);
-
-        EditText fridayStart = (EditText) findViewById(R.id.fridayStartTime);
-        EditText fridayEnd = (EditText) findViewById(R.id.fridayEndTime);
-
-        EditText saturdayStart = (EditText) findViewById(R.id.saturdayStartTime);
-        EditText saturdayEnd = (EditText) findViewById(R.id.saturdayEndTime);
-
-        EditText sundayStart = (EditText) findViewById(R.id.sundayStartTime);
-        EditText sundayEnd = (EditText) findViewById(R.id.sundayEndTime);
-
-
-        String mondayStartText = mondayStart.getText().toString();
-        String mondayEndText = mondayEnd.getText().toString();
-
-        String tuesdayStartText = tuesdayStart.getText().toString();
-        String tuesdayEndText = tuesdayEnd.getText().toString();
-
-        String wednesdayStartText = wednesdayStart.getText().toString();
-        String wednesdayEndText = wednesdayEnd.getText().toString();
-
-        String thursdayStartText = thursdayStart.getText().toString();
-        String thursdayEndText = thursdayEnd.getText().toString();
-
-        String fridayStartText = fridayStart.getText().toString();
-        String fridayEndText = fridayEnd.getText().toString();
-
-        String saturdayStartText = saturdayStart.getText().toString();
-        String saturdayEndText = saturdayEnd.getText().toString();
-
-        String sundayStartText = sundayStart.getText().toString();
-        String sundayEndText = sundayEnd.getText().toString();
-
-        if (!Common.validateTime(mondayStartText) ||
-                !Common.validateTime(mondayEndText) ||
-                !Common.validateTime(tuesdayStartText) ||
-                !Common.validateTime(tuesdayEndText) ||
-                !Common.validateTime(wednesdayStartText) ||
-                !Common.validateTime(wednesdayEndText) ||
-                !Common.validateTime(thursdayStartText) ||
-                !Common.validateTime(thursdayEndText) ||
-                !Common.validateTime(fridayStartText) ||
-                !Common.validateTime(fridayEndText) ||
-                !Common.validateTime(saturdayStartText) ||
-                !Common.validateTime(saturdayEndText) ||
-                !Common.validateTime(sundayStartText) ||
-                !Common.validateTime(sundayEndText)) {
-            Toast.makeText(getApplicationContext(), "Invalid availability", Toast.LENGTH_LONG).show();
-            return;
+        for (String key : currentAvailability.keySet()) {
+            newAvailability.put(key, currentAvailability.get(key).clone());
         }
 
-        HashMap<String, Pair<String, String>> availability = new HashMap<>();
+        Button mondayStartTimebtn = findViewById(R.id.mondayStartTime);
+        Button mondayEndTimebtn = findViewById(R.id.mondayEndTime);
 
-        availability.put("Monday", new Pair<>(mondayStartText, mondayEndText));
-        availability.put("Tuesday", new Pair<>(tuesdayStartText, tuesdayEndText));
-        availability.put("Wednesday", new Pair<>(wednesdayStartText, wednesdayEndText));
-        availability.put("Thursday", new Pair<>(thursdayStartText, thursdayEndText));
-        availability.put("Friday", new Pair<>(fridayStartText, fridayEndText));
-        availability.put("Saturday", new Pair<>(saturdayStartText, saturdayEndText));
-        availability.put("Sunday", new Pair<>(sundayStartText, sundayEndText));
+        Button tuesdayStartTimebtn = findViewById(R.id.tuesdayStartTime);
+        Button tuesdayEndTimebtn = findViewById(R.id.tuesdayEndTime);
 
-        serviceProvider.setAvailability(availability);
-        Toast.makeText(getApplicationContext(), "Availability updated!", Toast.LENGTH_SHORT).show();
+        Button wednesdayStartTimebtn = findViewById(R.id.wednesdayStartTime);
+        Button wednesdayEndTimebtn = findViewById(R.id.wednesdayEndTime);
 
+        Button thursdayStartTimebtn = findViewById(R.id.thursdayStartTime);
+        Button thursdayEndTimebtn = findViewById(R.id.thursdayEndTime);
+
+        Button fridayStartTimebtn = findViewById(R.id.fridayStartTime);
+        Button fridayEndTimebtn = findViewById(R.id.fridayEndTime);
+
+        Button saturdayStartTimebtn = findViewById(R.id.saturdayStartTime);
+        Button saturdayEndTimebtn = findViewById(R.id.saturdayEndTime);
+
+        Button sundayStartTimebtn = findViewById(R.id.sundayStartTime);
+        Button sundayEndTimebtn = findViewById(R.id.sundayEndTime);
+
+        createTimePickerDialog(mondayStartTimebtn,      mondayEndTimebtn,       "Monday");
+        createTimePickerDialog(tuesdayStartTimebtn,     tuesdayEndTimebtn,      "Tuesday");
+        createTimePickerDialog(wednesdayStartTimebtn,   wednesdayEndTimebtn,    "Wednesday");
+        createTimePickerDialog(thursdayStartTimebtn,    thursdayEndTimebtn,     "Thursday");
+        createTimePickerDialog(fridayStartTimebtn,      fridayEndTimebtn,       "Friday");
+        createTimePickerDialog(saturdayStartTimebtn,    saturdayEndTimebtn,     "Saturday");
+        createTimePickerDialog(sundayStartTimebtn,      sundayEndTimebtn,       "Sunday");
+
+        Button updateButton = findViewById(R.id.updateAvailibility);
+
+        updateButton.setOnClickListener(view -> {
+            serviceProvider.setAvailability(newAvailability);
+            DBHelper.updateUser(serviceProvider);
+            Toast.makeText(getApplicationContext(), "Availability updated!", Toast.LENGTH_SHORT).show();
+        });
+    }
+
+    public void createTimePickerDialog(Button startTime, Button endTime, String day) {
+        TimePickerDialog startTimeDialog;
+        TimePickerDialog endTimeDialog;
+
+        Pair<Integer, Integer> dayAvailability = newAvailability.get(day).clone();
+
+        if (dayAvailability.getFirst() > 0) {
+            startTime.setText(dayAvailability.getFirst() + ":00");
+        }
+
+        if (dayAvailability.getSecond() > 0) {
+            endTime.setText(dayAvailability.getSecond() + ":00");
+        }
+
+
+        startTimeDialog = TimePickerDialog.newInstance(
+                ((view, hourOfDay, minute, second) -> {
+                    dayAvailability.setFirst(hourOfDay);
+                    startTime.setText(dayAvailability.getFirst() + ":00");
+                    newAvailability.put(day, dayAvailability);
+                }),
+                0, 0, 0, true);
+
+        endTimeDialog = TimePickerDialog.newInstance(
+                ((view, hourOfDay, minute, second) -> {
+                    dayAvailability.setSecond(hourOfDay);
+                    endTime.setText(dayAvailability.getSecond() + ":00");
+                    newAvailability.put(day, dayAvailability);
+                }),
+                23, 0, 0, true);
+
+        startTimeDialog.enableMinutes(false);
+        startTimeDialog.enableSeconds(false);
+
+        endTimeDialog.enableMinutes(false);
+        endTimeDialog.enableSeconds(false);
+
+        startTime.setOnClickListener(view -> {
+            int currentEndTime = dayAvailability.getSecond();
+
+            if (currentEndTime > 0) {
+                startTimeDialog.setMaxTime(currentEndTime, 0, 0);
+            }
+
+            startTimeDialog.show(getSupportFragmentManager(), "Select start time");
+        });
+
+        endTime.setOnClickListener( view -> {
+            int currentStartTime = dayAvailability.getFirst();
+
+            if (currentStartTime > 0) {
+                endTimeDialog.setMinTime(currentStartTime, 0, 0);
+            }
+
+            endTimeDialog.show(getSupportFragmentManager(), "Select end time");
+        });
     }
 }
