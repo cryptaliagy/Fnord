@@ -1,4 +1,4 @@
-package slng.fnord.Activities;
+package slng.fnord.Activities.ServiceProvider;
 
 import android.content.Intent;
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,29 +10,35 @@ import android.widget.Switch;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
+import slng.fnord.Activities.Shared.MainActivity;
+import slng.fnord.Activities.Shared.SignInActivity;
 import slng.fnord.Database.DBHelper;
+import slng.fnord.Managers.ServicesManager;
 import slng.fnord.R;
 import slng.fnord.Structures.ServiceProvider;
 import slng.fnord.Structures.Services;
 
-public class SPAddService extends AppCompatActivity {
+public class AddService extends AppCompatActivity {
     private Spinner addServicesSpinner;
     private Button addService;
-    private static Services ser = MainActivity.getServices();
     private static String currentService;
     private static Boolean certified = false;
+    private ServicesManager manager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_spadd_service);
 
+        manager = new ServicesManager(new DBHelper());
+
         Switch certifiedSwitch = findViewById(R.id.switch1);
 
         certifiedSwitch.setOnCheckedChangeListener(((buttonView, isChecked) -> certified = isChecked));
 
-        initializeSpinner();
+        manager.getServiceNamesArrayList(this::initializeSpinner);
 
         addService = findViewById(R.id.SPAddServiceButton);
 
@@ -45,19 +51,23 @@ public class SPAddService extends AppCompatActivity {
                 currentService = addServicesSpinner.getSelectedItem().toString();
 
                 ((ServiceProvider) SignInActivity.currentUser).addService(currentService, certified);
-                DBHelper.updateUser(SignInActivity.currentUser);
+                new DBHelper().updateUser(SignInActivity.currentUser);
                 Toast.makeText(getApplicationContext(), "Service has been added", Toast.LENGTH_SHORT).show();
             }
         });
 
-        findViewById(R.id.backSPAddService).setOnClickListener(view -> startActivity(new Intent(this, SPViewService.class)));
+        findViewById(R.id.backSPAddService).setOnClickListener(view -> startActivity(new Intent(this, ViewServices.class)));
 
     }
 
 
-    private void initializeSpinner() {
+    private void initializeSpinner(Optional<ArrayList<String>> servicesOptional) {
+        if (!servicesOptional.isPresent()) {
+            return;
+        }
+
+        ArrayList<String> services = servicesOptional.get();
         addServicesSpinner = findViewById(R.id.addServiceSpinner);
-        ArrayList<String> services = ser.asArrayList();
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, services);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         addServicesSpinner.setAdapter(adapter);

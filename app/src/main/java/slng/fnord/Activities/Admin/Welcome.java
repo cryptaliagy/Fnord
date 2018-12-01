@@ -1,4 +1,4 @@
-package slng.fnord.Activities;
+package slng.fnord.Activities.Admin;
 
 import android.content.Intent;
 import androidx.appcompat.app.AppCompatActivity;
@@ -6,9 +6,10 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
 
+import slng.fnord.Activities.Shared.SignInActivity;
 import slng.fnord.R;
 
-public class WelcomeAdministrator extends AppCompatActivity {
+public class Welcome extends AppCompatActivity {
     private Button cserve;
     private Button dserve;
     private Button vserve;
@@ -20,19 +21,16 @@ public class WelcomeAdministrator extends AppCompatActivity {
         setContentView(R.layout.activity_welcome_administrator);
         //setting a custom message showing the username of the account
         TextView textView = (TextView) findViewById(R.id.welcomeAdmin);
-        textView.setText("Welcome " + SignInActivity.currentUser.getUsername() + ".");
+        textView.setText("Welcome " + SignInActivity.currentUser.getEmail() + ".");
 
         cserve = findViewById(R.id.createServiceChoiceButton);
         cserve.setOnClickListener(view -> openView(CreateService.class));
-
-        dserve = findViewById(R.id.deleteServiceChoiceButton);
-        dserve.setOnClickListener(view -> openView(DeleteService.class));
 
         vserve = findViewById(R.id.viewServicesButton);
         vserve.setOnClickListener(view -> openView(ViewService.class));
 
         eserve = findViewById(R.id.editServiceChoiceButton);
-        eserve.setOnClickListener(view -> openView(EditService.class));
+        eserve.setOnClickListener(view -> openView(EditServicesSelect.class));
     }
 
     public void openView(final Class<?> cls) {

@@ -1,16 +1,16 @@
-package slng.fnord.Activities;
+package slng.fnord.Activities.HomeOwner;
 
 import android.os.Bundle;
 import android.app.Activity;
 
 import slng.fnord.R;
 
-public class HOsearchResults extends Activity {
+public class BookingList extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_hosearch_results);
+        setContentView(R.layout.activity_hobooking_list);
     }
 
 }

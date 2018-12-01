@@ -1,13 +1,14 @@
-package slng.fnord.Activities;
+package slng.fnord.Activities.ServiceProvider;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
 
+import slng.fnord.Activities.Shared.SignInActivity;
 import slng.fnord.R;
 import slng.fnord.Structures.ServiceProvider;
 
-public class SPViewProfile extends AppCompatActivity {
+public class ViewProfile extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
