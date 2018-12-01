@@ -3,9 +3,12 @@ package slng.fnord.Structures;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class Service {
+import slng.fnord.Helpers.Interfaces.Identifiable;
+
+public class Service implements Identifiable {
     private String serviceName;
     private double serviceRate;
+    private String id;
 
     // HashMap holds 'true' if provider is certified, 'false' if not
     private HashMap<String, ServiceProviderMeta> providers;
@@ -70,5 +73,13 @@ public class Service {
 
     public void setProviders(HashMap<String, ServiceProviderMeta> providers) {
         this.providers = providers;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 }

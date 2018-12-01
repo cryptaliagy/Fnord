@@ -1,4 +1,4 @@
-package slng.fnord.Activities;
+package slng.fnord.Activities.Admin;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
@@ -6,13 +6,19 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import slng.fnord.Activities.Shared.MainActivity;
 import slng.fnord.Helpers.Common;
 import slng.fnord.Database.DBHelper;
+import slng.fnord.Managers.ServicesManager;
 import slng.fnord.R;
+import slng.fnord.Structures.Service;
 import slng.fnord.Structures.Services;
 
 public class EditService extends AppCompatActivity {
     private Button confirm;
+    ServicesManager manager = new ServicesManager(new DBHelper());
+    String newServiceName;
+    String rate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,47 +38,51 @@ public class EditService extends AppCompatActivity {
             //i.e. if the new service we are trying to add is blank or if it already exists, we make a toast saying it was not added (and ofc it wasnt added)
 
             if (serviceView.getText().toString().isEmpty() || rateView.getText().toString().isEmpty()) {
-                Toast toastBlank = Toast.makeText(getApplicationContext(), "That Field Cannot Be Blank.", Toast.LENGTH_SHORT);
-                toastBlank.show();
+                Toast.makeText(getApplicationContext(), "That Field Cannot Be Blank.",
+                        Toast.LENGTH_SHORT).show();
                 return;
 
             }
 
-            String newServiceName = serviceView.getText().toString();
+            newServiceName = serviceView.getText().toString();
             String prevServiceName = EditServicesSelect.currentService;
-            String rate = rateView.getText().toString();
-            Services ser = MainActivity.getServices();
+            rate = rateView.getText().toString();
 
 
             if (!Common.validateService(newServiceName)) {
-                Toast toastInvalidServiceName = Toast.makeText(getApplicationContext(),
-                        "The service name is invalid", Toast.LENGTH_SHORT);
-                toastInvalidServiceName.show();
+                Toast.makeText(getApplicationContext(), "The service name is invalid",
+                        Toast.LENGTH_SHORT).show();
                 return;
             }
 
             if (!Common.validatePrice(rate)) {
-                Toast toastInvalidRate = Toast.makeText(getApplicationContext(),
-                        "The service rate is invalid", Toast.LENGTH_SHORT);
-                toastInvalidRate.show();
+                Toast.makeText(getApplicationContext(),"The service rate is invalid",
+                        Toast.LENGTH_SHORT).show();
                 return;
             }
 
-            if (!newServiceName.equals(prevServiceName)) {
-                if (ser.hasService(newServiceName)) {
-                    Toast toastNoEdit = Toast.makeText(getApplicationContext(), "A Service With That Name Already Exists. Please Choose Another Name.", Toast.LENGTH_SHORT);
-                    toastNoEdit.show();
-                    return;
-                }
-                ser.deleteService(prevServiceName);
-                DBHelper.deleteService(prevServiceName);
+            if (!prevServiceName.equals(newServiceName)) {
+                manager.getService(newServiceName, this::handleServiceConflict);
+            } else {
+                manager.getService(prevServiceName, this::updateServiceObject);
             }
 
-            ser.addService(newServiceName, Double.valueOf(rate));
-            DBHelper.updateServices(ser);
-            Toast toastEdit = Toast.makeText(getApplicationContext(), "Service Edited.", Toast.LENGTH_SHORT);
-            toastEdit.show();
         });
+
+    }
+
+    public void handleServiceConflict(Service service) {
+        if (service == null) {
+            manager.getService(((TextView) findViewById(R.id.serviceNameEditField)).getText().toString(), this::updateServiceObject);
+        } else {
+            Toast.makeText(getApplicationContext(), "A service with this name already exists", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public void updateServiceObject(Service service) {
+        service.setServiceName(newServiceName);
+        service.setServiceRate(Double.valueOf(rate));
+        manager.updateService(service);
 
     }
 }

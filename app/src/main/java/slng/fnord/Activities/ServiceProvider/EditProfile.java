@@ -1,18 +1,18 @@
-package slng.fnord.Activities;
+package slng.fnord.Activities.ServiceProvider;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import slng.fnord.Activities.Shared.SignInActivity;
 import slng.fnord.Database.DBHelper;
 import slng.fnord.R;
 import slng.fnord.Structures.ServiceProvider;
 
-public class SPEditProfile extends AppCompatActivity {
+public class EditProfile extends AppCompatActivity {
     private Button confirm;
 
     @Override
@@ -40,7 +40,7 @@ public class SPEditProfile extends AppCompatActivity {
             serviceProvider.setPhone(phoneNumberView.getText().toString());
             serviceProvider.setCompany(companyNameView.getText().toString());
             serviceProvider.setBio(bioView.getText().toString());
-            DBHelper.updateUser(serviceProvider);
+            new DBHelper().updateUser(serviceProvider);
             Toast.makeText(getApplicationContext(), "Profile updated!", Toast.LENGTH_SHORT).show();
         });
 

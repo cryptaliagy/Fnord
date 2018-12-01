@@ -11,7 +11,9 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import slng.fnord.Activities.MainActivity;
+import slng.fnord.Activities.Shared.MainActivity;
+import slng.fnord.Database.DBHelper;
+import slng.fnord.Managers.ServicesManager;
 import slng.fnord.R;
 import slng.fnord.Structures.Services;
 
@@ -31,9 +33,9 @@ public class ServicesAndRatesAdapter extends ArrayAdapter<String> {
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-        Services ser = MainActivity.getServices();
+        ServicesManager manager = new ServicesManager(new DBHelper());
         String service = objects.get(position);
-        Double  rate = ser.getServiceRate(Common.makeMD5(service));
+        Double rate = manager.getServiceRate(service);
 
         LayoutInflater inflater = LayoutInflater.from(mContext);
         convertView = inflater.inflate(mResource,parent,false);

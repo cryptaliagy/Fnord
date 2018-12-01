@@ -1,7 +1,6 @@
-package slng.fnord.Activities;
+package slng.fnord.Activities.ServiceProvider;
 
 import android.app.Activity;
-import android.app.Dialog;
 import android.content.Intent;
 
 import androidx.appcompat.app.AlertDialog;
@@ -9,22 +8,24 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AbsListView;
 import android.widget.ListView;
 
 import java.util.ArrayList;
 
+import slng.fnord.Activities.Shared.SignInActivity;
 import slng.fnord.Database.DBHelper;
-import slng.fnord.Helpers.Common;
+import slng.fnord.Managers.AccountManager;
 import slng.fnord.R;
 import slng.fnord.Structures.ServiceProvider;
 import slng.fnord.Helpers.ServicesAndRatesAdapter;
 
-public class SPViewService extends AppCompatActivity {
+public class ViewServices extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_spview_service);
+
+        AccountManager manager = new AccountManager(new DBHelper());
 
         ArrayList<String> services = (ArrayList<String>) ((ServiceProvider) SignInActivity.currentUser).getServiceList();
 
@@ -35,25 +36,21 @@ public class SPViewService extends AppCompatActivity {
 
         ServiceProvider user = (ServiceProvider) SignInActivity.currentUser;
 
-        Activity activity = this;
-
-        //lv.setChoiceMode(AbsListView.CHOICE_MODE_MULTIPLE);
         lv.setOnItemClickListener((parent, view, position, id) -> {
             String serviceName = services.get(position);
             boolean certified = user.isCertified(serviceName);
-            System.out.println(certified);
-            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
+
+            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
             dialogBuilder.setTitle(serviceName)
-                    //.setMessage(services.get(position))
                     .setMultiChoiceItems(new CharSequence[]{"Certified"}, new boolean[]{certified},
                             (dialog, which, isChecked) -> user.updateCertified(serviceName, isChecked))
                     .setPositiveButton("Done", (dialog, buttonID) -> {
-                        DBHelper.updateUser(user);
+                        manager.updateUser(user);
                         dialog.dismiss();
                     })
                     .setNegativeButton("Remove", (dialog, buttonID) -> {
                         user.removeService(serviceName);
-                        DBHelper.updateUser(user);
+                        manager.updateUser(user);
                         adapter.remove(serviceName);
                         dialog.dismiss();
                     });
@@ -64,10 +61,10 @@ public class SPViewService extends AppCompatActivity {
 
     public void onClick(View v) {
         if (v.getId() == R.id.backSPViewService) {
-            Intent intent = new Intent(this, WelcomeServiceProvider.class);
+            Intent intent = new Intent(this, Welcome.class);
             startActivity(intent);
         } else if (v.getId() == R.id.addSPViewService) {
-            Intent intent = new Intent(this, SPAddService.class);
+            Intent intent = new Intent(this, AddService.class);
             startActivity(intent);
         }
     }

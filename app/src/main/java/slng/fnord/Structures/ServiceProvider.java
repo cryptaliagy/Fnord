@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import slng.fnord.Helpers.Common;
+import slng.fnord.Helpers.Enums.UserTypes;
 import slng.fnord.Helpers.Pair;
 
 public class ServiceProvider extends User {
@@ -21,8 +22,8 @@ public class ServiceProvider extends User {
 
     }
 
-    public ServiceProvider(String email, String username, String password) {
-        super(email, username, password, UserTypes.SERVICEPROVIDER);
+    public ServiceProvider(String email, String password) {
+        super(email, password, UserTypes.SERVICEPROVIDER);
         services = new HashMap<>();
         availability = Common.makeBlankAvail();
     }

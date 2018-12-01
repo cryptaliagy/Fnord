@@ -12,6 +12,5 @@ public class HomeOwnerInfo {
     public HomeOwnerInfo(HomeOwner homeOwner) {
         this.id = homeOwner.getId();
         this.address = homeOwner.getAddress();
-        this.username = homeOwner.getUsername();
     }
 }

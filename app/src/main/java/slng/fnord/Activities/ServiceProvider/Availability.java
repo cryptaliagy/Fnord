@@ -1,27 +1,27 @@
-package slng.fnord.Activities;
+package slng.fnord.Activities.ServiceProvider;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Toast;
 
 import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
 
 import java.util.HashMap;
 
+import slng.fnord.Activities.Shared.SignInActivity;
 import slng.fnord.Database.DBHelper;
-import slng.fnord.Helpers.Common;
 import slng.fnord.Helpers.Pair;
+import slng.fnord.Managers.AccountManager;
 import slng.fnord.R;
 import slng.fnord.Structures.ServiceProvider;
 
-public class SPAddAvailability extends AppCompatActivity {
+public class Availability extends AppCompatActivity {
     ServiceProvider serviceProvider = (ServiceProvider) SignInActivity.currentUser;
     HashMap<String, Pair<Integer, Integer>> currentAvailability = serviceProvider.getAvailability();
     HashMap<String, Pair<Integer, Integer>> newAvailability = new HashMap<>();
+    AccountManager manager = new AccountManager(new DBHelper());
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,7 +65,7 @@ public class SPAddAvailability extends AppCompatActivity {
 
         updateButton.setOnClickListener(view -> {
             serviceProvider.setAvailability(newAvailability);
-            DBHelper.updateUser(serviceProvider);
+            manager.updateUser(serviceProvider);
             Toast.makeText(getApplicationContext(), "Availability updated!", Toast.LENGTH_SHORT).show();
         });
     }
