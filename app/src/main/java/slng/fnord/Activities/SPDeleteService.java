@@ -33,6 +33,9 @@ public class SPDeleteService extends AppCompatActivity {
 
             if (((ServiceProvider) SignInActivity.currentUser).getServiceList().contains(currentService)) {
                 ((ServiceProvider) SignInActivity.currentUser).removeService(currentService);
+                MainActivity.getServices().getService(currentService)
+                        .deleteProvider(((ServiceProvider) SignInActivity.currentUser).getCompany());
+                DBHelper.updateServices(MainActivity.getServices());
                 DBHelper.updateUser(SignInActivity.currentUser);
                 Toast.makeText(getApplicationContext(), "Service removed", Toast.LENGTH_SHORT).show();
                 DBHelper.updateUser(SignInActivity.currentUser);
