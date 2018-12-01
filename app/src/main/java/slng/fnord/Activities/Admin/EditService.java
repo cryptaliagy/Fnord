@@ -6,6 +6,8 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.Optional;
+
 import slng.fnord.Activities.Shared.MainActivity;
 import slng.fnord.Helpers.Common;
 import slng.fnord.Database.DBHelper;
@@ -30,7 +32,7 @@ public class EditService extends AppCompatActivity {
         serviceView.setText(EditServicesSelect.currentService);
 
         final TextView rateView = findViewById(R.id.serviceRateEditField);
-        rateView.setText(EditServicesSelect.currentServiceRate);
+        manager.getServiceRateForView(EditServicesSelect.currentService, rateView);
 
         confirm = findViewById(R.id.confirmChangesBtn);
         confirm.setOnClickListener(view -> {
@@ -71,15 +73,20 @@ public class EditService extends AppCompatActivity {
 
     }
 
-    public void handleServiceConflict(Service service) {
-        if (service == null) {
+    public void handleServiceConflict(Optional<Service> service) {
+        if (!service.isPresent()) {
             manager.getService(((TextView) findViewById(R.id.serviceNameEditField)).getText().toString(), this::updateServiceObject);
         } else {
             Toast.makeText(getApplicationContext(), "A service with this name already exists", Toast.LENGTH_SHORT).show();
         }
     }
 
-    public void updateServiceObject(Service service) {
+    public void updateServiceObject(Optional<Service> serviceOptional) {
+        if (!serviceOptional.isPresent()) {
+            return;
+        }
+
+        Service service = serviceOptional.get();
         service.setServiceName(newServiceName);
         service.setServiceRate(Double.valueOf(rate));
         manager.updateService(service);

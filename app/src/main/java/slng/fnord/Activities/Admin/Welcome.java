@@ -30,7 +30,7 @@ public class Welcome extends AppCompatActivity {
         vserve.setOnClickListener(view -> openView(ViewService.class));
 
         eserve = findViewById(R.id.editServiceChoiceButton);
-        eserve.setOnClickListener(view -> openView(EditService.class));
+        eserve.setOnClickListener(view -> openView(EditServicesSelect.class));
     }
 
     public void openView(final Class<?> cls) {

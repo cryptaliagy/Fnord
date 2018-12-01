@@ -17,8 +17,8 @@ public class Service implements Identifiable {
 
     }
 
-    public Service(String serviceName, double serviceRate) {
-        this.serviceName = serviceName;
+    public Service(String name, double serviceRate) {
+        this.serviceName = name;
         this.serviceRate = serviceRate;
         providers = new HashMap<>();
     }

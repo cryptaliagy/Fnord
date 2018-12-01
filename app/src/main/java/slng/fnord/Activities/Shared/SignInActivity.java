@@ -9,6 +9,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.util.Optional;
+
 import slng.fnord.Database.DBHelper;
 import slng.fnord.Managers.AccountManager;
 import slng.fnord.Helpers.Common;
@@ -52,14 +54,14 @@ public class SignInActivity extends AppCompatActivity {
         });
     }
 
-    public void signInCallback(User user) {
-        if (user == null) { // Sign in invalid/No such user
+    public void signInCallback(Optional<User> user) {
+        if (!user.isPresent()) { // Sign in invalid/No such user
             return;
         }
 
-        SignInActivity.currentUser = user;
+        SignInActivity.currentUser = user.get();
 
-        openUserActivity(user.getType());
+        openUserActivity(user.get().getType());
     }
 
     public void openUserActivity(UserTypes types) {

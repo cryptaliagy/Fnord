@@ -10,6 +10,7 @@ import android.widget.Switch;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 import slng.fnord.Activities.Shared.MainActivity;
 import slng.fnord.Activities.Shared.SignInActivity;
@@ -60,7 +61,12 @@ public class AddService extends AppCompatActivity {
     }
 
 
-    private void initializeSpinner(ArrayList<String> services) {
+    private void initializeSpinner(Optional<ArrayList<String>> servicesOptional) {
+        if (!servicesOptional.isPresent()) {
+            return;
+        }
+
+        ArrayList<String> services = servicesOptional.get();
         addServicesSpinner = findViewById(R.id.addServiceSpinner);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, services);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);

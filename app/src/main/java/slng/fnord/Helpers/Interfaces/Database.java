@@ -1,19 +1,20 @@
 package slng.fnord.Helpers.Interfaces;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 import io.reactivex.Observable;
 import slng.fnord.Structures.Service;
 import slng.fnord.Structures.User;
 
 public interface Database {
-    Observable<User> getUser(String email);
+    Observable<Optional<User>> getUser(String email);
 
     void addUser(User user);
 
     void updateUser(User user);
 
-    Observable<Service> getService(String name);
+    Observable<Optional<Service>> getService(String name);
 
     void addService(Service service);
 
@@ -21,8 +22,8 @@ public interface Database {
 
     void removeService(String name);
 
-    Observable<ArrayList<String>> getAllServiceNames();
+    Observable<Optional<ArrayList<String>>> getAllServiceNames();
 
-    Observable<ArrayList<Service>> getAllServices();
+    Observable<Optional<ArrayList<Service>>> getAllServices();
 
 }

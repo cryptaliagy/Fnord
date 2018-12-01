@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.Spinner;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 import slng.fnord.Activities.Shared.MainActivity;
 import slng.fnord.Database.DBHelper;
@@ -24,7 +25,6 @@ public class EditServicesSelect extends AppCompatActivity {
     //two static strings for the service that is selected and its rate - need these so that we can edit them in the next
     //screen and then set them back into the service/servicerates arraylists
     public static String currentService;
-    public static String currentServiceRate;
     private ServicesManager manager;
 
 
@@ -37,7 +37,6 @@ public class EditServicesSelect extends AppCompatActivity {
         editService = findViewById(R.id.editServiceBtn);
         editService.setOnClickListener(view -> {
             currentService = editServicesSpinner.getSelectedItem().toString();
-            currentServiceRate = Double.toString(manager.getServiceRate(currentService));
             openEditServicesView();
         });
 
@@ -45,7 +44,13 @@ public class EditServicesSelect extends AppCompatActivity {
 
     }
 
-    private void initializeSpinner(ArrayList<String> services) {
+    private void initializeSpinner(Optional<ArrayList<String>> servicesOptional) {
+        ArrayList<String> services;
+        if (!servicesOptional.isPresent()) {
+            services = new ArrayList<>();
+        } else {
+            services = servicesOptional.get();
+        }
         editServicesSpinner = findViewById(R.id.editServiceSpinner);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, services);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);

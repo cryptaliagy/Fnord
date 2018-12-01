@@ -1,6 +1,7 @@
 package slng.fnord.Database;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 import io.reactivex.Observable;
 import slng.fnord.Helpers.Interfaces.Database;
@@ -14,12 +15,12 @@ public class DBMock implements Database {
     }
 
     @Override
-    public Observable<Service> getService(String name) {
+    public Observable<Optional<Service>> getService(String name) {
         return null;
     }
 
     @Override
-    public Observable<User> getUser(String email) {
+    public Observable<Optional<User>> getUser(String email) {
         return null;
     }
 
@@ -44,12 +45,12 @@ public class DBMock implements Database {
     }
 
     @Override
-    public Observable<ArrayList<String>> getAllServiceNames() {
+    public Observable<Optional<ArrayList<String>>> getAllServiceNames() {
         return null;
     }
 
     @Override
-    public Observable<ArrayList<Service>> getAllServices() {
+    public Observable<Optional<ArrayList<Service>>> getAllServices() {
         return null;
     }
 }

@@ -1,6 +1,11 @@
 package slng.fnord.Managers;
 
+import java.util.Optional;
+
+import io.reactivex.Scheduler;
+import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
 import slng.fnord.Helpers.Interfaces.Database;
 import slng.fnord.Structures.HomeOwner;
 import slng.fnord.Structures.ServiceProvider;
@@ -27,21 +32,24 @@ public class AccountManager {
      * @param failureCallback callback function for unsuccessful authentication
      */
 
-    public void authenticateUser(String email, String password, Consumer<User> successCallback, Consumer<String> failureCallback) {
-        database.getUser(email).map(user -> {
-            if (user == null) {
+    public void authenticateUser(String email, String password, Consumer<Optional<User>> successCallback, Consumer<String> failureCallback) {
+        Disposable disposable = database.getUser(email).map(user -> {
+            Optional<User> optionalUser;
+            if (!user.isPresent()) {
                 failureCallback.accept("Account does not exist");
-                return null;
+                optionalUser = Optional.empty();
+                return optionalUser;
             }
             // authentication successful
-            if (user.checkPassword(password)) {
+            if (user.get().checkPassword(password)) {
                 return user;
             } else {
                 failureCallback.accept("Password is incorrect");
+                optionalUser = Optional.empty();
             }
 
-            return null;
-        }).subscribe(successCallback).dispose();
+            return optionalUser;
+        }).subscribe(successCallback);
 
     }
 
@@ -56,20 +64,26 @@ public class AccountManager {
      * @param callback callback function to receive new user object after the DB has received it
      */
 
-    public void newUser(String email, String password, UserTypes type, Consumer<User> callback) {
-        database.getUser(email).map(user -> {
+    public void newUser(String email, String password, UserTypes type, Consumer<Optional<User>> callback) {
+        database.getUser(email).subscribeOn(Schedulers.io())
+                .map(user -> {
+
+            System.out.println("Received user from upstream");
+            Optional<User> optionalUser;
             // If a user does not exist, create one
-            if (user == null) {
+            if (!user.isPresent()) {
                 User newUser = makeUser(email, password, type);
                 database.addUser(newUser);
-                return newUser;
+                optionalUser = Optional.ofNullable(newUser);
+            } else {
+                optionalUser = Optional.empty();
             }
 
-            // If a user does exist, send null to the callback
-            return null;
+            System.out.println("New User Return");
 
-        }).subscribe(callback).dispose();
+            return optionalUser;
 
+        }).subscribe(callback);
     }
 
     /**
@@ -78,8 +92,8 @@ public class AccountManager {
      * @param email email of the user that is being searched
      * @param callback callback method to receive user object
      */
-    public void getUser(String email, Consumer<User> callback) {
-        database.getUser(email).subscribe(callback).dispose();
+    public void getUser(String email, Consumer<Optional<User>> callback) {
+        database.getUser(email).subscribe(callback);
     }
 
 

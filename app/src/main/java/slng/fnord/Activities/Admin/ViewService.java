@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.widget.ListView;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 import slng.fnord.Activities.Shared.MainActivity;
 import slng.fnord.Database.DBHelper;
@@ -28,7 +29,14 @@ public class ViewService extends AppCompatActivity {
 
     }
 
-    public void updateUI(ArrayList<String> services) {
+    public void updateUI(Optional<ArrayList<String>> servicesOptional) {
+        ArrayList<String> services;
+        if (!servicesOptional.isPresent()) {
+            services = new ArrayList<>();
+        } else {
+            services = servicesOptional.get();
+        }
+
         ListView lv = findViewById(R.id.listOfServices);
         ServicesAndRatesAdapter adapter = new ServicesAndRatesAdapter(this, R.layout.adapter_view_layout,
                 services);

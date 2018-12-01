@@ -8,6 +8,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Optional;
 
 import io.reactivex.Observable;
 import slng.fnord.Helpers.Interfaces.Database;
@@ -21,12 +22,13 @@ import slng.fnord.Helpers.Enums.UserTypes;
 
 public class DBHelper implements Database {
 
-    public Observable<User> getUser(String email) {
+    public Observable<Optional<User>> getUser(String email) {
         return Observable.create(source -> FirebaseDatabase.getInstance()
                 .getReference("users").orderByChild("email").equalTo(email)
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
+                        Optional<User> optionalUser;
                         if (dataSnapshot.exists()) { // User exists
                             DataSnapshot result = dataSnapshot.getChildren().iterator().next();
 
@@ -44,10 +46,12 @@ public class DBHelper implements Database {
                                     break;
                             }
 
-                            source.onNext(user);
+
+                            optionalUser = Optional.ofNullable(user);
                         } else {
-                            source.onNext(null); // No such users?
+                            optionalUser = Optional.empty();
                         }
+                        source.onNext(optionalUser);
                         source.onComplete();
                     }
 
@@ -66,19 +70,21 @@ public class DBHelper implements Database {
         updateFromPath("users/" + user.getId(), user);
     }
 
-    public Observable<Service> getService(String name) {
+    public Observable<Optional<Service>> getService(String name) {
         return Observable.create(source -> FirebaseDatabase.getInstance()
-                .getReference("services").orderByChild("name").equalTo(name)
+                .getReference("services").orderByChild("serviceName").equalTo(name)
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
+                        Optional<Service> optionalService;
                         if (dataSnapshot.exists()) {
                             DataSnapshot result = dataSnapshot.getChildren().iterator().next();
                             Service service = result.getValue(Service.class);
-                            source.onNext(service);
+                            optionalService = Optional.ofNullable(service);
                         } else {
-                            source.onNext(null);
+                            optionalService = Optional.empty();
                         }
+                        source.onNext(optionalService);
                         source.onComplete();
                     }
 
@@ -96,10 +102,10 @@ public class DBHelper implements Database {
 
     public void removeService(String name) {
         getService(name).subscribe(service -> {
-            if (service != null) {
-                updateFromPath("services/" + service.getId(), null);
+            if (service.isPresent()) {
+                updateFromPath("services/" + service.get().getId(), null);
             }
-        }).dispose();
+        });
     }
 
     public void updateService(Service service) {
@@ -119,22 +125,24 @@ public class DBHelper implements Database {
         dbRef.setValue(object);
     }
 
-    public Observable<ArrayList<String>> getAllServiceNames() {
+    public Observable<Optional<ArrayList<String>>> getAllServiceNames() {
         return Observable.create(source -> FirebaseDatabase.getInstance()
                 .getReference("services")
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
+                        Optional<ArrayList<String>> optionalStrings;
                         if (dataSnapshot.exists()) {
                             ArrayList<String> services = new ArrayList<>();
                             for (DataSnapshot child : dataSnapshot.getChildren()) {
-                                services.add(child.child("name").getValue(String.class));
+                                services.add(child.child("serviceName").getValue(String.class));
                             }
 
-                            source.onNext(services);
+                            optionalStrings = Optional.ofNullable(services);
                         } else {
-                            source.onNext(null);
+                            optionalStrings = Optional.empty();
                         }
+                        source.onNext(optionalStrings);
                         source.onComplete();
 
                     }
@@ -148,21 +156,24 @@ public class DBHelper implements Database {
     }
 
     @Override
-    public Observable<ArrayList<Service>> getAllServices() {
+    public Observable<Optional<ArrayList<Service>>> getAllServices() {
         return Observable.create(source -> FirebaseDatabase.getInstance()
                 .getReference("services")
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
+                        Optional<ArrayList<Service>> optionalServices;
                         if (dataSnapshot.exists()) {
                             ArrayList<Service> services = new ArrayList<>();
                             for (DataSnapshot child : dataSnapshot.getChildren()) {
                                 services.add(child.getValue(Service.class));
                             }
-                            source.onNext(services);
+                            optionalServices = Optional.ofNullable(services);
                         } else {
-                            source.onNext(null);
+                            optionalServices = Optional.empty();
                         }
+
+                        source.onNext(optionalServices);
                         source.onComplete();
                     }
 

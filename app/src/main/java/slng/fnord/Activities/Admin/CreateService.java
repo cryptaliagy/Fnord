@@ -9,6 +9,8 @@ import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 
+import java.util.Optional;
+
 import io.reactivex.Observable;
 import io.reactivex.Observer;
 import slng.fnord.Activities.Shared.MainActivity;
@@ -56,8 +58,8 @@ public class CreateService extends AppCompatActivity {
 
     }
 
-    public void creationCallback(Service service) {
-        if (service == null) {
+    public void creationCallback(Optional<Service> service) {
+        if (!service.isPresent()) {
             Toast.makeText(getApplicationContext(), "A service with that name already exists",
                     Toast.LENGTH_SHORT).show();
         } else {

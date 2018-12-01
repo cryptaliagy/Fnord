@@ -9,6 +9,8 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import java.util.Optional;
+
 import slng.fnord.Database.DBHelper;
 import slng.fnord.Helpers.Common;
 import slng.fnord.Managers.AccountManager;
@@ -72,16 +74,16 @@ public class RegisterActivity extends AppCompatActivity {
         });
     }
 
-    public void handleCreate(User user) {
-        if (user == null) {
+    public void handleCreate(Optional<User> user) {
+        if (!user.isPresent()) {
             ((EditText) findViewById(R.id.registerEmail)).setError("An account with this email already exists");
             return;
         }
 
         Toast.makeText(getApplicationContext(), "New account has been made!", Toast.LENGTH_SHORT).show();
 
-        SignInActivity.currentUser = user;
-        openUserActivity(user.getType());
+        SignInActivity.currentUser = user.get();
+        openUserActivity(user.get().getType());
     }
 
     //opens welcome screen for the user
