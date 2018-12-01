@@ -8,7 +8,7 @@ public class Service {
     private double serviceRate;
 
     // HashMap holds 'true' if provider is certified, 'false' if not
-    private HashMap<String, Boolean> providers;
+    private HashMap<String, ServiceProviderMeta> providers;
 
     public Service() {
 
@@ -20,8 +20,8 @@ public class Service {
         providers = new HashMap<>();
     }
 
-    public void addProvider(String name, boolean verified) {
-        providers.put(name, verified);
+    public void addProvider(ServiceProvider provider) {
+        providers.put(provider.getCompany(), new ServiceProviderMeta(provider, provider.isCertified(serviceName)));
     }
 
     public void deleteProvider(String name) {
@@ -41,7 +41,7 @@ public class Service {
             return false;
         }
 
-        return providers.get(name);
+        return providers.get(name).isCertified();
     }
 
     public ArrayList<String> providerList() {
@@ -64,11 +64,11 @@ public class Service {
         this.serviceRate = serviceRate;
     }
 
-    public HashMap<String, Boolean> getProviders() {
+    public HashMap<String, ServiceProviderMeta> getProviders() {
         return providers;
     }
 
-    public void setProviders(HashMap<String, Boolean> providers) {
+    public void setProviders(HashMap<String, ServiceProviderMeta> providers) {
         this.providers = providers;
     }
 }
