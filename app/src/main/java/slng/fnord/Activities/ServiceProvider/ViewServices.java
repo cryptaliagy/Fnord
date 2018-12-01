@@ -11,11 +11,14 @@ import android.view.View;
 import android.widget.ListView;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 import slng.fnord.Activities.Shared.SignInActivity;
 import slng.fnord.Database.DBHelper;
 import slng.fnord.Managers.AccountManager;
+import slng.fnord.Managers.ServicesManager;
 import slng.fnord.R;
+import slng.fnord.Structures.Service;
 import slng.fnord.Structures.ServiceProvider;
 import slng.fnord.Helpers.ServicesAndRatesAdapter;
 
@@ -26,6 +29,7 @@ public class ViewServices extends AppCompatActivity {
         setContentView(R.layout.activity_spview_service);
 
         AccountManager manager = new AccountManager(new DBHelper());
+        ServicesManager servicesManager = new ServicesManager(new DBHelper());
 
         ArrayList<String> services = (ArrayList<String>) ((ServiceProvider) SignInActivity.currentUser).getServiceList();
 
@@ -51,12 +55,21 @@ public class ViewServices extends AppCompatActivity {
                     .setNegativeButton("Remove", (dialog, buttonID) -> {
                         user.removeService(serviceName);
                         manager.updateUser(user);
+                        servicesManager.getService(serviceName, this::handleService);
                         adapter.remove(serviceName);
                         dialog.dismiss();
                     });
             AlertDialog dialog = dialogBuilder.create();
             dialog.show();
         });
+    }
+
+    public void handleService(Optional<Service> serviceOptional) {
+        if (serviceOptional.isPresent()) {
+            ServiceProvider user = (ServiceProvider) SignInActivity.currentUser;
+            Service service = serviceOptional.get();
+            service.deleteProvider(user.getCompany());
+        }
     }
 
     public void onClick(View v) {

@@ -24,10 +24,16 @@ public class Service implements Identifiable {
     }
 
     public void addProvider(ServiceProvider provider) {
+        if (providers == null) {
+            providers = new HashMap<>();
+        }
         providers.put(provider.getCompany(), new ServiceProviderMeta(provider, provider.isCertified(serviceName)));
     }
 
     public void deleteProvider(String name) {
+        if (providers == null) {
+            providers = new HashMap<>();
+        }
         providers.remove(name);
     }
 

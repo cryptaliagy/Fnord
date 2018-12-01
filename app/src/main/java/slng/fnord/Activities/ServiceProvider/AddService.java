@@ -15,8 +15,10 @@ import java.util.Optional;
 import slng.fnord.Activities.Shared.MainActivity;
 import slng.fnord.Activities.Shared.SignInActivity;
 import slng.fnord.Database.DBHelper;
+import slng.fnord.Managers.AccountManager;
 import slng.fnord.Managers.ServicesManager;
 import slng.fnord.R;
+import slng.fnord.Structures.Service;
 import slng.fnord.Structures.ServiceProvider;
 import slng.fnord.Structures.Services;
 
@@ -25,39 +27,51 @@ public class AddService extends AppCompatActivity {
     private Button addService;
     private static String currentService;
     private static Boolean certified = false;
-    private ServicesManager manager;
+    private ServicesManager serviceManager;
+    private AccountManager accountManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_spadd_service);
 
-        manager = new ServicesManager(new DBHelper());
+        serviceManager = new ServicesManager(new DBHelper());
+        accountManager = new AccountManager(new DBHelper());
 
         Switch certifiedSwitch = findViewById(R.id.switch1);
 
         certifiedSwitch.setOnCheckedChangeListener(((buttonView, isChecked) -> certified = isChecked));
 
-        manager.getServiceNamesArrayList(this::initializeSpinner);
+        serviceManager.getServiceNamesArrayList(this::initializeSpinner);
 
         addService = findViewById(R.id.SPAddServiceButton);
 
         addService.setOnClickListener(view -> {
             currentService = addServicesSpinner.getSelectedItem().toString();
+            ServiceProvider provider = (ServiceProvider) SignInActivity.currentUser;
 
-            if (((ServiceProvider) SignInActivity.currentUser).getServiceList().contains(currentService)) {
+            if (provider.getServiceList().contains(currentService)) {
                 Toast.makeText(getApplicationContext(), "Service has already been added", Toast.LENGTH_SHORT).show();
             } else {
                 currentService = addServicesSpinner.getSelectedItem().toString();
 
-                ((ServiceProvider) SignInActivity.currentUser).addService(currentService, certified);
-                new DBHelper().updateUser(SignInActivity.currentUser);
+                provider.addService(currentService, certified);
+                accountManager.updateUser(provider);
+                serviceManager.getService(currentService, this::serviceCallback);
                 Toast.makeText(getApplicationContext(), "Service has been added", Toast.LENGTH_SHORT).show();
             }
         });
 
         findViewById(R.id.backSPAddService).setOnClickListener(view -> startActivity(new Intent(this, ViewServices.class)));
 
+    }
+
+    public void serviceCallback(Optional<Service> optionalService) {
+        if (optionalService.isPresent()) {
+            Service service = optionalService.get();
+            service.addProvider((ServiceProvider) SignInActivity.currentUser);
+            serviceManager.updateService(service);
+        }
     }
 
 
