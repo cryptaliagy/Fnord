@@ -12,7 +12,9 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 import slng.fnord.Database.DBHelper;
+import slng.fnord.Helpers.Common;
 import slng.fnord.R;
+import slng.fnord.Structures.Service;
 import slng.fnord.Structures.ServiceProvider;
 import slng.fnord.Structures.Services;
 
@@ -46,6 +48,10 @@ public class SPAddService extends AppCompatActivity {
 
                 ((ServiceProvider) SignInActivity.currentUser).addService(currentService, certified);
                 DBHelper.updateUser(SignInActivity.currentUser);
+                Service service = MainActivity.getServices().getService(Common.makeMD5(currentService));
+                service.addProvider((ServiceProvider) SignInActivity.currentUser);
+                MainActivity.getServices().addService(service);
+                DBHelper.updateServices(MainActivity.getServices());
                 Toast.makeText(getApplicationContext(), "Service has been added", Toast.LENGTH_SHORT).show();
             }
         });
