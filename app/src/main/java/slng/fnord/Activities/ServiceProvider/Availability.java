@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
@@ -32,34 +33,34 @@ public class Availability extends AppCompatActivity {
             newAvailability.put(key, currentAvailability.get(key).clone());
         }
 
-        Button mondayStartTimebtn = findViewById(R.id.mondayStartTime);
-        Button mondayEndTimebtn = findViewById(R.id.mondayEndTime);
+        EditText mondayStartTimeTV = findViewById(R.id.mondayStartTime);
+        EditText mondayEndTimeTV = findViewById(R.id.mondayEndTime);
 
-        Button tuesdayStartTimebtn = findViewById(R.id.tuesdayStartTime);
-        Button tuesdayEndTimebtn = findViewById(R.id.tuesdayEndTime);
+        EditText tuesdayStartTimeTV = findViewById(R.id.tuesdayStartTime);
+        EditText tuesdayEndTimeTV = findViewById(R.id.tuesdayEndTime);
 
-        Button wednesdayStartTimebtn = findViewById(R.id.wednesdayStartTime);
-        Button wednesdayEndTimebtn = findViewById(R.id.wednesdayEndTime);
+        EditText wednesdayStartTimeTV = findViewById(R.id.wednesdayStartTime);
+        EditText wednesdayEndTimeTV = findViewById(R.id.wednesdayEndTime);
 
-        Button thursdayStartTimebtn = findViewById(R.id.thursdayStartTime);
-        Button thursdayEndTimebtn = findViewById(R.id.thursdayEndTime);
+        EditText thursdayStartTimeTV = findViewById(R.id.thursdayStartTime);
+        EditText thursdayEndTimeTV = findViewById(R.id.thursdayEndTime);
 
-        Button fridayStartTimebtn = findViewById(R.id.fridayStartTime);
-        Button fridayEndTimebtn = findViewById(R.id.fridayEndTime);
+        EditText fridayStartTimeTV = findViewById(R.id.fridayStartTime);
+        EditText fridayEndTimeTV = findViewById(R.id.fridayEndTime);
 
-        Button saturdayStartTimebtn = findViewById(R.id.saturdayStartTime);
-        Button saturdayEndTimebtn = findViewById(R.id.saturdayEndTime);
+        EditText saturdayStartTimeTV = findViewById(R.id.saturdayStartTime);
+        EditText saturdayEndTimeTV = findViewById(R.id.saturdayEndTime);
 
-        Button sundayStartTimebtn = findViewById(R.id.sundayStartTime);
-        Button sundayEndTimebtn = findViewById(R.id.sundayEndTime);
+        EditText sundayStartTimeTV = findViewById(R.id.sundayStartTime);
+        EditText sundayEndTimeTV = findViewById(R.id.sundayEndTime);
 
-        createTimePickerDialog(mondayStartTimebtn,      mondayEndTimebtn,       "Monday");
-        createTimePickerDialog(tuesdayStartTimebtn,     tuesdayEndTimebtn,      "Tuesday");
-        createTimePickerDialog(wednesdayStartTimebtn,   wednesdayEndTimebtn,    "Wednesday");
-        createTimePickerDialog(thursdayStartTimebtn,    thursdayEndTimebtn,     "Thursday");
-        createTimePickerDialog(fridayStartTimebtn,      fridayEndTimebtn,       "Friday");
-        createTimePickerDialog(saturdayStartTimebtn,    saturdayEndTimebtn,     "Saturday");
-        createTimePickerDialog(sundayStartTimebtn,      sundayEndTimebtn,       "Sunday");
+        createTimePickerDialog(mondayStartTimeTV,      mondayEndTimeTV,       "Monday");
+        createTimePickerDialog(tuesdayStartTimeTV,     tuesdayEndTimeTV,      "Tuesday");
+        createTimePickerDialog(wednesdayStartTimeTV,   wednesdayEndTimeTV,    "Wednesday");
+        createTimePickerDialog(thursdayStartTimeTV,    thursdayEndTimeTV,     "Thursday");
+        createTimePickerDialog(fridayStartTimeTV,      fridayEndTimeTV,       "Friday");
+        createTimePickerDialog(saturdayStartTimeTV,    saturdayEndTimeTV,     "Saturday");
+        createTimePickerDialog(sundayStartTimeTV,      sundayEndTimeTV,       "Sunday");
 
         Button updateButton = findViewById(R.id.updateAvailibility);
 
@@ -70,7 +71,7 @@ public class Availability extends AppCompatActivity {
         });
     }
 
-    public void createTimePickerDialog(Button startTime, Button endTime, String day) {
+    public void createTimePickerDialog(EditText startTime, EditText endTime, String day) {
         TimePickerDialog startTimeDialog;
         TimePickerDialog endTimeDialog;
 

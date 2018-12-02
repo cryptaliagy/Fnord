@@ -1,6 +1,6 @@
 package slng.fnord.Structures;
 
-import java.util.Date;
+import java.util.Calendar;
 
 import slng.fnord.Helpers.Interfaces.Identifiable;
 
@@ -8,17 +8,21 @@ public class Booking implements Identifiable {
     private String id;
     private ServiceProviderInfo serviceProviderInfo;
     private HomeOwnerInfo homeOwnerInfo;
-    private Date bookingDate;
+    private Calendar bookingDate;
+    private int startTime;
+    private int endTime;
 
     public Booking() {
 
     }
 
-    public Booking(String id, ServiceProviderInfo serviceProviderInfo, HomeOwnerInfo homeOwnerInfo, Date bookingDate) {
+    public Booking(String id, ServiceProviderInfo serviceProviderInfo, HomeOwnerInfo homeOwnerInfo, Calendar bookingDate, int startTime, int endTime) {
         this.id = id;
         this.serviceProviderInfo = serviceProviderInfo;
         this.homeOwnerInfo = homeOwnerInfo;
         this.bookingDate = bookingDate;
+        this.startTime = startTime;
+        this.endTime = endTime;
     }
 
     public ServiceProviderInfo getServiceProviderInfo() {
@@ -37,11 +41,11 @@ public class Booking implements Identifiable {
         this.homeOwnerInfo = homeOwnerInfo;
     }
 
-    public Date getBookingDate() {
+    public Calendar getBookingDate() {
         return bookingDate;
     }
 
-    public void setBookingDate(Date bookingDate) {
+    public void setBookingDate(Calendar bookingDate) {
         this.bookingDate = bookingDate;
     }
 
@@ -53,6 +57,22 @@ public class Booking implements Identifiable {
     @Override
     public void setId(String id) {
         this.id = id;
+    }
+
+    public int getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(int startTime) {
+        this.startTime = startTime;
+    }
+
+    public int getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(int endTime) {
+        this.endTime = endTime;
     }
 
     
