@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Optional;
 
 import io.reactivex.Observable;
+import io.reactivex.disposables.Disposable;
 import slng.fnord.Helpers.Interfaces.Database;
 import slng.fnord.Helpers.Interfaces.Identifiable;
 import slng.fnord.Structures.Administrator;
@@ -101,7 +102,7 @@ public class DBHelper implements Database {
     }
 
     public void removeService(String name) {
-        getService(name).subscribe(service -> {
+        Disposable disposable = getService(name).subscribe(service -> {
             if (service.isPresent()) {
                 updateFromPath("services/" + service.get().getId(), null);
             }

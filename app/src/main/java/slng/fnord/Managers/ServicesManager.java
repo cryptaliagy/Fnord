@@ -30,7 +30,7 @@ public class ServicesManager {
      * @param callback the callback receiving the service
      */
     public void makeService(String name, Double rate, Consumer<Optional<Service>> callback) {
-        database.getService(name).map(service -> {
+        Disposable disposable = database.getService(name).map(service -> {
             Optional<Service> optionalService;
             if (!service.isPresent()) {
                 Service ser = new Service(name, rate);
@@ -67,7 +67,7 @@ public class ServicesManager {
      * @param callback the callback receiving the service
      */
     public void getService(String name, Consumer<Optional<Service>> callback) {
-        database.getService(name).subscribe(callback);
+        Disposable disposable = database.getService(name).subscribe(callback);
     }
 
 
@@ -85,7 +85,7 @@ public class ServicesManager {
      */
 
     public void getServicesArrayList(Consumer<Optional<ArrayList<Service>>> callback) {
-        database.getAllServices().subscribe(callback);
+        Disposable disposable = database.getAllServices().subscribe(callback);
     }
 
     /**
@@ -95,7 +95,7 @@ public class ServicesManager {
      */
 
     public void getServiceRateForView(String serviceName, TextView view) {
-        database.getService(serviceName).subscribe(service -> {
+        Disposable disposable = database.getService(serviceName).subscribe(service -> {
             view.setText(String.format("%.2f", service.get().getServiceRate()));
         });
     }

@@ -65,7 +65,7 @@ public class AccountManager {
      */
 
     public void newUser(String email, String password, UserTypes type, Consumer<Optional<User>> callback) {
-        database.getUser(email).subscribeOn(Schedulers.io())
+        Disposable disposable = database.getUser(email).subscribeOn(Schedulers.io())
                 .map(user -> {
 
             System.out.println("Received user from upstream");
@@ -93,7 +93,7 @@ public class AccountManager {
      * @param callback callback method to receive user object
      */
     public void getUser(String email, Consumer<Optional<User>> callback) {
-        database.getUser(email).subscribe(callback);
+        Disposable disposable = database.getUser(email).subscribe(callback);
     }
 
 
