@@ -10,7 +10,7 @@ import slng.fnord.Helpers.Enums.UserTypes;
 import slng.fnord.Helpers.Pair;
 
 public class ServiceProvider extends User {
-    private HashMap<String, Pair<Boolean, String>> services;
+    private HashMap<String, Boolean> services;
     private String phone;
     private String address;
     private String company;
@@ -32,7 +32,7 @@ public class ServiceProvider extends User {
         if (services == null) {
             services = new HashMap<>();
         }
-        services.put(serviceName, new Pair<>(certified, ""));
+        services.put(serviceName, certified);
     }
 
     public void addService(String serviceName) {
@@ -48,21 +48,12 @@ public class ServiceProvider extends User {
         return new ArrayList<>(services.keySet());
     }
 
-    public HashMap<String, Pair<Boolean, String>> getServices() {
+    public HashMap<String, Boolean> getServices() {
         return services;
     }
 
     public void updateCertified(String serviceName, boolean certified) {
-        Pair<Boolean, String> info = services.get(serviceName);
-        Pair<Boolean, String> newInfo;
-
-        if (info != null) {
-            newInfo = new Pair<>(certified, info.getSecond());
-        } else {
-            newInfo = new Pair<>(certified, "");
-        }
-
-        services.put(serviceName, newInfo);
+        services.put(serviceName, certified);
     }
 
     public boolean isCertified(String serviceName) {
@@ -70,7 +61,7 @@ public class ServiceProvider extends User {
             return false;
         }
 
-        return services.get(serviceName).getFirst();
+        return services.get(serviceName);
     }
 
     public String getPhone() {

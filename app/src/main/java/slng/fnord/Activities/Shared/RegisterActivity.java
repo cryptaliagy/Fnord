@@ -3,12 +3,15 @@ package slng.fnord.Activities.Shared;
 import android.content.Intent;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.Optional;
 
 import slng.fnord.Database.DBHelper;
@@ -22,7 +25,7 @@ import static slng.fnord.Helpers.Enums.UserTypes.*;
 
 public class RegisterActivity extends AppCompatActivity {
     String email;
-    String username;
+    String companyName;
     String password;
     String accountType;
 
@@ -32,12 +35,16 @@ public class RegisterActivity extends AppCompatActivity {
         setContentView(R.layout.activity_register);
         AccountManager manager = new AccountManager(new DBHelper());
 
+        String[] accountTypes = getResources().getStringArray(R.array.accountTypes);
+
         //creating a spinner/dropdown list for the register screen
         final Spinner accountSpinner = findViewById(R.id.accountTypeSpinner);
         ArrayAdapter<String> myAdapter = new ArrayAdapter<>(RegisterActivity.this,
-                android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.accountTypes));
+                android.R.layout.simple_list_item_1, accountTypes);
         myAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         accountSpinner.setAdapter(myAdapter);
+
+        EditText companyText = findViewById(R.id.companyNameRegisterEditText);
 
         //making register button on register screen work/add stuff to account Accounts arraylists
         //it shall open the appropriate welcome screen, as well as add the account to the list
@@ -49,6 +56,7 @@ public class RegisterActivity extends AppCompatActivity {
             EditText passwordText = findViewById(R.id.registerPassword);
             password = passwordText.getText().toString();
 
+            companyName = companyText.getText().toString();
 
             accountType = accountSpinner.getSelectedItem().toString();
 
@@ -62,15 +70,34 @@ public class RegisterActivity extends AppCompatActivity {
                 return;
             }
 
-            UserTypes type;
-
-            if (accountType.equals("HomeOwner")) {
-                type = HOMEOWNER;
-            } else  {
-                type = SERVICEPROVIDER;
+            if (accountType.equals("Service Provider") && !Common.validateCompany(companyName)) {
+                companyText.setError("Company name contains forbidden characters");
+                return;
             }
 
-            manager.newUser(email, password, type, this::handleCreate);
+            UserTypes type;
+
+            if (accountType.equals("Home Owner")) {
+                manager.newHomeOwner(email, password, this::handleCreate);
+            } else  {
+                manager.newServiceProvider(email, password, companyName, this::handleCreate);
+            }
+        });
+
+        accountSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if (accountSpinner.getSelectedItem().toString().equals("Service Provider")) {
+                    companyText.setVisibility(View.VISIBLE);
+                } else {
+                    companyText.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
         });
     }
 
@@ -79,7 +106,6 @@ public class RegisterActivity extends AppCompatActivity {
             ((EditText) findViewById(R.id.registerEmail)).setError("An account with this email already exists");
             return;
         }
-
         Toast.makeText(getApplicationContext(), "New account has been made!", Toast.LENGTH_SHORT).show();
 
         SignInActivity.currentUser = user.get();

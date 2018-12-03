@@ -1,6 +1,7 @@
 package slng.fnord.Structures;
 
 import java.security.SecureRandom;
+import java.util.ArrayList;
 
 import slng.fnord.Helpers.Common;
 import slng.fnord.Helpers.Enums.UserTypes;
@@ -12,6 +13,7 @@ public abstract class User implements Identifiable {
     private String passwordHash;
     private String salt;
     private UserTypes type;
+    private ArrayList<String> bookings;
 
 
     // Used by the DB callback
@@ -51,4 +53,10 @@ public abstract class User implements Identifiable {
     public void setId(String id) { this.id = id; }
 
     public void setEmail(String email) {  this.email = email; }
+
+    public ArrayList<String> getBookings() {
+        return bookings;
+    }
+
+    public void addBooking(String id) { bookings.add(id); }
 }

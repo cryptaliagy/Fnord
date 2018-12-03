@@ -66,7 +66,7 @@ public class Common {
     }
 
     public static boolean validateCompany(String company){
-        return Pattern.matches("^[^\\s].+?[^\\s]$", company);
+        return Pattern.matches("^[^\\s][^.$#\\[\\]/]+[^\\s]$", company);
     }
 
     public static boolean validateAddress(String address){

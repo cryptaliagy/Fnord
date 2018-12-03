@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import io.reactivex.Observable;
 import slng.fnord.Helpers.Interfaces.Database;
+import slng.fnord.Structures.Booking;
 import slng.fnord.Structures.Service;
 import slng.fnord.Structures.User;
 
@@ -32,6 +33,21 @@ public class DBMock implements Database {
     @Override
     public void removeService(String name) {
 
+    }
+
+    @Override
+    public void addBooking(Booking booking) {
+
+    }
+
+    @Override
+    public void removeBooking(String id) {
+
+    }
+
+    @Override
+    public Observable<Optional<Booking>> getBooking(String id) {
+        return null;
     }
 
     @Override

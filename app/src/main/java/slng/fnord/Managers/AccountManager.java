@@ -55,34 +55,56 @@ public class AccountManager {
 
 
     /**
-     * Requests a user from the db helper, creating a new one if none were found and passing null
-     * to the callback if one has been found.
+     * Requests a user from the db helper, creating a new homeowner if none were found and passing
+     * an empty optional to the callback if one has been found.
      *
      * @param email new user's email
      * @param password new user's password
-     * @param type new user's account type
      * @param callback callback function to receive new user object after the DB has received it
      */
 
-    public void newUser(String email, String password, UserTypes type, Consumer<Optional<User>> callback) {
-        Disposable disposable = database.getUser(email).subscribeOn(Schedulers.io())
+    public void newHomeOwner(String email, String password, Consumer<Optional<User>> callback) {
+        Disposable disposable = database.getUser(email)
                 .map(user -> {
-
-            System.out.println("Received user from upstream");
             Optional<User> optionalUser;
             // If a user does not exist, create one
             if (!user.isPresent()) {
-                User newUser = makeUser(email, password, type);
+                HomeOwner newUser = (HomeOwner) makeUser(email, password, UserTypes.HOMEOWNER);
                 database.addUser(newUser);
                 optionalUser = Optional.ofNullable(newUser);
             } else {
                 optionalUser = Optional.empty();
             }
-
-            System.out.println("New User Return");
-
             return optionalUser;
 
+        }).subscribe(callback);
+    }
+
+    /**
+     * Requests a user from the db helper, creating a new service provider if none were found and
+     * passing an empty optional to the callback if one has been found.
+     *
+     * @param email new user's email
+     * @param password new user's password
+     * @param company new user's company name
+     * @param callback callback function to receive new user object after the DB has received it
+     */
+
+    public void newServiceProvider(String email, String password, String company,
+                                   Consumer<Optional<User>> callback) {
+        Disposable disposable = database.getUser(email)
+                .map(user -> {
+            Optional<User> optionalUser;
+            if (!user.isPresent()) {
+                ServiceProvider serviceProvider = (ServiceProvider) makeUser(email, password, UserTypes.SERVICEPROVIDER);
+                serviceProvider.setCompany(company);
+                database.addUser(serviceProvider);
+                optionalUser = Optional.ofNullable(serviceProvider);
+            } else {
+                optionalUser = Optional.empty();
+            }
+
+            return optionalUser;
         }).subscribe(callback);
     }
 

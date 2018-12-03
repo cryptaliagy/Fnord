@@ -33,7 +33,12 @@
             android:textAlignment="center" />
 
         <ListView
+            android:id="@+id/listOfBookings"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:background="@android:drawable/alert_light_frame">
+
+        </ListView>
+
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -44,7 +44,7 @@
                 android:layout_weight="1" />
 
             <TextView
-                android:id="@+id/textView53"
+                android:id="@+id/spCompanyTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -74,7 +74,7 @@
                 android:layout_weight="1" />
 
             <TextView
-                android:id="@+id/textView58"
+                android:id="@+id/serviceNameBookingTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -178,7 +178,7 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/button3"
+                android:id="@+id/backConfirmBookingButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Back to Search" />
@@ -189,7 +189,7 @@
                 android:layout_weight="1" />
 
             <Button
-                android:id="@+id/button4"
+                android:id="@+id/confirmBookingButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Confirm Booking" />

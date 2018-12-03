@@ -1,9 +1,7 @@
 package slng.fnord.Structures;
 
-import slng.fnord.Helpers.Interfaces.Identifiable;
-
-public class HomeOwnerInfo implements Identifiable {
-    private String id;
+public class HomeOwnerInfo {
+    private String email;
     private String address;
 
     public HomeOwnerInfo() {
@@ -11,16 +9,16 @@ public class HomeOwnerInfo implements Identifiable {
     }
 
     public HomeOwnerInfo(HomeOwner homeOwner) {
-        this.id = homeOwner.getId();
+        this.email = homeOwner.getEmail();
         this.address = homeOwner.getAddress();
     }
 
-    public String getId() {
-        return id;
+    public String getEmail() {
+        return email;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setId(String email) {
+        this.email = email;
     }
 
     public String getAddress() {

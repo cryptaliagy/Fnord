@@ -8,6 +8,8 @@ public class Booking implements Identifiable {
     private String id;
     private ServiceProviderInfo serviceProviderInfo;
     private HomeOwnerInfo homeOwnerInfo;
+    private String service;
+
     private Calendar bookingDate;
     private int startTime;
     private int endTime;
@@ -16,13 +18,13 @@ public class Booking implements Identifiable {
 
     }
 
-    public Booking(String id, ServiceProviderInfo serviceProviderInfo, HomeOwnerInfo homeOwnerInfo, Calendar bookingDate, int startTime, int endTime) {
-        this.id = id;
-        this.serviceProviderInfo = serviceProviderInfo;
-        this.homeOwnerInfo = homeOwnerInfo;
+    public Booking(ServiceProvider serviceProvider, HomeOwner homeOwner, String service, Calendar bookingDate, int startTime, int endTime) {
+        this.serviceProviderInfo = new ServiceProviderInfo(serviceProvider);
+        this.homeOwnerInfo = new HomeOwnerInfo(homeOwner);
         this.bookingDate = bookingDate;
         this.startTime = startTime;
         this.endTime = endTime;
+        this.service = service;
     }
 
     public ServiceProviderInfo getServiceProviderInfo() {
@@ -73,6 +75,14 @@ public class Booking implements Identifiable {
 
     public void setEndTime(int endTime) {
         this.endTime = endTime;
+    }
+
+    public String getService() {
+        return service;
+    }
+
+    public void setService(String service) {
+        this.service = service;
     }
 
     

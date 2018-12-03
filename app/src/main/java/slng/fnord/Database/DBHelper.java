@@ -15,6 +15,7 @@ import io.reactivex.disposables.Disposable;
 import slng.fnord.Helpers.Interfaces.Database;
 import slng.fnord.Helpers.Interfaces.Identifiable;
 import slng.fnord.Structures.Administrator;
+import slng.fnord.Structures.Booking;
 import slng.fnord.Structures.HomeOwner;
 import slng.fnord.Structures.Service;
 import slng.fnord.Structures.ServiceProvider;
@@ -111,7 +112,33 @@ public class DBHelper implements Database {
 
     public void updateService(Service service) {
         updateFromPath("services/"+service.getId(), service);
+    }
 
+    public void addBooking(Booking booking) { addNewGeneric("bookings", booking); }
+
+    public void removeBooking(String id) { updateFromPath("bookings/" + id, null); }
+
+    public Observable<Optional<Booking>> getBooking(String id) {
+        return Observable.create(source -> FirebaseDatabase.getInstance()
+                .getReference("bookings").child(id).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        Optional<Booking> optionalBooking;
+                        if (dataSnapshot.exists()) {
+                            Booking result = dataSnapshot.getValue(Booking.class);
+                            optionalBooking = Optional.ofNullable(result);
+                        } else {
+                            optionalBooking = Optional.empty();
+                        }
+                        source.onNext(optionalBooking);
+                        source.onComplete();
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        source.onError(databaseError.toException());
+                    }
+                }));
     }
 
     private <T> void updateFromPath(String path, T object) {

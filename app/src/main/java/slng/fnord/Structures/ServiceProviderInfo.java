@@ -1,9 +1,7 @@
 package slng.fnord.Structures;
 
-import slng.fnord.Helpers.Interfaces.Identifiable;
-
-public class ServiceProviderInfo implements Identifiable {
-    private String id;
+public class ServiceProviderInfo {
+    private String email;
     private String company;
 
     public ServiceProviderInfo() {
@@ -11,18 +9,16 @@ public class ServiceProviderInfo implements Identifiable {
     }
 
     public ServiceProviderInfo(ServiceProvider serviceProvider) {
-        this.id = serviceProvider.getId();
+        this.email = serviceProvider.getId();
         this.company = serviceProvider.getCompany();
     }
 
-    @Override
-    public String getId() {
-        return id;
+    public String getEmail() {
+        return email;
     }
 
-    @Override
-    public void setId(String id) {
-        this.id = id;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getCompany() {
