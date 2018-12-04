@@ -17,7 +17,7 @@ public class ServiceProvider extends User {
     private String biography;
     private HashMap<String, Pair<Integer, Integer>> availability;
     private ArrayList<Ratings> ratings;
-    private int averageRating;
+    private float averageRating;
     private int totalNumberOfRatings;
 
     // Necessary for DB
@@ -29,7 +29,7 @@ public class ServiceProvider extends User {
         super(email, password, UserTypes.SERVICEPROVIDER);
         services = new HashMap<>();
         availability = Common.makeBlankAvail();
-        ArrayList<Ratings> ratings = new ArrayList<Ratings>();
+        ratings = new ArrayList<Ratings>();
         totalNumberOfRatings = 0;
         averageRating = 0;
     }
@@ -51,7 +51,7 @@ public class ServiceProvider extends User {
         return ratings;
     }
 
-    public int getAverageRating(){
+    public float getAverageRating(){
         return averageRating;
     }
 
