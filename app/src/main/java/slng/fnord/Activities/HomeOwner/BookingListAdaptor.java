@@ -11,6 +11,7 @@ import java.lang.reflect.Array;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.Optional;
 
 import io.reactivex.functions.Consumer;
@@ -31,7 +32,7 @@ public class BookingListAdaptor extends BaseAdapter {
     public BookingListAdaptor(ArrayList<Booking> bookings, BookingList ctx ){
         this.bookings = bookings;
         this.context=ctx;
-        dateFormatter = new SimpleDateFormat("MM-dd-yyyy");
+        dateFormatter = new SimpleDateFormat("EEE, MMM d, yyyy", Locale.US);
     }
 
     @Override
