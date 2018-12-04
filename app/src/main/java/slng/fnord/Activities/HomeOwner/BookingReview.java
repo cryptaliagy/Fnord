@@ -11,13 +11,17 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import slng.fnord.Activities.Shared.SignInActivity;
+import slng.fnord.Database.DBHelper;
+import slng.fnord.Managers.AccountManager;
 import slng.fnord.R;
 import slng.fnord.Structures.Ratings;
+import slng.fnord.Structures.ServiceProvider;
 
 public class BookingReview extends AppCompatActivity {
     Button addService;
     String commentToAdd;
     String raterName;
+    private AccountManager accountManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,8 +51,9 @@ public class BookingReview extends AppCompatActivity {
             public void onClick(View v) {
                 commentToAdd = ratingCommentBox.getText().toString();
                 Ratings ratingToAdd = new Ratings((int) ratingBar.getRating(), commentToAdd, raterName);
-                String SPEmail = BookingList.currentBooking.getServiceProviderInfo().getEmail();
-
+                //String SPEmail = BookingList.currentBooking.getServiceProviderInfo().getEmail();
+                ServiceProvider ourSP = BookingList.currentBooking.getServiceProvider();
+                ourSP.addRating(ratingToAdd);
             }
         });
 

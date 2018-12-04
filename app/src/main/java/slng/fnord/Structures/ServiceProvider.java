@@ -47,6 +47,14 @@ public class ServiceProvider extends User {
         totalNumberOfRatings++;
     }
 
+    public ArrayList<Ratings> getRatings() {
+        return ratings;
+    }
+
+    public int getAverageRating(){
+        return averageRating;
+    }
+
 
     public void addService(String serviceName, boolean certified) {
         if (services == null) {
