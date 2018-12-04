@@ -88,7 +88,6 @@
                 android:value=".Activities.Admin.EditServicesSelect" />
         </activity>
         <activity android:name=".Activities.ServiceProvider.ViewProfile" />
-        <activity android:name=".Activities.ServiceProvider.EditProfile" />
         <activity android:name=".Activities.ServiceProvider.AddService" />
         <activity android:name=".Activities.ServiceProvider.ViewServices" />
         <activity android:name=".Activities.ServiceProvider.Availability" />

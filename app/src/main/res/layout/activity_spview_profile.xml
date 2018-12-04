@@ -22,7 +22,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="cursive"
-            android:text="View Profile"
+            android:text="My Profile"
             android:textAlignment="center"
             android:textColor="@color/common_google_signin_btn_text_dark_focused"
             android:textSize="36sp" />
@@ -37,10 +37,11 @@
             android:layout_height="wrap_content"
             android:text="Company Address" />
 
-        <TextView
+        <EditText
             android:id="@+id/viewAddress"
             android:layout_width="250dp"
-            android:layout_height="wrap_content" />
+            android:layout_height="40dp"
+            android:inputType="text" />
 
         <Space
             android:layout_width="match_parent"
@@ -52,10 +53,11 @@
             android:layout_height="wrap_content"
             android:text="Phone Number" />
 
-        <TextView
+        <EditText
             android:id="@+id/viewPhoneNumber"
             android:layout_width="250dp"
-            android:layout_height="wrap_content" />
+            android:layout_height="40dp"
+            android:inputType="phone" />
 
         <Space
             android:layout_width="match_parent"
@@ -67,10 +69,11 @@
             android:layout_height="wrap_content"
             android:text="Company Name" />
 
-        <TextView
+        <EditText
             android:id="@+id/viewCompanyName"
             android:layout_width="250dp"
-            android:layout_height="wrap_content" />
+            android:layout_height="40dp"
+            android:inputType="text" />
 
         <Space
             android:layout_width="match_parent"
@@ -82,12 +85,62 @@
             android:layout_height="wrap_content"
             android:text="Company Biography" />
 
-        <TextView
+        <EditText
             android:id="@+id/viewBio"
             android:layout_width="250dp"
-            android:layout_height="wrap_content"
+            android:layout_height="141dp"
             android:background="@drawable/common_google_signin_btn_icon_light_normal_background"
+            android:hint="text"
+            android:inputType="textMultiLine|textImeMultiLine"
+            android:lines="6"
+            android:textAlignment="textStart"
             android:textAppearance="@android:style/TextAppearance.Material.Menu" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <Button
+                android:id="@+id/backServiceProviderViewProfileButton"
+                android:layout_width="75dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:onClick="back"
+                android:text="Back" />
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <Button
+                android:id="@+id/editServiceProviderViewProfileButton"
+                android:layout_width="75dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:onClick="editProfile"
+                android:text="Edit" />
+
+            <Button
+                android:id="@+id/saveServiceProviderViewProfileButton"
+                android:layout_width="75dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:onClick="saveProfile"
+                android:text="Save"
+                android:visibility="gone" />
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+        </LinearLayout>
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

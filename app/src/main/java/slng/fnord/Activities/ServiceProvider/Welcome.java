@@ -14,9 +14,6 @@ public class Welcome extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Button SPViewProfile;
-        Button SPEditProfile;
-        Button SPAddService;
-        Button SPDeleteService;
         Button SPViewService;
         Button SPAddAvailability;
 
@@ -30,9 +27,6 @@ public class Welcome extends AppCompatActivity {
         SPViewProfile = findViewById(R.id.SPViewInfoChoice);
         SPViewProfile.setOnClickListener(view -> openActivity(ViewProfile.class));
 
-        SPEditProfile = findViewById(R.id.SPEditInfoChoice);
-        SPEditProfile.setOnClickListener(view -> openActivity(EditProfile.class));
-
         SPViewService = findViewById(R.id.SPViewServiceChoice);
         SPViewService.setOnClickListener(view -> openActivity(ViewServices.class));
 
@@ -40,7 +34,7 @@ public class Welcome extends AppCompatActivity {
         SPAddAvailability.setOnClickListener(view -> openActivity(Availability.class));
 
 
-        findViewById(R.id.logOutButtonHomeOwner).setOnClickListener(view -> {
+        findViewById(R.id.logOutButtonServiceProvier).setOnClickListener(view -> {
             SignInActivity.currentUser = null;
             openActivity(MainActivity.class);
         });

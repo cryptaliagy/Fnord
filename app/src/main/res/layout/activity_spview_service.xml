@@ -89,7 +89,9 @@
                 android:layout_weight="1"
                 android:onClick="onClick"
                 android:text="Add new" />
+
         </LinearLayout>
 
     </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
