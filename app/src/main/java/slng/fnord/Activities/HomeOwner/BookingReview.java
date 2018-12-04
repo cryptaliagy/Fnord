@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import slng.fnord.Activities.ServiceProvider.Availability;
 import slng.fnord.Activities.Shared.SignInActivity;
 import slng.fnord.Database.DBHelper;
 import slng.fnord.Managers.AccountManager;
@@ -22,6 +23,7 @@ public class BookingReview extends AppCompatActivity {
     String commentToAdd;
     String raterName;
     private AccountManager accountManager;
+    Button back;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +58,9 @@ public class BookingReview extends AppCompatActivity {
                 ourSP.addRating(ratingToAdd);
             }
         });
+
+        back = findViewById(R.id.backToBookingsButton);
+        back.setOnClickListener(view -> openView(BookingList.class));
 
     }
 
