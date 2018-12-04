@@ -13,8 +13,6 @@ public class Booking implements Identifiable {
     private Calendar bookingDate;
     private int startTime;
     private int endTime;
-    //need track of the service provider to which this booking pertains
-    private ServiceProvider ourSP;
 
     public Booking() {
 
@@ -27,12 +25,6 @@ public class Booking implements Identifiable {
         this.startTime = startTime;
         this.endTime = endTime;
         this.service = service;
-        this.ourSP = serviceProvider;
-    }
-
-    //need a getting for the service provider so that BookingReview may be completed.
-    public ServiceProvider getServiceProvider(){
-        return ourSP;
     }
 
     public ServiceProviderInfo getServiceProviderInfo() {

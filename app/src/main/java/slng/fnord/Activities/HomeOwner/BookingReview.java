@@ -9,21 +9,26 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import slng.fnord.Activities.ServiceProvider.Availability;
 import slng.fnord.Activities.Shared.SignInActivity;
 import slng.fnord.Database.DBHelper;
 import slng.fnord.Managers.AccountManager;
 import slng.fnord.R;
+import slng.fnord.Structures.Booking;
 import slng.fnord.Structures.Ratings;
 import slng.fnord.Structures.ServiceProvider;
 
 public class BookingReview extends AppCompatActivity {
-    Button addService;
-    String commentToAdd;
-    String raterName;
+    private Button addService;
+    private String commentToAdd;
+    private String raterName;
+
     private AccountManager accountManager;
-    Button back;
+    private Button back;
+
+    private static Booking booking;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,31 +37,38 @@ public class BookingReview extends AppCompatActivity {
 
         final RatingBar ratingBar = (RatingBar) findViewById(R.id.BRRatingBar);
 
+        accountManager = new AccountManager(new DBHelper());
+
         TextView SPCompanyName = findViewById(R.id.BRCompanyNameTV);
-        SPCompanyName.setText(BookingList.currentBooking.getServiceProviderInfo().getCompany());
+        SPCompanyName.setText(booking.getServiceProviderInfo().getCompany());
 
         TextView ServiceRequested = findViewById(R.id.BRServiceRequestedTV);
-        ServiceRequested.setText(BookingList.currentBooking.getService());
+        ServiceRequested.setText(booking.getService());
 
         TextView DayOfService = findViewById(R.id.BRDOSTV);
-        DayOfService.setText(BookingList.currentBooking.getBookingDate().toString());
+        DayOfService.setText(booking.getBookingDate().toString());
 
         TextView TimeOfDay = findViewById(R.id.BRTODTV);
-        TimeOfDay.setText(Integer.toString(BookingList.currentBooking.getStartTime()));
+        TimeOfDay.setText(Integer.toString(booking.getStartTime()));
 
         EditText ratingCommentBox = findViewById(R.id.BRCommentPanel);
-        raterName = SignInActivity.currentUser.getEmail(); //this should be the username, not email
+        raterName = SignInActivity.currentUser.getEmail();
 
         addService = findViewById(R.id.BRUpdateReviewButton);
-        addService.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                commentToAdd = ratingCommentBox.getText().toString();
-                Ratings ratingToAdd = new Ratings((int) ratingBar.getRating(), commentToAdd, raterName);
-                //String SPEmail = BookingList.currentBooking.getServiceProviderInfo().getEmail();
-                ServiceProvider ourSP = BookingList.currentBooking.getServiceProvider();
-                ourSP.addRating(ratingToAdd);
-            }
+        addService.setOnClickListener(view -> {
+            commentToAdd = ratingCommentBox.getText().toString();
+            Ratings ratingToAdd = new Ratings((int) ratingBar.getRating(), commentToAdd, raterName);
+            String providerEmail = booking.getServiceProviderInfo().getEmail();
+            accountManager.getUser(providerEmail, optionalUser -> {
+                if (optionalUser.isPresent()) {
+                    ServiceProvider user = (ServiceProvider) optionalUser.get();
+                    user.addRating(ratingToAdd);
+                    accountManager.updateUser(user);
+                    // TODO: Add toast and sending back to the welcome screen
+                } else {
+                    // TODO: Add error toast
+                }
+            });
         });
 
         back = findViewById(R.id.backToBookingsButton);
