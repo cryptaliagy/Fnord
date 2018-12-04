@@ -27,6 +27,10 @@ public class Welcome extends AppCompatActivity {
         });
     }
 
+    public void viewBookings(View view) {
+        openActivity(BookingList.class);
+    }
+
     public void openActivity(Class<?> cls) {
         startActivity(new Intent(this, cls));
     }
