@@ -44,12 +44,12 @@ public class EditServicesSelect extends AppCompatActivity {
 
     }
 
-    private void initializeSpinner(Optional<ArrayList<String>> servicesOptional) {
+    private void initializeSpinner(ArrayList<String> servicesOptional) {
         ArrayList<String> services;
-        if (!servicesOptional.isPresent()) {
+        if (servicesOptional == null) {
             services = new ArrayList<>();
         } else {
-            services = servicesOptional.get();
+            services = servicesOptional;
         }
         editServicesSpinner = findViewById(R.id.editServiceSpinner);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, services);

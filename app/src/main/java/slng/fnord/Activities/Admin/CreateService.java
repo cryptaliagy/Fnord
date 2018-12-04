@@ -58,8 +58,8 @@ public class CreateService extends AppCompatActivity {
 
     }
 
-    public void creationCallback(Optional<Service> service) {
-        if (!service.isPresent()) {
+    public void creationCallback(Service service) {
+        if (service != null) {
             Toast.makeText(getApplicationContext(), "A service with that name already exists",
                     Toast.LENGTH_SHORT).show();
         } else {

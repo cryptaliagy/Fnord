@@ -64,10 +64,9 @@ public class ViewServices extends AppCompatActivity {
         });
     }
 
-    public void handleService(Optional<Service> serviceOptional) {
-        if (serviceOptional.isPresent()) {
+    public void handleService(Service service) {
+        if (service != null) {
             ServiceProvider user = (ServiceProvider) SignInActivity.currentUser;
-            Service service = serviceOptional.get();
             service.deleteProvider(user.getCompany());
         }
     }

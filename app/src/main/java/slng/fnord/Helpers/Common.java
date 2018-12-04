@@ -2,6 +2,7 @@ package slng.fnord.Helpers;
 
 
 import java.util.HashMap;
+import java.util.Optional;
 import java.util.regex.Pattern;
 
 import slng.fnord.Structures.HomeOwner;
@@ -96,6 +97,15 @@ public class Common {
         availability.put("Saturday", blankAvail);
         availability.put("Sunday", blankAvail);
         return availability;
+    }
+
+
+    public static <T> T extractOptional(Optional<T> optional) {
+        if (optional.isPresent()) {
+            return optional.get();
+        } else {
+            return null;
+        }
     }
 
 }

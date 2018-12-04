@@ -6,6 +6,8 @@ import io.reactivex.Scheduler;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
+import slng.fnord.Helpers.Common;
+import slng.fnord.Helpers.DBOberver;
 import slng.fnord.Helpers.Interfaces.Database;
 import slng.fnord.Structures.HomeOwner;
 import slng.fnord.Structures.ServiceProvider;
@@ -32,8 +34,8 @@ public class AccountManager {
      * @param failureCallback callback function for unsuccessful authentication
      */
 
-    public void authenticateUser(String email, String password, Consumer<Optional<User>> successCallback, Consumer<String> failureCallback) {
-        Disposable disposable = database.getUser(email).map(user -> {
+    public void authenticateUser(String email, String password, Consumer<User> successCallback, Consumer<String> failureCallback) {
+        database.getUser(email).map(user -> {
             Optional<User> optionalUser;
             if (!user.isPresent()) {
                 failureCallback.accept("Account does not exist");
@@ -49,7 +51,24 @@ public class AccountManager {
             }
 
             return optionalUser;
-        }).subscribe(successCallback);
+        }).subscribe(new DBOberver<Optional<User>>() {
+            @Override
+            public void onNext(Optional<User> user) {
+                if (user.isPresent()) {
+                    try {
+                        successCallback.accept(user.get());
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    try {
+                        successCallback.accept(null);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
 
     }
 
@@ -63,8 +82,8 @@ public class AccountManager {
      * @param callback callback function to receive new user object after the DB has received it
      */
 
-    public void newHomeOwner(String email, String password, Consumer<Optional<User>> callback) {
-        Disposable disposable = database.getUser(email)
+    public void newHomeOwner(String email, String password, Consumer<User> callback) {
+        database.getUser(email)
                 .map(user -> {
             Optional<User> optionalUser;
             // If a user does not exist, create one
@@ -77,7 +96,17 @@ public class AccountManager {
             }
             return optionalUser;
 
-        }).subscribe(callback);
+        }).subscribe(new DBOberver<Optional<User>>() {
+            @Override
+            public void onNext(Optional<User> user) {
+                User extracted = Common.extractOptional(user);
+                try {
+                    callback.accept(extracted);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 
     /**
@@ -91,8 +120,8 @@ public class AccountManager {
      */
 
     public void newServiceProvider(String email, String password, String company,
-                                   Consumer<Optional<User>> callback) {
-        Disposable disposable = database.getUser(email)
+                                   Consumer<User> callback) {
+        database.getUser(email)
                 .map(user -> {
             Optional<User> optionalUser;
             if (!user.isPresent()) {
@@ -105,7 +134,17 @@ public class AccountManager {
             }
 
             return optionalUser;
-        }).subscribe(callback);
+        }).subscribe(new DBOberver<Optional<User>>() {
+            @Override
+            public void onNext(Optional<User> user) {
+                User extracted = Common.extractOptional(user);
+                try {
+                    callback.accept(extracted);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 
     /**
@@ -114,8 +153,18 @@ public class AccountManager {
      * @param email email of the user that is being searched
      * @param callback callback method to receive user object
      */
-    public void getUser(String email, Consumer<Optional<User>> callback) {
-        Disposable disposable = database.getUser(email).subscribe(callback);
+    public void getUser(String email, Consumer<User> callback) {
+        database.getUser(email).subscribe(new DBOberver<Optional<User>>() {
+            @Override
+            public void onNext(Optional<User> user) {
+                User extracted = Common.extractOptional(user);
+                try {
+                    callback.accept(extracted);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 
 

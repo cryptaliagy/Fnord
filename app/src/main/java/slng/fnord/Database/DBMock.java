@@ -69,4 +69,9 @@ public class DBMock implements Database {
     public Observable<Optional<ArrayList<Service>>> getAllServices() {
         return null;
     }
+
+    @Override
+    public Observable<Booking> getAllBookings() {
+        return null;
+    }
 }

@@ -31,14 +31,17 @@ public class BookingListAdaptor extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup container) {
+        View view;
         if (convertView == null) {
-            convertView = LayoutInflater.from(container.getContext()).inflate(R.layout.booking_list_layout, container, false);
+            view = LayoutInflater.from(container.getContext()).inflate(R.layout.booking_list_layout, container, false);
+        } else {
+            view = convertView;
         }
 
         //TODO: Set more stuff to display to the user
          getBooking(position, (Optional<Booking> b)->{
             if (b.isPresent()){
-                fillItem(position, convertView, b.get());
+                fillItem(position, view, b.get());
             }
         });
         return convertView;

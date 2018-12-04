@@ -6,6 +6,8 @@ import java.util.Optional;
 
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
+import slng.fnord.Helpers.Common;
+import slng.fnord.Helpers.DBOberver;
 import slng.fnord.Helpers.Interfaces.Database;
 import slng.fnord.Structures.Booking;
 import slng.fnord.Structures.HomeOwner;
@@ -29,8 +31,18 @@ public class BookingManager {
         database.updateUser(provider);
     }
 
-    public void getBooking(String id, Consumer<Optional<Booking>> callback) {
-        Disposable disposable = database.getBooking(id).subscribe(callback);
+    public void getBooking(String id, Consumer<Booking> callback) {
+        database.getBooking(id).subscribe(new DBOberver<Optional<Booking>>() {
+            @Override
+            public void onNext(Optional<Booking> booking) {
+                Booking extracted = Common.extractOptional(booking);
+                try {
+                    callback.accept(extracted);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 
     public void removeBooking(String id) {
@@ -39,12 +51,27 @@ public class BookingManager {
 
     public void getAllBookings(String email, Consumer<ArrayList<Booking>> callback) {
         ArrayList<Booking> allBookings = new ArrayList<>();
-        Disposable disposable = database.getAllBookings()
+        Disposable disposable;
+        database.getAllBookings()
                 // Filters the bookings by email of the user
                 .filter(booking -> booking.getServiceProviderInfo().getEmail().equals(email)
-                || booking.getHomeOwnerInfo().getEmail().equals(email))
+                        || booking.getHomeOwnerInfo().getEmail().equals(email))
                 // Adds the filtered booking to the array list
-                .subscribe(booking -> allBookings.add(booking),
-                        Throwable::printStackTrace, () -> callback.accept(allBookings)); // passes the array to the callback
+                .subscribe(new DBOberver<Booking>() {
+                    @Override
+                    public void onNext(Booking booking) {
+                        allBookings.add(booking);
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        super.onComplete();
+                        try {
+                            callback.accept(allBookings);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
     }
 }
