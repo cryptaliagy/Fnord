@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
 
+import slng.fnord.Activities.Shared.MainActivity;
 import slng.fnord.Activities.Shared.SignInActivity;
 import slng.fnord.R;
 
@@ -27,24 +28,27 @@ public class Welcome extends AppCompatActivity {
         textView.setText("Welcome " + SignInActivity.currentUser.getEmail() + ".");
 
         SPViewProfile = findViewById(R.id.SPViewInfoChoice);
-        SPViewProfile.setOnClickListener(view -> openView(ViewProfile.class));
+        SPViewProfile.setOnClickListener(view -> openActivity(ViewProfile.class));
 
         SPEditProfile = findViewById(R.id.SPEditInfoChoice);
-        SPEditProfile.setOnClickListener(view -> openView(EditProfile.class));
+        SPEditProfile.setOnClickListener(view -> openActivity(EditProfile.class));
 
         SPViewService = findViewById(R.id.SPViewServiceChoice);
-        SPViewService.setOnClickListener(view -> openView(ViewServices.class));
+        SPViewService.setOnClickListener(view -> openActivity(ViewServices.class));
 
         SPAddAvailability = findViewById(R.id.SPAddAvailabilitiesChoice);
-        SPAddAvailability.setOnClickListener(view -> openView(Availability.class));
+        SPAddAvailability.setOnClickListener(view -> openActivity(Availability.class));
 
 
-
+        findViewById(R.id.logOutButtonHomeOwner).setOnClickListener(view -> {
+            SignInActivity.currentUser = null;
+            openActivity(MainActivity.class);
+        });
 
     }
 
 
-    public void openView(Class<?> cls) {
+    public void openActivity(Class<?> cls) {
         startActivity(new Intent(this, cls));
     }
 

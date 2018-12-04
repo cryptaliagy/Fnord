@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import slng.fnord.Activities.Shared.MainActivity;
 import slng.fnord.Activities.Shared.SignInActivity;
 import slng.fnord.R;
 
@@ -19,11 +20,14 @@ public class Welcome extends AppCompatActivity {
         //setting a custom message showing the username of the account
         TextView textView = findViewById(R.id.welcomeHO);
         textView.setText("Welcome " + SignInActivity.currentUser.getEmail() + ".");
+
+        findViewById(R.id.logOutButtonHomeOwner).setOnClickListener(view -> {
+            SignInActivity.currentUser = null;
+            openActivity(MainActivity.class);
+        });
     }
 
-    public void viewBookings(View view){
-        Intent intent = null;
-        intent = new Intent(this, slng.fnord.Activities.HomeOwner.BookingList.class);
-        startActivity(intent);
+    public void openActivity(Class<?> cls) {
+        startActivity(new Intent(this, cls));
     }
 }
