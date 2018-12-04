@@ -28,7 +28,7 @@ public class BookingReview extends AppCompatActivity {
     private AccountManager accountManager;
     private Button back;
 
-    private static Booking booking;
+    public static Booking booking;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

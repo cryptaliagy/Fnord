@@ -5,11 +5,26 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/bookingLService"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Service" />
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/bookingLService"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="8"
+            android:text="Service" />
+
+        <TextView
+            android:id="@+id/bookingLPosition"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="number "
+            tools:text="number " />
+    </LinearLayout>
 
     <TextView
         android:id="@+id/bookingLProvider"
@@ -23,10 +38,10 @@
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/bookingLTimeText"
+            android:id="@+id/bookingLDate"
             android:layout_width="15dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="2"
             android:text="Time of Day"
             tools:text="Time of Day" />
 
