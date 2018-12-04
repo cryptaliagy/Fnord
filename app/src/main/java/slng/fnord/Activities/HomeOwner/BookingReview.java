@@ -28,6 +28,7 @@ public class BookingReview extends AppCompatActivity {
     private AccountManager accountManager;
     private Button back;
 
+
     private static Booking booking;
 
     @Override
@@ -64,9 +65,10 @@ public class BookingReview extends AppCompatActivity {
                     ServiceProvider user = (ServiceProvider) optionalUser.get();
                     user.addRating(ratingToAdd);
                     accountManager.updateUser(user);
-                    // TODO: Add toast and sending back to the welcome screen
+                    Toast.makeText(getApplicationContext(), "Your review has been successfully updated!", Toast.LENGTH_SHORT).show();
+                    openView(Welcome.class);
                 } else {
-                    // TODO: Add error toast
+                    Toast.makeText(getApplicationContext(), "Your review was unable to be added!", Toast.LENGTH_SHORT).show();
                 }
             });
         });
