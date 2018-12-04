@@ -1,14 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
     <TextView
-        android:id="@+id/service"
+        android:id="@+id/bookingLService"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="TextView" />
+        android:text="Service" />
+
+    <TextView
+        android:id="@+id/bookingLProvider"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="ServiceProvider" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -16,17 +23,33 @@
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/startTime"
-            android:layout_width="wrap_content"
+            android:id="@+id/bookingLTimeText"
+            android:layout_width="15dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="TextView" />
+            android:text="Time of Day"
+            tools:text="Time of Day" />
 
         <TextView
-            android:id="@+id/endTime"
-            android:layout_width="wrap_content"
+            android:id="@+id/bookingLStartTime"
+            android:layout_width="10dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="TextView" />
+            android:text="StartTime" />
+
+        <TextView
+            android:id="@+id/bookingLToText"
+            android:layout_width="10dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="to"
+            tools:text="to" />
+
+        <TextView
+            android:id="@+id/bookingLEndTime"
+            android:layout_width="10dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="EndTime" />
     </LinearLayout>
 </LinearLayout>

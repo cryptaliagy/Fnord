@@ -7,18 +7,26 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
+import io.reactivex.functions.Consumer;
+import slng.fnord.Database.DBHelper;
+import slng.fnord.Managers.BookingManager;
 import slng.fnord.R;
 import slng.fnord.Structures.Booking;
+import slng.fnord.Structures.User;
 
 
 public class BookingListAdaptor extends BaseAdapter {
     private ArrayList<Booking> bookings;
+    private BookingManager bookingManager;
 
     // override other abstract methods here
 
     public BookingListAdaptor(ArrayList<Booking> bookings){
+
         this.bookings = bookings;
+        bookingManager = new BookingManager(new DBHelper());
     }
 
     @Override
@@ -28,9 +36,11 @@ public class BookingListAdaptor extends BaseAdapter {
         }
 
         //TODO: Set more stuff to display to the user
-        ((TextView) convertView.findViewById(R.id.service)).setText(getService(position));
-        ((TextView) convertView.findViewById(R.id.startTime)).setText(getStartTime(position));
-        ((TextView) convertView.findViewById(R.id.endTime)).setText(getEndTime(position));
+         getBooking(position, (Optional<Booking> b)->{
+            if (b.isPresent()){
+                fillItem(position, convertView, b.get());
+            }
+        });
         return convertView;
     }
 
@@ -39,20 +49,24 @@ public class BookingListAdaptor extends BaseAdapter {
         return bookings.size();
     }
 
+    public void fillItem(int pos, View v, Booking booking){
+        ((TextView) v.findViewById(R.id.bookingLService)).setText(booking.getService());
+        ((TextView) v.findViewById(R.id.bookingLStartTime)).setText(booking.getStartTime()+":00");
+        ((TextView) v.findViewById(R.id.bookingLEndTime)).setText(booking.getEndTime()+":00");
+    }
+
     public String getItem(int pos){
         return getService(pos);
     }
 
+    public Booking getBooking(int pos){return bookings.get(pos);}
+
+    public void getBooking(int pos, Consumer<Optional<Booking>> callback){
+        //bookingManager.getBooking(getItem(pos), callback);
+    }
+
     private String getService(int pos){
         return bookings.get(pos).getService();
-    }
-
-    private String getEndTime(int pos){
-        return ((Integer)bookings.get(pos).getEndTime()).toString();
-    }
-
-    private String getStartTime(int pos){
-        return ((Integer)bookings.get(pos).getStartTime()).toString();
     }
 
     @Override
