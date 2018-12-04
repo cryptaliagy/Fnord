@@ -1,7 +1,10 @@
 package slng.fnord.Managers;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Optional;
 
+import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import slng.fnord.Helpers.Interfaces.Database;
 import slng.fnord.Structures.Booking;
@@ -22,5 +25,26 @@ public class BookingManager {
         database.addBooking(booking);
         user.addBooking(booking.getId());
         provider.addBooking(booking.getId());
+        database.updateUser(user);
+        database.updateUser(provider);
+    }
+
+    public void getBooking(String id, Consumer<Optional<Booking>> callback) {
+        Disposable disposable = database.getBooking(id).subscribe(callback);
+    }
+
+    public void removeBooking(String id) {
+        database.removeBooking(id);
+    }
+
+    public void getAllBookings(String email, Consumer<ArrayList<Booking>> callback) {
+        ArrayList<Booking> allBookings = new ArrayList<>();
+        Disposable disposable = database.getAllBookings()
+                // Filters the bookings by email of the user
+                .filter(booking -> booking.getServiceProviderInfo().getEmail().equals(email)
+                || booking.getHomeOwnerInfo().getEmail().equals(email))
+                // Adds the filtered booking to the array list
+                .subscribe(booking -> allBookings.add(booking),
+                        Throwable::printStackTrace, () -> callback.accept(allBookings)); // passes the array to the callback
     }
 }
