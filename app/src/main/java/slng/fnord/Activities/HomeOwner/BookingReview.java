@@ -11,6 +11,10 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Locale;
+
 import slng.fnord.Activities.ServiceProvider.Availability;
 import slng.fnord.Activities.Shared.SignInActivity;
 import slng.fnord.Database.DBHelper;
@@ -46,8 +50,14 @@ public class BookingReview extends AppCompatActivity {
         TextView ServiceRequested = findViewById(R.id.BRServiceRequestedTV);
         ServiceRequested.setText(booking.getService());
 
+        //DayOfService.setText(booking.getBookingDate().toString());
         TextView DayOfService = findViewById(R.id.BRDOSTV);
-        DayOfService.setText(booking.getBookingDate().toString());
+        Calendar cal = booking.getBookingDate();
+        SimpleDateFormat theDate = new SimpleDateFormat("yyyy/MMMM/d/E", Locale.US);
+        String strTheDate = theDate.format(cal.getTime());
+        DayOfService.setText(strTheDate);
+
+
 
         TextView TimeOfDay = findViewById(R.id.BRTODTV);
         TimeOfDay.setText(Integer.toString(booking.getStartTime()));
