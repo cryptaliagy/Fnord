@@ -7,7 +7,7 @@ import java.util.regex.Pattern;
 import slng.fnord.Structures.HomeOwner;
 import slng.fnord.Structures.ServiceProvider;
 import slng.fnord.Structures.User;
-import slng.fnord.Structures.UserTypes;
+import slng.fnord.Helpers.Enums.UserTypes;
 
 public class Common {
     public static String makeHex(byte[] bytes) {
@@ -66,7 +66,7 @@ public class Common {
     }
 
     public static boolean validateCompany(String company){
-        return Pattern.matches("^[^\\s].+?[^\\s]$", company);
+        return Pattern.matches("^[^\\s][^.$#\\[\\]/]+[^\\s]$", company);
     }
 
     public static boolean validateAddress(String address){
@@ -74,20 +74,20 @@ public class Common {
     }
 
 
-    public static User makeUser(String email, String username, String password, UserTypes type) {
+    public static User makeUser(String email, String password, UserTypes type) {
         switch (type) {
             case HOMEOWNER:
-                return new HomeOwner(email, username, password);
+                return new HomeOwner(email, password);
             case SERVICEPROVIDER:
-                return new ServiceProvider(email, username, password);
+                return new ServiceProvider(email, password);
         }
 
         return null; // In theory impossible
     }
 
-    public static HashMap<String, Pair<String, String>> makeBlankAvail() {
-        HashMap<String, Pair<String, String>> availability = new HashMap<>();
-        Pair<String, String> blankAvail = new Pair<>("", "");
+    public static HashMap<String, Pair<Integer, Integer>> makeBlankAvail() {
+        HashMap<String, Pair<Integer, Integer>> availability = new HashMap<>();
+        Pair<Integer, Integer> blankAvail = new Pair<>(-1, -1);
         availability.put("Monday", blankAvail);
         availability.put("Tuesday", blankAvail);
         availability.put("Wednesday", blankAvail);

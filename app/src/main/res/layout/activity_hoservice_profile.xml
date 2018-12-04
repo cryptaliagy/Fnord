@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background"
-    tools:context=".Activities.HOServiceProfile">
+    tools:context=".Activities.HomeOwner.ServiceProfile">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -149,11 +149,6 @@
                 android:layout_weight="1"
                 android:text="Back to Search" />
 
-            <Space
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1" />
-
             <Button
                 android:id="@+id/button2"
                 android:layout_width="wrap_content"
@@ -174,20 +169,32 @@
             <TextView
                 android:id="@+id/textView55"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
+                android:paddingTop="15dp"
                 android:text="Average Rating" />
 
-            <RatingBar
-                android:id="@+id/ratingBar2"
-                style="@style/Widget.AppCompat.RatingBar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1" />
-        </LinearLayout>
+            <Space
+                android:layout_width="30dp"
+                android:layout_height="50dp" />
 
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="15dp" />
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent">
+
+                <RatingBar
+                    android:id="@+id/ratingBar2"
+                    style="@style/Widget.AppCompat.RatingBar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_weight="1"
+                    android:numStars="5"
+                    android:rating="0"
+                    android:stepSize="1" />
+            </RelativeLayout>
+
+        </LinearLayout>
 
         <TextView
             android:id="@+id/textView56"
@@ -201,4 +208,4 @@
 
     </LinearLayout>
 
-</android.support.constraint.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

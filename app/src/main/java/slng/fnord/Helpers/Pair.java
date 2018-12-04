@@ -1,8 +1,9 @@
 package slng.fnord.Helpers;
 
 public class Pair<F, S> {
-    public F first;
-    public S second;
+    private F first;
+    private S second;
+
     public Pair() {
 
     }
@@ -12,7 +13,23 @@ public class Pair<F, S> {
         this.second = second;
     }
 
+    public Pair<F, S> clone() {
+        return new Pair<>(first, second);
+    }
 
+    public F getFirst() {
+        return first;
+    }
 
+    public S getSecond() {
+        return second;
+    }
 
+    public void setFirst(F first) {
+        this.first = first;
+    }
+
+    public void setSecond(S second) {
+        this.second = second;
+    }
 }

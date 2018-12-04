@@ -1,47 +1,73 @@
 package slng.fnord.Structures;
 
 
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 import slng.fnord.Helpers.Common;
+import slng.fnord.Helpers.Enums.UserTypes;
 import slng.fnord.Helpers.Pair;
 
 public class ServiceProvider extends User {
-    private HashMap<String, Pair<Boolean, String>> services;
+    private HashMap<String, Boolean> services;
     private String phone;
     private String address;
     private String company;
     private String biography;
-    private HashMap<String, Pair<String, String>> availability;
+    private HashMap<String, Pair<Integer, Integer>> availability;
+    private ArrayList<Ratings> ratings;
+    private int averageRating;
+    private int totalNumberOfRatings;
 
     // Necessary for DB
     public ServiceProvider() {
 
     }
 
-    public ServiceProvider(String email, String username, String password) {
-        super(email, username, password, UserTypes.SERVICEPROVIDER);
+    public ServiceProvider(String email, String password) {
+        super(email, password, UserTypes.SERVICEPROVIDER);
         services = new HashMap<>();
         availability = Common.makeBlankAvail();
+        ArrayList<Ratings> ratings = new ArrayList<Ratings>();
+        totalNumberOfRatings = 0;
+        averageRating = 0;
     }
+
+    public void addRating(Ratings rating){
+        //if ratings arraylist is less than 5, add it
+        //if ratings arraylist is greater than 5,
+        if(ratings.size() < 5){
+            ratings.add(rating);
+        } else {
+            int indexToAdd = totalNumberOfRatings % 5;
+            ratings.set(indexToAdd,rating);
+        }
+        averageRating = (rating.getRatingValue() + (averageRating*totalNumberOfRatings))/(totalNumberOfRatings+1);
+        totalNumberOfRatings++;
+    }
+
+    public ArrayList<Ratings> getRatings() {
+        return ratings;
+    }
+
+    public int getAverageRating(){
+        return averageRating;
+    }
+
 
     public void addService(String serviceName, boolean certified) {
         if (services == null) {
             services = new HashMap<>();
         }
-        services.put(serviceName, new Pair<>(certified, ""));
+        services.put(serviceName, certified);
     }
 
     public void addService(String serviceName) {
         addService(serviceName, false);
     }
 
-    public void removeService(String serviceName) {
-        services.remove(serviceName);
-    }
+    public void removeService(String id) { services.remove(id); }
 
     public List<String> getServiceList() {
         if (services == null) {
@@ -50,16 +76,12 @@ public class ServiceProvider extends User {
         return new ArrayList<>(services.keySet());
     }
 
-    public HashMap<String, Pair<Boolean, String>> getServices() {
+    public HashMap<String, Boolean> getServices() {
         return services;
     }
 
     public void updateCertified(String serviceName, boolean certified) {
-        Pair<Boolean, String> info = services.get(serviceName);
-
-        if (info != null) {
-            Pair<Boolean, String> newInfo = new Pair<>(certified, info.second);
-        }
+        services.put(serviceName, certified);
     }
 
     public boolean isCertified(String serviceName) {
@@ -67,7 +89,7 @@ public class ServiceProvider extends User {
             return false;
         }
 
-        return services.get(serviceName).first;
+        return services.get(serviceName);
     }
 
     public String getPhone() {
@@ -102,16 +124,20 @@ public class ServiceProvider extends User {
         this.biography = biography;
     }
 
-    public void setAvailability(HashMap<String, Pair<String, String>> availability) {
+    public void setAvailability(HashMap<String, Pair<Integer, Integer>> availability) {
         this.availability = availability;
     }
 
-    public HashMap<String, Pair<String, String>> getAvailability() {
+    public HashMap<String, Pair<Integer, Integer>> getAvailability() {
         return this.availability;
     }
 
-    public Pair<String, String> getDayAvailability(String day) {
+    public Pair<Integer, Integer> getDayAvailability(String day) {
         return availability.get(day);
+    }
+
+    public void setDayAvailability(String day, Pair<Integer, Integer> availability) {
+        this.availability.put(day, availability);
     }
 
 

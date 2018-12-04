@@ -3,10 +3,9 @@
 
     //spinner values
     <string-array name="accountTypes">
-        <item>HomeOwner</item>
-        <item>ServiceProvider</item>
+        <item>Home Owner</item>
+        <item>Service Provider</item>
     </string-array>
-    <string name="title_activity_pleasedelete">PLEASEDELETE</string>
     <string name="title_activity_hoview__sp">HOview_SP</string>
     <string name="title_activity_ho_service_profile">hoServiceProfile</string>
     <string name="title_activity_hobooking_list">HOBookingList</string>

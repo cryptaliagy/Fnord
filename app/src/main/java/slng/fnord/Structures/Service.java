@@ -3,28 +3,37 @@ package slng.fnord.Structures;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class Service {
+import slng.fnord.Helpers.Interfaces.Identifiable;
+
+public class Service implements Identifiable {
     private String serviceName;
     private double serviceRate;
+    private String id;
 
     // HashMap holds 'true' if provider is certified, 'false' if not
-    private HashMap<String, Boolean> providers;
+    private HashMap<String, ServiceProviderMeta> providers;
 
     public Service() {
 
     }
 
-    public Service(String serviceName, double serviceRate) {
-        this.serviceName = serviceName;
+    public Service(String name, double serviceRate) {
+        this.serviceName = name;
         this.serviceRate = serviceRate;
         providers = new HashMap<>();
     }
 
-    public void addProvider(String name, boolean verified) {
-        providers.put(name, verified);
+    public void addProvider(ServiceProvider provider) {
+        if (providers == null) {
+            providers = new HashMap<>();
+        }
+        providers.put(provider.getCompany(), new ServiceProviderMeta(provider, provider.isCertified(serviceName)));
     }
 
     public void deleteProvider(String name) {
+        if (providers == null) {
+            providers = new HashMap<>();
+        }
         providers.remove(name);
     }
 
@@ -41,7 +50,7 @@ public class Service {
             return false;
         }
 
-        return providers.get(name);
+        return providers.get(name).isCertified();
     }
 
     public ArrayList<String> providerList() {
@@ -64,11 +73,19 @@ public class Service {
         this.serviceRate = serviceRate;
     }
 
-    public HashMap<String, Boolean> getProviders() {
+    public HashMap<String, ServiceProviderMeta> getProviders() {
         return providers;
     }
 
-    public void setProviders(HashMap<String, Boolean> providers) {
+    public void setProviders(HashMap<String, ServiceProviderMeta> providers) {
         this.providers = providers;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 }

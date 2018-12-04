@@ -1,8 +1,8 @@
 package slng.fnord.Helpers;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,8 +11,9 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import slng.fnord.Activities.MainActivity;
-import slng.fnord.Helpers.Common;
+import slng.fnord.Activities.Shared.MainActivity;
+import slng.fnord.Database.DBHelper;
+import slng.fnord.Managers.ServicesManager;
 import slng.fnord.R;
 import slng.fnord.Structures.Services;
 
@@ -32,18 +33,19 @@ public class ServicesAndRatesAdapter extends ArrayAdapter<String> {
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-        Services ser = MainActivity.getServices();
+        ServicesManager manager = new ServicesManager(new DBHelper());
         String service = objects.get(position);
-        Double  rate = ser.getServiceRate(Common.makeMD5(service));
+
+        System.out.println(service);
 
         LayoutInflater inflater = LayoutInflater.from(mContext);
         convertView = inflater.inflate(mResource,parent,false);
 
-        TextView tvService = (TextView) convertView.findViewById(R.id.srv);
-        TextView tvRate = (TextView) convertView.findViewById(R.id.rateField);
+        TextView tvService = convertView.findViewById(R.id.srv);
+        TextView tvRate = convertView.findViewById(R.id.rateField);
 
         tvService.setText(service);
-        tvRate.setText(String.format("%.2f", rate));
+        manager.getServiceRateForView(service, tvRate);
         return convertView;
 
     }

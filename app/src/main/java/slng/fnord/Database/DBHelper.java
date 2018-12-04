@@ -1,97 +1,214 @@
 package slng.fnord.Database;
 
-import android.support.annotation.NonNull;
-
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Optional;
 
-import io.reactivex.Completable;
-import io.reactivex.CompletableEmitter;
-import io.reactivex.CompletableOnSubscribe;
 import io.reactivex.Observable;
-import io.reactivex.ObservableEmitter;
-import io.reactivex.ObservableOnSubscribe;
-import slng.fnord.Helpers.Common;
-import slng.fnord.Structures.Services;
+import io.reactivex.disposables.Disposable;
+import slng.fnord.Helpers.Interfaces.Database;
+import slng.fnord.Helpers.Interfaces.Identifiable;
+import slng.fnord.Structures.Administrator;
+import slng.fnord.Structures.Booking;
+import slng.fnord.Structures.HomeOwner;
+import slng.fnord.Structures.Service;
+import slng.fnord.Structures.ServiceProvider;
 import slng.fnord.Structures.User;
+import slng.fnord.Helpers.Enums.UserTypes;
 
-public class DBHelper {
-    public static Observable<DataSnapshot> makeObservableFromPath(final String path) {
-        return Observable.create(new ObservableOnSubscribe<DataSnapshot>() {
-            @Override
-            public void subscribe(final ObservableEmitter<DataSnapshot> emitter) {
-                DatabaseReference ref = FirebaseDatabase.getInstance().getReference(path);
-                ValueEventListener listener = new ValueEventListener() {
+public class DBHelper implements Database {
+
+    public Observable<Optional<User>> getUser(String email) {
+        return Observable.create(source -> FirebaseDatabase.getInstance()
+                .getReference("users").orderByChild("email").equalTo(email)
+                .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        emitter.onNext(dataSnapshot);
-                        emitter.onComplete();
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        Optional<User> optionalUser;
+                        if (dataSnapshot.exists()) { // User exists
+                            DataSnapshot result = dataSnapshot.getChildren().iterator().next();
+
+                            UserTypes type = result.child("type").getValue(UserTypes.class);
+                            User user = null;
+                            switch (type) {
+                                case HOMEOWNER:
+                                    user = result.getValue(HomeOwner.class);
+                                    break;
+                                case SERVICEPROVIDER:
+                                    user = result.getValue(ServiceProvider.class);
+                                    break;
+                                case ADMIN:
+                                    user = result.getValue(Administrator.class);
+                                    break;
+                            }
+
+
+                            optionalUser = Optional.ofNullable(user);
+                        } else {
+                            optionalUser = Optional.empty();
+                        }
+                        source.onNext(optionalUser);
+                        source.onComplete();
                     }
 
                     @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-                        emitter.onError(databaseError.toException());
-
+                    public void onCancelled(DatabaseError databaseError) {
+                            source.onError(databaseError.toException());
                     }
-                };
-
-                ref.addListenerForSingleValueEvent(listener);
-            }
-        });
+                }));
     }
 
-    public static Completable makeCompletableFromPath(final String path, final Object value) {
-        return Completable.create(new CompletableOnSubscribe() {
-            @Override
-            public void subscribe(final CompletableEmitter emitter) throws Exception {
-                DatabaseReference ref = FirebaseDatabase.getInstance().getReference(path);
-                ref.setValue(value).addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        emitter.onComplete();
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        emitter.onError(e);
-                    }
-                });
-            }
-        });
+    public void addUser(User user) {
+        addNewGeneric("users", user);
     }
 
-    private static void updateFromPath(String path, Object object) {
-        DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();
-
-        dbRef.child(path).setValue(object);
-    }
-
-    public static void updateUser(User user) {
+    public void updateUser(User user) {
         updateFromPath("users/" + user.getId(), user);
     }
 
-    public static void updateServices(Services services) {
-        DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();
-        Map<String, Object> children = new HashMap<>();
+    public Observable<Optional<Service>> getService(String name) {
+        return Observable.create(source -> FirebaseDatabase.getInstance()
+                .getReference("services").orderByChild("serviceName").equalTo(name)
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        Optional<Service> optionalService;
+                        if (dataSnapshot.exists()) {
+                            DataSnapshot result = dataSnapshot.getChildren().iterator().next();
+                            Service service = result.getValue(Service.class);
+                            optionalService = Optional.ofNullable(service);
+                        } else {
+                            optionalService = Optional.empty();
+                        }
+                        source.onNext(optionalService);
+                        source.onComplete();
+                    }
 
-        for (String key : services.getServices().keySet()) {
-            children.put(key, services.getService(key));
-        }
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        source.onError(databaseError.toException());
+                    }
+                })
 
-        dbRef.child("services").updateChildren(children);
+        );
+    }
+    public void addService(Service service) {
+        addNewGeneric("services", service);
     }
 
-    public static void deleteService(String service) {
-        String id = Common.makeMD5(service);
+    public void removeService(String name) {
+        Disposable disposable = getService(name).subscribe(service -> {
+            if (service.isPresent()) {
+                updateFromPath("services/" + service.get().getId(), null);
+            }
+        });
+    }
 
-        FirebaseDatabase.getInstance().getReference("services/"+id).removeValue();
+    public void updateService(Service service) {
+        updateFromPath("services/"+service.getId(), service);
+    }
+
+    public void addBooking(Booking booking) { addNewGeneric("bookings", booking); }
+
+    public void removeBooking(String id) { updateFromPath("bookings/" + id, null); }
+
+    public Observable<Optional<Booking>> getBooking(String id) {
+        return Observable.create(source -> FirebaseDatabase.getInstance()
+                .getReference("bookings").child(id).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        Optional<Booking> optionalBooking;
+                        if (dataSnapshot.exists()) {
+                            Booking result = dataSnapshot.getValue(Booking.class);
+                            optionalBooking = Optional.ofNullable(result);
+                        } else {
+                            optionalBooking = Optional.empty();
+                        }
+                        source.onNext(optionalBooking);
+                        source.onComplete();
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        source.onError(databaseError.toException());
+                    }
+                }));
+    }
+
+    private <T> void updateFromPath(String path, T object) {
+        DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();
+        dbRef.child(path).setValue(object);
+    }
+
+    private <T extends Identifiable> void addNewGeneric(String node, T object) {
+        DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference(node).push();
+        object.setId(dbRef.getKey());
+
+        dbRef.setValue(object);
+    }
+
+    public Observable<Optional<ArrayList<String>>> getAllServiceNames() {
+        return Observable.create(source -> FirebaseDatabase.getInstance()
+                .getReference("services")
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        Optional<ArrayList<String>> optionalStrings;
+                        if (dataSnapshot.exists()) {
+                            ArrayList<String> services = new ArrayList<>();
+                            for (DataSnapshot child : dataSnapshot.getChildren()) {
+                                services.add(child.child("serviceName").getValue(String.class));
+                            }
+
+                            optionalStrings = Optional.ofNullable(services);
+                        } else {
+                            optionalStrings = Optional.empty();
+                        }
+                        source.onNext(optionalStrings);
+                        source.onComplete();
+
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        source.onError(databaseError.toException());
+
+                    }
+                }));
+    }
+
+    @Override
+    public Observable<Optional<ArrayList<Service>>> getAllServices() {
+        return Observable.create(source -> FirebaseDatabase.getInstance()
+                .getReference("services")
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        Optional<ArrayList<Service>> optionalServices;
+                        if (dataSnapshot.exists()) {
+                            ArrayList<Service> services = new ArrayList<>();
+                            for (DataSnapshot child : dataSnapshot.getChildren()) {
+                                services.add(child.getValue(Service.class));
+                            }
+                            optionalServices = Optional.ofNullable(services);
+                        } else {
+                            optionalServices = Optional.empty();
+                        }
+
+                        source.onNext(optionalServices);
+                        source.onComplete();
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                }));
     }
 }

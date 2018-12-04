@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
     android:background="@drawable/background"
     android:layout_height="match_parent">
@@ -28,7 +28,7 @@
 
             <TextView
                 android:gravity="center"
-                android:text="rate"
+                android:text="serviceRate"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:id="@+id/rateField"
@@ -37,4 +37,4 @@
         </LinearLayout>
 
     </LinearLayout>
-</android.support.constraint.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
