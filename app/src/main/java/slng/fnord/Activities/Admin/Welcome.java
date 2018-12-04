@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
 
+import slng.fnord.Activities.Shared.MainActivity;
 import slng.fnord.Activities.Shared.SignInActivity;
 import slng.fnord.R;
 
@@ -24,16 +25,21 @@ public class Welcome extends AppCompatActivity {
         textView.setText("Welcome " + SignInActivity.currentUser.getEmail() + ".");
 
         cserve = findViewById(R.id.createServiceChoiceButton);
-        cserve.setOnClickListener(view -> openView(CreateService.class));
+        cserve.setOnClickListener(view -> openActivity(CreateService.class));
 
         vserve = findViewById(R.id.viewServicesButton);
-        vserve.setOnClickListener(view -> openView(ViewService.class));
+        vserve.setOnClickListener(view -> openActivity(ViewService.class));
 
         eserve = findViewById(R.id.editServiceChoiceButton);
-        eserve.setOnClickListener(view -> openView(EditServicesSelect.class));
+        eserve.setOnClickListener(view -> openActivity(EditServicesSelect.class));
+
+        findViewById(R.id.logOutButtonAdmin).setOnClickListener(view -> {
+            SignInActivity.currentUser = null;
+            openActivity(MainActivity.class);
+        });
     }
 
-    public void openView(final Class<?> cls) {
+    public void openActivity(final Class<?> cls) {
         startActivity(new Intent(this, cls));
     }
 

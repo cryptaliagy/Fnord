@@ -9,6 +9,14 @@ import android.widget.EditText;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+<<<<<<< HEAD
+=======
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Locale;
+
+import slng.fnord.Activities.ServiceProvider.Availability;
+>>>>>>> develop
 import slng.fnord.Activities.Shared.SignInActivity;
 import slng.fnord.Database.DBHelper;
 import slng.fnord.Managers.AccountManager;
@@ -42,8 +50,14 @@ public class BookingReview extends AppCompatActivity {
         TextView ServiceRequested = findViewById(R.id.BRServiceRequestedTV);
         ServiceRequested.setText(booking.getService());
 
+        //DayOfService.setText(booking.getBookingDate().toString());
         TextView DayOfService = findViewById(R.id.BRDOSTV);
-        DayOfService.setText(booking.getBookingDate().toString());
+        Calendar cal = booking.getBookingDate();
+        SimpleDateFormat theDate = new SimpleDateFormat("yyyy/MMMM/d/E", Locale.US);
+        String strTheDate = theDate.format(cal.getTime());
+        DayOfService.setText(strTheDate);
+
+
 
         TextView TimeOfDay = findViewById(R.id.BRTODTV);
         TimeOfDay.setText(Integer.toString(booking.getStartTime()));
@@ -56,14 +70,24 @@ public class BookingReview extends AppCompatActivity {
             commentToAdd = ratingCommentBox.getText().toString();
             Ratings ratingToAdd = new Ratings((int) ratingBar.getRating(), commentToAdd, raterName);
             String providerEmail = booking.getServiceProviderInfo().getEmail();
+<<<<<<< HEAD
             accountManager.getUser(providerEmail, user -> {
                 if (user != null) {
                     ServiceProvider serviceProvider = (ServiceProvider) user;
                     serviceProvider.addRating(ratingToAdd);
                     accountManager.updateUser(serviceProvider);
                     // TODO: Add toast and sending back to the welcome screen
+=======
+            accountManager.getUser(providerEmail, optionalUser -> {
+                if (optionalUser.isPresent()) {
+                    ServiceProvider user = (ServiceProvider) optionalUser.get();
+                    user.addRating(ratingToAdd);
+                    accountManager.updateUser(user);
+                    Toast.makeText(getApplicationContext(), "Your review has been successfully updated!", Toast.LENGTH_SHORT).show();
+                    openView(Welcome.class);
+>>>>>>> develop
                 } else {
-                    // TODO: Add error toast
+                    Toast.makeText(getApplicationContext(), "Your review was unable to be added!", Toast.LENGTH_SHORT).show();
                 }
             });
         });
