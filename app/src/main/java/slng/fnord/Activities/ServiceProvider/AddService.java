@@ -66,21 +66,19 @@ public class AddService extends AppCompatActivity {
 
     }
 
-    public void serviceCallback(Optional<Service> optionalService) {
-        if (optionalService.isPresent()) {
-            Service service = optionalService.get();
+    public void serviceCallback(Service service) {
+        if (service != null) {
             service.addProvider((ServiceProvider) SignInActivity.currentUser);
             serviceManager.updateService(service);
         }
     }
 
 
-    private void initializeSpinner(Optional<ArrayList<String>> servicesOptional) {
-        if (!servicesOptional.isPresent()) {
+    private void initializeSpinner(ArrayList<String> services) {
+        if (services == null) {
             return;
         }
 
-        ArrayList<String> services = servicesOptional.get();
         addServicesSpinner = findViewById(R.id.addServiceSpinner);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, services);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);

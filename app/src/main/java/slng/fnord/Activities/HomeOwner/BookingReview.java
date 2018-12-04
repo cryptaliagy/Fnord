@@ -4,14 +4,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RatingBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import slng.fnord.Activities.ServiceProvider.Availability;
 import slng.fnord.Activities.Shared.SignInActivity;
 import slng.fnord.Database.DBHelper;
 import slng.fnord.Managers.AccountManager;
@@ -59,11 +56,11 @@ public class BookingReview extends AppCompatActivity {
             commentToAdd = ratingCommentBox.getText().toString();
             Ratings ratingToAdd = new Ratings((int) ratingBar.getRating(), commentToAdd, raterName);
             String providerEmail = booking.getServiceProviderInfo().getEmail();
-            accountManager.getUser(providerEmail, optionalUser -> {
-                if (optionalUser.isPresent()) {
-                    ServiceProvider user = (ServiceProvider) optionalUser.get();
-                    user.addRating(ratingToAdd);
-                    accountManager.updateUser(user);
+            accountManager.getUser(providerEmail, user -> {
+                if (user != null) {
+                    ServiceProvider serviceProvider = (ServiceProvider) user;
+                    serviceProvider.addRating(ratingToAdd);
+                    accountManager.updateUser(serviceProvider);
                     // TODO: Add toast and sending back to the welcome screen
                 } else {
                     // TODO: Add error toast

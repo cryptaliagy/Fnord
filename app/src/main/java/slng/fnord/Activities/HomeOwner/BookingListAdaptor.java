@@ -36,6 +36,7 @@ public class BookingListAdaptor extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup container) {
+        View view;
         if (convertView == null) {
             convertView = LayoutInflater.from(container.getContext()).inflate(R.layout.booking_list_layout, container, false);
             convertView.setOnClickListener(this::onBookingItemClick);
