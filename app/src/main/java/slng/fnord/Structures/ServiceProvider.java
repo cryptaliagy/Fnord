@@ -16,6 +16,9 @@ public class ServiceProvider extends User {
     private String company;
     private String biography;
     private HashMap<String, Pair<Integer, Integer>> availability;
+    private ArrayList<Ratings> ratings;
+    private float averageRating;
+    private int totalNumberOfRatings;
 
     // Necessary for DB
     public ServiceProvider() {
@@ -26,7 +29,32 @@ public class ServiceProvider extends User {
         super(email, password, UserTypes.SERVICEPROVIDER);
         services = new HashMap<>();
         availability = Common.makeBlankAvail();
+        ratings = new ArrayList<Ratings>();
+        totalNumberOfRatings = 0;
+        averageRating = 0;
     }
+
+    public void addRating(Ratings rating){
+        //if ratings arraylist is less than 5, add it
+        //if ratings arraylist is greater than 5,
+        if(ratings.size() < 5){
+            ratings.add(rating);
+        } else {
+            int indexToAdd = totalNumberOfRatings % 5;
+            ratings.set(indexToAdd,rating);
+        }
+        averageRating = (rating.getRatingValue() + (averageRating*totalNumberOfRatings))/(totalNumberOfRatings+1);
+        totalNumberOfRatings++;
+    }
+
+    public ArrayList<Ratings> getRatings() {
+        return ratings;
+    }
+
+    public float getAverageRating(){
+        return averageRating;
+    }
+
 
     public void addService(String serviceName, boolean certified) {
         if (services == null) {
