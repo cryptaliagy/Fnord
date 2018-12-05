@@ -128,6 +128,10 @@ public class ServiceProvider extends User {
         this.availability = availability;
     }
 
+    public boolean providesService(String name) {
+        return services.containsKey(name);
+    }
+
     public HashMap<String, Pair<Integer, Integer>> getAvailability() {
         return this.availability;
     }

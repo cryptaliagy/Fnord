@@ -10,6 +10,7 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Optional;
 
+import androidx.annotation.NonNull;
 import io.reactivex.Observable;
 import io.reactivex.disposables.Disposable;
 import slng.fnord.Helpers.Interfaces.Database;
@@ -219,7 +220,6 @@ public class DBHelper implements Database {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         if (dataSnapshot.exists()) {
-                            Booking booking;
                             for (DataSnapshot child : dataSnapshot.getChildren()) {
                                 source.onNext(child.getValue(Booking.class));
                             }
@@ -229,6 +229,29 @@ public class DBHelper implements Database {
 
                     @Override
                     public void onCancelled(DatabaseError databaseError) {
+                        source.onError(databaseError.toException());
+                    }
+                }));
+    }
+
+    @Override
+    public Observable<ServiceProvider> getAllServiceProviders() {
+        return Observable.create(source -> FirebaseDatabase.getInstance()
+                .getReference("users")
+                .orderByChild("type").equalTo("SERVICEPROVIDER")
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        if (dataSnapshot.exists()) {
+                            for (DataSnapshot child : dataSnapshot.getChildren()) {
+                                source.onNext(child.getValue(ServiceProvider.class));
+                            }
+                        }
+                        source.onComplete();
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
                         source.onError(databaseError.toException());
                     }
                 }));

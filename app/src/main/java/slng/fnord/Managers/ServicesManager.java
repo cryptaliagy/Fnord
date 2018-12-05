@@ -12,6 +12,7 @@ import slng.fnord.Helpers.Common;
 import slng.fnord.Helpers.DBOberver;
 import slng.fnord.Helpers.Interfaces.Database;
 import slng.fnord.Structures.Service;
+import slng.fnord.Structures.ServiceProvider;
 
 public class ServicesManager {
     private Database database;
@@ -74,6 +75,15 @@ public class ServicesManager {
      */
     public void removeService(String name) {
         database.removeService(name);
+        database.getAllServiceProviders()
+                .filter(provider -> provider.providesService(name))
+                .subscribe(new DBOberver<ServiceProvider>() {
+                    @Override
+                    public void onNext(ServiceProvider serviceProvider) {
+                        serviceProvider.removeService(name);
+                        database.updateUser(serviceProvider);
+                    }
+                });
     }
 
     /**
