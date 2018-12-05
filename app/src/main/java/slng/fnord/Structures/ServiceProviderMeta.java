@@ -8,6 +8,7 @@ public class ServiceProviderMeta extends ServiceProviderInfo {
 
     private HashMap<String, Pair<Integer, Integer>> availabilities;
     private boolean isCertified;
+    private float averageRating;
 
     public ServiceProviderMeta() {
 
@@ -17,6 +18,7 @@ public class ServiceProviderMeta extends ServiceProviderInfo {
         super(serviceProvider);
         this.availabilities = serviceProvider.getAvailability();
         this.isCertified = isCertified;
+        this.averageRating = serviceProvider.getAverageRating();
     }
 
     public boolean isCertified() {
@@ -25,5 +27,9 @@ public class ServiceProviderMeta extends ServiceProviderInfo {
 
     public HashMap<String, Pair<Integer, Integer>> getAvailabilities() {
         return availabilities;
+    }
+
+    public float getAverageRating() {
+        return averageRating;
     }
 }

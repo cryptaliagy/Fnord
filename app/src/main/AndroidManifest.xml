@@ -55,6 +55,9 @@
         <activity android:name=".Activities.ServiceProvider.ViewServices" />
         <activity android:name=".Activities.ServiceProvider.Availability" />
         <activity
+            android:name=".Activities.HomeOwner.SearchProvider" />
+        <activity android:name=".Activities.HomeOwner.SearchResults"/>
+        <activity
             android:name=".Activities.HomeOwner.ServiceProfile"
             android:label="@string/title_activity_ho_service_profile" />
         <activity

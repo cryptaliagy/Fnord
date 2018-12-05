@@ -45,6 +45,14 @@ public class Service implements Identifiable {
         return true;
     }
 
+    public ServiceProviderMeta getProvider(String name) {
+        return providers.get(name);
+    }
+
+    public String getProviderEmail(String name) {
+        return providers.get(name).getEmail();
+    }
+
     public boolean providerIsCertified(String name) {
         if (!isProvider(name)) {
             return false;

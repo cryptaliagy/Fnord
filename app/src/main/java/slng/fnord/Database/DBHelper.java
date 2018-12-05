@@ -10,6 +10,7 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Optional;
 
+import androidx.annotation.NonNull;
 import io.reactivex.Observable;
 import io.reactivex.disposables.Disposable;
 import slng.fnord.Helpers.Interfaces.Database;
@@ -114,7 +115,7 @@ public class DBHelper implements Database {
         updateFromPath("services/"+service.getId(), service);
     }
 
-    public void addBooking(Booking booking) { addNewGeneric("bookings", booking); }
+    public String addBooking(Booking booking) { return addGenericGetID("bookings", booking); }
 
     public void removeBooking(String id) { updateFromPath("bookings/" + id, null); }
 
@@ -144,6 +145,16 @@ public class DBHelper implements Database {
     private <T> void updateFromPath(String path, T object) {
         DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();
         dbRef.child(path).setValue(object);
+    }
+
+    private <T extends Identifiable> String addGenericGetID(String node, T object) {
+        DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference(node).push();
+        String id = dbRef.getKey();
+
+        object.setId(id);
+
+        dbRef.setValue(object);
+        return id;
     }
 
     private <T extends Identifiable> void addNewGeneric(String node, T object) {
@@ -219,7 +230,6 @@ public class DBHelper implements Database {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         if (dataSnapshot.exists()) {
-                            Booking booking;
                             for (DataSnapshot child : dataSnapshot.getChildren()) {
                                 source.onNext(child.getValue(Booking.class));
                             }
@@ -229,6 +239,29 @@ public class DBHelper implements Database {
 
                     @Override
                     public void onCancelled(DatabaseError databaseError) {
+                        source.onError(databaseError.toException());
+                    }
+                }));
+    }
+
+    @Override
+    public Observable<ServiceProvider> getAllServiceProviders() {
+        return Observable.create(source -> FirebaseDatabase.getInstance()
+                .getReference("users")
+                .orderByChild("type").equalTo("SERVICEPROVIDER")
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        if (dataSnapshot.exists()) {
+                            for (DataSnapshot child : dataSnapshot.getChildren()) {
+                                source.onNext(child.getValue(ServiceProvider.class));
+                            }
+                        }
+                        source.onComplete();
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
                         source.onError(databaseError.toException());
                     }
                 }));
