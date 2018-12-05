@@ -7,6 +7,7 @@ import io.reactivex.Observable;
 import slng.fnord.Helpers.Interfaces.Database;
 import slng.fnord.Structures.Booking;
 import slng.fnord.Structures.Service;
+import slng.fnord.Structures.ServiceProvider;
 import slng.fnord.Structures.User;
 
 public class DBMock implements Database {
@@ -72,6 +73,11 @@ public class DBMock implements Database {
 
     @Override
     public Observable<Booking> getAllBookings() {
+        return null;
+    }
+
+    @Override
+    public Observable<ServiceProvider> getAllServiceProviders() {
         return null;
     }
 }

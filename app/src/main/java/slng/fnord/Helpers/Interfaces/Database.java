@@ -6,6 +6,7 @@ import java.util.Optional;
 import io.reactivex.Observable;
 import slng.fnord.Structures.Booking;
 import slng.fnord.Structures.Service;
+import slng.fnord.Structures.ServiceProvider;
 import slng.fnord.Structures.User;
 
 public interface Database {
@@ -34,5 +35,7 @@ public interface Database {
     Observable<Optional<ArrayList<String>>> getAllServiceNames();
 
     Observable<Optional<ArrayList<Service>>> getAllServices();
+
+    Observable<ServiceProvider> getAllServiceProviders();
 
 }

@@ -59,7 +59,7 @@ public class CreateService extends AppCompatActivity {
     }
 
     public void creationCallback(Service service) {
-        if (service != null) {
+        if (service == null) {
             Toast.makeText(getApplicationContext(), "A service with that name already exists",
                     Toast.LENGTH_SHORT).show();
         } else {
