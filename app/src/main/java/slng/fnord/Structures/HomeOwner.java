@@ -11,5 +11,14 @@ public class HomeOwner extends User {
 
     public HomeOwner(String email, String password) {
         super(email, password, UserTypes.HOMEOWNER);
+        name = "";
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

@@ -14,6 +14,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.Optional;
 
+import slng.fnord.Activities.ServiceProvider.ViewProfile;
 import slng.fnord.Database.DBHelper;
 import slng.fnord.Helpers.Common;
 import slng.fnord.Managers.AccountManager;
@@ -44,8 +45,6 @@ public class RegisterActivity extends AppCompatActivity {
         myAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         accountSpinner.setAdapter(myAdapter);
 
-        EditText companyText = findViewById(R.id.companyNameRegisterEditText);
-
         Button register2 = findViewById(R.id.registerButton);
         register2.setOnClickListener(view -> {
             EditText emailText = findViewById(R.id.registerEmail);
@@ -54,7 +53,6 @@ public class RegisterActivity extends AppCompatActivity {
             EditText passwordText = findViewById(R.id.registerPassword);
             password = passwordText.getText().toString();
 
-            companyName = companyText.getText().toString();
 
             accountType = accountSpinner.getSelectedItem().toString();
 
@@ -68,31 +66,10 @@ public class RegisterActivity extends AppCompatActivity {
                 return;
             }
 
-            if (accountType.equals("Service Provider") && !Common.validateCompany(companyName)) {
-                companyText.setError("Company name contains forbidden characters");
-                return;
-            }
-
             if (accountType.equals("Home Owner")) {
-                manager.newHomeOwner(email, password, this::handleCreate);
+                manager.newUser(email, password, UserTypes.HOMEOWNER, this::handleCreate);
             } else  {
-                manager.newServiceProvider(email, password, companyName, this::handleCreate);
-            }
-        });
-
-        accountSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if (accountSpinner.getSelectedItem().toString().equals("Service Provider")) {
-                    companyText.setVisibility(View.VISIBLE);
-                } else {
-                    companyText.setVisibility(View.GONE);
-                }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
+                manager.newUser(email, password, UserTypes.SERVICEPROVIDER, this::handleCreate);
             }
         });
     }
@@ -110,7 +87,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     //opens welcome screen for the user
     public void openUserActivity(UserTypes type) {
-        Intent intent = new Intent(this, Welcome.class);
+        Intent intent = new Intent(this, ViewProfile.class);
         startActivity(intent);
     }
 

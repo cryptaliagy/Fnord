@@ -9,6 +9,8 @@ import slng.fnord.Activities.ServiceProvider.ViewProfile;
 import slng.fnord.Activities.ServiceProvider.ViewServices;
 import slng.fnord.Helpers.Enums.UserTypes;
 import slng.fnord.R;
+import slng.fnord.Structures.HomeOwner;
+import slng.fnord.Structures.ServiceProvider;
 import slng.fnord.Structures.User;
 
 import android.content.Intent;
@@ -78,7 +80,7 @@ public class Welcome extends AppCompatActivity {
                 break;
             case HOMEOWNER:
                 accountType = "Home Owner";
-                //findViewById(R.id.viewProfileButton).setVisibility(View.VISIBLE);
+                findViewById(R.id.viewProfileButton).setVisibility(View.VISIBLE);
                 findViewById(R.id.makeBookingButton).setVisibility(View.VISIBLE);
                 findViewById(R.id.viewBookingsButton).setVisibility(View.VISIBLE);
                 break;
@@ -87,7 +89,11 @@ public class Welcome extends AppCompatActivity {
         }
 
         ((TextView) findViewById(R.id.pageTitleTV)).setText(accountType + " Page");
-        ((TextView) findViewById(R.id.welcomeUserTV)).setText("Welcome " + currentUser.getEmail());
+        ((TextView) findViewById(R.id.welcomeUserTV))
+                .setText("Welcome " +
+                        (currentUser.getType()
+                                .equals(UserTypes.SERVICEPROVIDER) ?
+                                ((ServiceProvider) currentUser).getCompany() : ((HomeOwner) currentUser).getName()));
         ((TextView) findViewById(R.id.signedInAsTV)).setText("You are signed in as "+accountType);
     }
 

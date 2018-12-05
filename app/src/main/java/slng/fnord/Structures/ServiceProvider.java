@@ -25,6 +25,7 @@ public class ServiceProvider extends User {
 
     public ServiceProvider(String email, String password) {
         super(email, password, UserTypes.SERVICEPROVIDER);
+        company = "";
         services = new HashMap<>();
         availability = Common.makeBlankAvail();
         ratings = new ArrayList<Ratings>();
