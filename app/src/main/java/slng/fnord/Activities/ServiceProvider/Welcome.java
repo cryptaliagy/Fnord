@@ -40,7 +40,7 @@ public class Welcome extends AppCompatActivity {
         SPAddAvailability.setOnClickListener(view -> openActivity(Availability.class));
 
 
-        findViewById(R.id.logOutButtonHomeOwner).setOnClickListener(view -> {
+        findViewById(R.id.logOutButtonServiceProvier).setOnClickListener(view -> {
             SignInActivity.currentUser = null;
             openActivity(MainActivity.class);
         });
