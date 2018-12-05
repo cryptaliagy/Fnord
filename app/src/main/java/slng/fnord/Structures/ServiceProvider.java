@@ -49,6 +49,22 @@ public class ServiceProvider extends User {
         totalNumberOfRatings++;
     }
 
+    public int getTotalNumberOfRatings() {
+        return totalNumberOfRatings;
+    }
+
+    public void setRatings(ArrayList<Ratings> ratings) {
+        this.ratings = ratings;
+    }
+
+    public void setAverageRating(float averageRating) {
+        this.averageRating = averageRating;
+    }
+
+    public void setTotalNumberOfRatings(int totalNumberOfRatings) {
+        this.totalNumberOfRatings = totalNumberOfRatings;
+    }
+
     public ArrayList<Ratings> getRatings() {
         return ratings;
     }
@@ -129,6 +145,7 @@ public class ServiceProvider extends User {
     public void setDayAvailability(String day, Pair<Integer, Integer> availability) {
         this.availability.put(day, availability);
     }
+
 
 
 }

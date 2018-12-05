@@ -38,7 +38,6 @@ public class SearchProvider extends AppCompatActivity {
     private Spinner searchServiceSpinner;
     private Button spSearchButton;
     private ServicesManager managerSer;
-    private AccountManager managerAcc;
     private HashMap<String, ServiceProviderMeta> serviceProviders; //company name is key
     private Calendar date = null;
     private EditText edittext;
@@ -47,8 +46,6 @@ public class SearchProvider extends AppCompatActivity {
     private float minRating = 0;
     public RatingBar ratingBar;
     private ServiceProvider provider;
-    private boolean flag = true;
-    private int CalendarHour, CalendarMinute;
 
 
     @SuppressLint("WrongViewCast")
@@ -56,6 +53,9 @@ public class SearchProvider extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hosearch_sp);
+
+        goodProviders = new HashMap<>();
+
         //manager for getting service info
         managerSer = new ServicesManager(new DBHelper());
         //manager gets service names and initializes the spinner with them
@@ -165,6 +165,9 @@ public class SearchProvider extends AppCompatActivity {
                 int dayNumber = date.get(Calendar.DAY_OF_WEEK);
                 String day = "";
                 switch (dayNumber) {
+                    case 1:
+                        day = "Sunday";
+                        break;
                     case 2:
                         day = "Monday";
                         break;
@@ -182,9 +185,6 @@ public class SearchProvider extends AppCompatActivity {
                         break;
                     case 7:
                         day = "Saturday";
-                        break;
-                    case 1:
-                        day = "Sunday";
                         break;
                 }
                 ServiceProviderMeta providerMeta = providers.get(key);
@@ -209,7 +209,7 @@ public class SearchProvider extends AppCompatActivity {
 
 
     private void updateLabel() {
-        String myFormat = "MM/dd/yy"; //In which you need put here
+        String myFormat = "dd/MM/yy"; //In which you need put here
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
 
         edittext.setText(sdf.format(date.getTime()));

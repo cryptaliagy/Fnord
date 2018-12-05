@@ -60,7 +60,7 @@ public class DBHelper implements Database {
 
                     @Override
                     public void onCancelled(DatabaseError databaseError) {
-                            source.onError(databaseError.toException());
+                        source.onError(databaseError.toException());
                     }
                 }));
     }
@@ -99,6 +99,7 @@ public class DBHelper implements Database {
 
         );
     }
+
     public void addService(Service service) {
         addNewGeneric("services", service);
     }
@@ -112,12 +113,20 @@ public class DBHelper implements Database {
     }
 
     public void updateService(Service service) {
-        updateFromPath("services/"+service.getId(), service);
+        updateFromPath("services/" + service.getId(), service);
     }
 
-    public String addBooking(Booking booking) { return addGenericGetID("bookings", booking); }
+    public void updateBooking(Booking booking) {
+        updateFromPath("bookings/" + booking.getId(), booking);
+    }
 
-    public void removeBooking(String id) { updateFromPath("bookings/" + id, null); }
+    public void addBooking(Booking booking) {
+        addNewGeneric("bookings", booking);
+    }
+
+    public void removeBooking(String id) {
+        updateFromPath("bookings/" + id, null);
+    }
 
     public Observable<Optional<Booking>> getBooking(String id) {
         return Observable.create(source -> FirebaseDatabase.getInstance()
@@ -195,53 +204,34 @@ public class DBHelper implements Database {
     }
 
     @Override
-    public Observable<Optional<ArrayList<Service>>> getAllServices() {
+    public Observable<Service> getAllServices() {
+        return getAllGenericNode("services", Service.class);
+    }
+
+    private <T> Observable<T> getAllGenericNode(String node, Class<T> cls) {
         return Observable.create(source -> FirebaseDatabase.getInstance()
-                .getReference("services")
+                .getReference(node)
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        Optional<ArrayList<Service>> optionalServices;
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         if (dataSnapshot.exists()) {
-                            ArrayList<Service> services = new ArrayList<>();
                             for (DataSnapshot child : dataSnapshot.getChildren()) {
-                                services.add(child.getValue(Service.class));
+                                source.onNext(child.getValue(cls));
                             }
-                            optionalServices = Optional.ofNullable(services);
-                        } else {
-                            optionalServices = Optional.empty();
                         }
-                        source.onNext(optionalServices);
                         source.onComplete();
                     }
 
                     @Override
-                    public void onCancelled(DatabaseError databaseError) {
-
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                        source.onError(databaseError.toException());
                     }
                 }));
     }
 
     @Override
     public Observable<Booking> getAllBookings() {
-        return Observable.create(source -> FirebaseDatabase.getInstance()
-                .getReference("bookings")
-                .addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        if (dataSnapshot.exists()) {
-                            for (DataSnapshot child : dataSnapshot.getChildren()) {
-                                source.onNext(child.getValue(Booking.class));
-                            }
-                        }
-                        source.onComplete();
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-                        source.onError(databaseError.toException());
-                    }
-                }));
+        return getAllGenericNode("bookings", Booking.class);
     }
 
     @Override

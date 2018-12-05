@@ -84,8 +84,8 @@ public class ViewServices extends AppCompatActivity {
 
                         provider.addService(currentService, false);
                         accountManager.updateUser(provider);
-                        servicesManager.getService(currentService, this::serviceCallback);
                         Toast.makeText(getApplicationContext(), "Service has been added", Toast.LENGTH_SHORT).show();
+                        initializeUI();
                     }
                 })
                 .setNegativeButton("Cancel", (dialog, which) -> dialog.dismiss());
@@ -137,13 +137,5 @@ public class ViewServices extends AppCompatActivity {
             AlertDialog dialog = dialogBuilder.create();
             dialog.show();
         });
-    }
-
-    private void serviceCallback(Service service) {
-        if (service != null) {
-            service.addProvider((ServiceProvider) Welcome.currentUser);
-            servicesManager.updateService(service);
-            initializeUI();
-        }
     }
 }

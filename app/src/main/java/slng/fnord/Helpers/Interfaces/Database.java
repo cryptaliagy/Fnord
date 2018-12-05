@@ -24,7 +24,9 @@ public interface Database {
 
     void removeService(String name);
 
-    String addBooking(Booking booking);
+    void addBooking(Booking booking);
+
+    void updateBooking(Booking booking);
 
     void removeBooking(String id);
 
@@ -34,7 +36,7 @@ public interface Database {
 
     Observable<Optional<ArrayList<String>>> getAllServiceNames();
 
-    Observable<Optional<ArrayList<Service>>> getAllServices();
+    Observable<Service> getAllServices();
 
     Observable<ServiceProvider> getAllServiceProviders();
 

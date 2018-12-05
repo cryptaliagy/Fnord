@@ -1,15 +1,13 @@
 package slng.fnord.Managers;
 
-import android.view.View;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Optional;
 
-import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import slng.fnord.Helpers.Common;
-import slng.fnord.Helpers.DBOberver;
+import slng.fnord.Helpers.DBObserver;
 import slng.fnord.Helpers.Interfaces.Database;
 import slng.fnord.Structures.Service;
 import slng.fnord.Structures.ServiceProvider;
@@ -45,7 +43,7 @@ public class ServicesManager {
             }
 
             return optionalService;
-        }).subscribe(new DBOberver<Optional<Service>>() {
+        }).subscribe(new DBObserver<Optional<Service>>() {
             @Override
             public void onNext(Optional<Service> optionalService) {
                 Service service = Common.extractOptional(optionalService);
@@ -77,7 +75,7 @@ public class ServicesManager {
         database.removeService(name);
         database.getAllServiceProviders()
                 .filter(provider -> provider.providesService(name))
-                .subscribe(new DBOberver<ServiceProvider>() {
+                .subscribe(new DBObserver<ServiceProvider>() {
                     @Override
                     public void onNext(ServiceProvider serviceProvider) {
                         serviceProvider.removeService(name);
@@ -93,7 +91,7 @@ public class ServicesManager {
      * @param callback the callback receiving the service
      */
     public void getService(String name, Consumer<Service> callback) {
-        database.getService(name).subscribe(new DBOberver<Optional<Service>>() {
+        database.getService(name).subscribe(new DBObserver<Optional<Service>>() {
             @Override
             public void onNext(Optional<Service> optionalService) {
                 Service service = Common.extractOptional(optionalService);
@@ -113,30 +111,10 @@ public class ServicesManager {
      * @param callback the function to receive the arraylist
      */
     public void getServiceNamesArrayList(Consumer<ArrayList<String>> callback) {
-        database.getAllServiceNames().subscribe(new DBOberver<Optional<ArrayList<String>>>() {
+        database.getAllServiceNames().subscribe(new DBObserver<Optional<ArrayList<String>>>() {
             @Override
             public void onNext(Optional<ArrayList<String>> strings) {
                 ArrayList<String> extracted = Common.extractOptional(strings);
-                try {
-                    callback.accept(extracted);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-    }
-
-    /**
-     * Requests from the db helper an arraylist of all services
-     *
-     * @param callback
-     */
-
-    public void getServicesArrayList(Consumer<ArrayList<Service>> callback) {
-        database.getAllServices().subscribe(new DBOberver<Optional<ArrayList<Service>>>() {
-            @Override
-            public void onNext(Optional<ArrayList<Service>> services) {
-                ArrayList<Service> extracted = Common.extractOptional(services);
                 try {
                     callback.accept(extracted);
                 } catch (Exception e) {
@@ -154,7 +132,7 @@ public class ServicesManager {
      */
 
     public void getServiceRateForView(String serviceName, TextView view) {
-        database.getService(serviceName).subscribe(new DBOberver<Optional<Service>>() {
+        database.getService(serviceName).subscribe(new DBObserver<Optional<Service>>() {
             @Override
             public void onNext(Optional<Service> optionalService) {
                 view.setText(String.format("%.2f", optionalService.get().getServiceRate()));

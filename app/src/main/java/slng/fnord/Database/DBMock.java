@@ -37,8 +37,13 @@ public class DBMock implements Database {
     }
 
     @Override
-    public String addBooking(Booking booking) {
-        return null;
+    public void addBooking(Booking booking) {
+
+    }
+
+    @Override
+    public void updateBooking(Booking booking) {
+
     }
 
     @Override
@@ -67,7 +72,7 @@ public class DBMock implements Database {
     }
 
     @Override
-    public Observable<Optional<ArrayList<Service>>> getAllServices() {
+    public Observable<Service> getAllServices() {
         return null;
     }
 

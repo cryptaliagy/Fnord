@@ -3,7 +3,7 @@ package slng.fnord.Helpers;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 
-public abstract class DBOberver<T> implements Observer<T> {
+public abstract class DBObserver<T> implements Observer<T> {
     Disposable disposable;
 
     @Override

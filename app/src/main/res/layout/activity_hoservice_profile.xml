@@ -191,7 +191,7 @@
                     android:layout_weight="1"
                     android:numStars="5"
                     android:rating="0"
-                    android:stepSize="1" />
+                    android:stepSize="0.1" />
             </RelativeLayout>
 
         </LinearLayout>

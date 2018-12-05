@@ -53,7 +53,7 @@ public class BookService extends AppCompatActivity {
         spCompanyTV.setText(serviceProvider.getCompany());
         serviceNameTV.setText(serviceName);
 
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/mm/yyyy");
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
         DatePickerDialog datePickerDialog = DatePickerDialog.newInstance(((view, year, monthOfYear, dayOfMonth) -> {
             date.set(year, monthOfYear, dayOfMonth);
@@ -100,6 +100,12 @@ public class BookService extends AppCompatActivity {
             Toast.makeText(getApplicationContext(),
                     "Booking completed!", Toast.LENGTH_SHORT).show();
             startActivity(new Intent(this, Welcome.class));
+        });
+
+        backButton.setOnClickListener(view -> {
+            serviceName = "";
+            serviceProvider = null;
+            startActivity(new Intent(this, SearchResults.class));
         });
     }
 }

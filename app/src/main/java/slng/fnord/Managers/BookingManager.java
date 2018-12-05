@@ -7,7 +7,7 @@ import java.util.Optional;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import slng.fnord.Helpers.Common;
-import slng.fnord.Helpers.DBOberver;
+import slng.fnord.Helpers.DBObserver;
 import slng.fnord.Helpers.Interfaces.Database;
 import slng.fnord.Structures.Booking;
 import slng.fnord.Structures.HomeOwner;
@@ -24,15 +24,15 @@ public class BookingManager {
                             Calendar date, int startTime, int endTime) {
         Booking booking = new Booking(provider, user, service, date, startTime, endTime);
 
-        String id = database.addBooking(booking);
-        user.addBooking(id);
-        provider.addBooking(id);
+        database.addBooking(booking);
+        user.addBooking(booking.getId());
+        provider.addBooking(booking.getId());
         database.updateUser(user);
         database.updateUser(provider);
     }
 
     public void getBooking(String id, Consumer<Booking> callback) {
-        database.getBooking(id).subscribe(new DBOberver<Optional<Booking>>() {
+        database.getBooking(id).subscribe(new DBObserver<Optional<Booking>>() {
             @Override
             public void onNext(Optional<Booking> booking) {
                 Booking extracted = Common.extractOptional(booking);
@@ -57,7 +57,7 @@ public class BookingManager {
                 .filter(booking -> booking.getServiceProviderInfo().getEmail().equals(email)
                         || booking.getHomeOwnerInfo().getEmail().equals(email))
                 // Adds the filtered booking to the array list
-                .subscribe(new DBOberver<Booking>() {
+                .subscribe(new DBObserver<Booking>() {
                     @Override
                     public void onNext(Booking booking) {
                         allBookings.add(booking);
