@@ -101,7 +101,7 @@ public class Common {
         return availability;
     }
     
-    public static int dpToPx(Context context, ind dp) {
+    public static int dpToPx(Context context, int dp) {
         float density = context.getResources()
                 .getDisplayMetrics()
                 .density;

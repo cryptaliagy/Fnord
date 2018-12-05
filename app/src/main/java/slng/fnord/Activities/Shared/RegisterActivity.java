@@ -104,7 +104,7 @@ public class RegisterActivity extends AppCompatActivity {
         }
         Toast.makeText(getApplicationContext(), "New account has been made!", Toast.LENGTH_SHORT).show();
 
-        SignInActivity.currentUser = user;
+        Welcome.currentUser = user;
         openUserActivity(user.getType());
     }
 

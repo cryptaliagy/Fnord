@@ -170,8 +170,8 @@ public class ViewService extends AppCompatActivity {
         dialog.show();
     }
 
-    private void creationCallback(Optional<Service> service) {
-        if (!service.isPresent()) {
+    private void creationCallback(Service service) {
+        if (service == null) {
             Toast.makeText(getApplicationContext(), "A service with that name already exists",
                     Toast.LENGTH_SHORT).show();
         } else {
@@ -181,19 +181,18 @@ public class ViewService extends AppCompatActivity {
 
     }
 
-    private void handleServiceConflict(Optional<Service> service) {
-        if (!service.isPresent()) {
+    private void handleServiceConflict(Service service) {
+        if (service == null) {
             manager.getService(previousServiceName, this::updateServiceObject);
         } else {
             Toast.makeText(getApplicationContext(), "A service with this name already exists", Toast.LENGTH_SHORT).show();
         }
     }
 
-    private void updateServiceObject(Optional<Service> serviceOptional) {
-        if (!serviceOptional.isPresent()) {
+    private void updateServiceObject(Service service) {
+        if (service == null) {
             return;
         }
-        Service service = serviceOptional.get();
         service.setServiceName(newServiceName);
         service.setServiceRate(Double.valueOf(rate));
         manager.updateService(service);

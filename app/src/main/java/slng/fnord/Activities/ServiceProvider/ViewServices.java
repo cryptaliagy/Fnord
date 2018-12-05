@@ -44,10 +44,9 @@ public class ViewServices extends AppCompatActivity {
         servicesManager.getServiceNamesArrayList(this::setAllServices);
     }
 
-    public void handleService(Optional<Service> serviceOptional) {
-        if (serviceOptional.isPresent()) {
+    public void handleService(Service service) {
+        if (service != null) {
             ServiceProvider user = (ServiceProvider) Welcome.currentUser;
-            Service service = serviceOptional.get();
             service.deleteProvider(user.getCompany());
         }
     }
@@ -96,9 +95,9 @@ public class ViewServices extends AppCompatActivity {
 
     }
 
-    private void setAllServices(Optional<ArrayList<String>> allServices) {
-        if (allServices.isPresent()) {
-            this.allServices = allServices.get();
+    private void setAllServices(ArrayList<String> allServices) {
+        if (allServices != null) {
+            this.allServices = allServices;
         } else {
             this.allServices = new ArrayList<>();
         }
@@ -140,9 +139,8 @@ public class ViewServices extends AppCompatActivity {
         });
     }
 
-    private void serviceCallback(Optional<Service> optionalService) {
-        if (optionalService.isPresent()) {
-            Service service = optionalService.get();
+    private void serviceCallback(Service service) {
+        if (service != null) {
             service.addProvider((ServiceProvider) Welcome.currentUser);
             servicesManager.updateService(service);
             initializeUI();

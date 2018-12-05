@@ -58,7 +58,7 @@ public class SignInActivity extends AppCompatActivity {
             return;
         }
 
-        SignInActivity.currentUser = user;
+        Welcome.currentUser = user;
 
         openUserActivity(user.getType());
     }
