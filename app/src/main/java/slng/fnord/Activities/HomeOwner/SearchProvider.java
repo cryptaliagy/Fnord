@@ -46,7 +46,6 @@ public class SearchProvider extends AppCompatActivity {
     private AccountManager managerAcc;
     private HashMap<String, ServiceProviderMeta> serviceProviders; //company name is key
     final Calendar myCalendar = Calendar.getInstance();
-    private Calendar timeCalendar = Calendar.getInstance();
     private EditText edittext;
     private int time =-1;
     private float minRating=0;
@@ -63,11 +62,13 @@ public class SearchProvider extends AppCompatActivity {
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_hosearch_sp);
+            //manager for getting service info
             managerSer = new ServicesManager(new DBHelper());
-
+            //manager gets service names and initializes the spinner with them
             managerSer.getServiceNamesArrayList(this::initializeSpinner);
 
-
+            //Find text box for date, and use a date picker dialog to select a date which is saved in a
+            //Calendar type myCalendar
             edittext = findViewById(R.id.Date);
             DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
 
@@ -95,7 +96,8 @@ public class SearchProvider extends AppCompatActivity {
                 }
             });
 
-
+            //Find text box for time, and use a time picker dialog to select a date which is saved in a
+            //tine type time
             EditText timeTV = findViewById(R.id.time);
 
             TimePickerDialog timePickerDialog = TimePickerDialog.newInstance(((view, hourOfDay, minute, second) -> {
@@ -108,24 +110,25 @@ public class SearchProvider extends AppCompatActivity {
                 timePickerDialog.show(getSupportFragmentManager(), "Pick a time");
             });
 
+            //find rating bar for later use
             ratingBar = findViewById(R.id.ratingBar);
 
+            //find search button
             spSearchButton = findViewById(R.id.spSearchButton);
 
+
             spSearchButton.setOnClickListener(view -> {
+                //get name of service from spinner
                 serviceRequestedString = searchServiceSpinner.getSelectedItem().toString();
+                //get rating from ratingBar
                 minRating=ratingBar.getRating();
-                managerSer.getService(serviceRequestedString, this::setServiceRequsted);
+                managerSer.getService(serviceRequestedString, this::setServiceRequsted);//using a manager, gets the service item and saves it to ServiceRequested
+
                 goodProviders = new HashMap<>();
 
-                if(goodProviders!=null){matchService();}
-                else{
-                    Toast toastNoResults = Toast.makeText(getApplicationContext(), "goodProviders Null", Toast.LENGTH_SHORT);
-                    toastNoResults.show();
-                    flag=false;
-                }
-                if(flag){matchAvailibility();}
-                if(flag){matchMinimumStars();}
+                if(goodProviders!=null){matchService();} //collects all service providers that offer this service
+                if(flag){matchAvailibility();}  //starts over, this time only adding those with the correct availibilities
+                if(flag){matchMinimumStars();} //pares down exisiting list with average rating scores
 
                 if (goodProviders.size() == 0) {
                     Toast toastNoResults = Toast.makeText(getApplicationContext(), "No results found.", Toast.LENGTH_SHORT);
@@ -152,9 +155,11 @@ public class SearchProvider extends AppCompatActivity {
 
 
         protected void matchService(){
-            if (serviceRequested != null) {
-                serviceProviders = serviceRequested.getProviders(); //
-                
+            if (serviceRequested != null) {//this seems to be null for no good reason
+                //service providers for a service in the form of a HashMap
+                serviceProviders = serviceRequested.getProviders();
+
+                //make a deep copy of the hashMap to do operations on later
                 if (serviceProviders!= null){goodProviders = new HashMap<String, ServiceProviderMeta>(serviceProviders);}
 
                 if (serviceProviders == null){
@@ -250,6 +255,8 @@ public class SearchProvider extends AppCompatActivity {
 
             if (serviceOptional == null) {
                 serviceRequested = null;
+                Toast toastNoResults = Toast.makeText(getApplicationContext(), "service sent to setServiceRequested is null", Toast.LENGTH_SHORT);
+                toastNoResults.show();
             } else {
                 serviceRequested = serviceOptional;
             }

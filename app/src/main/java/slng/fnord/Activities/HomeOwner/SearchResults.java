@@ -1,5 +1,6 @@
 package slng.fnord.Activities.HomeOwner;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.app.Activity;
 import android.widget.ListView;
@@ -24,6 +25,7 @@ public class SearchResults extends Activity {
     private HashMap<String, ServiceProviderMeta> goodProviders;
     private ArrayList<String> results;
     private ServiceProvider provider;
+    private ServiceProvider selection;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +36,24 @@ public class SearchResults extends Activity {
         ServiceProviderAdapter adapter = new ServiceProviderAdapter(this, R.layout.adapter_view_layout,
                results);
         lv.setAdapter(adapter);
+
+
+        lv.setOnItemClickListener((parent, view, position, id) -> {
+            String[] node = results.get(position).split("#");
+            String companyName = node[0];
+            for (String company: goodProviders.keySet()){
+                if (company.equals(companyName)) {
+                    managerAcc.getUser(goodProviders.get(company).getEmail(), this::setProvider);
+                    selection = provider;
+                }
+            }
+
+            Intent intent = new Intent(this, slng.fnord.Activities.HomeOwner.ServiceProfile.class);
+            this.startActivity(intent);
+
+
+
+        });
 
     }
 
@@ -52,33 +72,6 @@ public class SearchResults extends Activity {
         provider = (ServiceProvider) user;
     }
 
-
-    /**
-
-     //lv.setChoiceMode(AbsListView.CHOICE_MODE_MULTIPLE);
-     lv.setOnItemClickListener((parent, view, position, id) -> {
-     String serviceName = services.get(position);
-     boolean certified = user.isCertified(serviceName);
-     System.out.println(certified);
-     AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
-     dialogBuilder.setTitle(serviceName)
-     //.setMessage(services.get(position))
-     .setMultiChoiceItems(new CharSequence[]{"Certified"}, new boolean[]{certified},
-     (dialog, which, isChecked) -> user.updateCertified(serviceName, isChecked))
-     .setPositiveButton("Done", (dialog, buttonID) -> {
-     DBHelper.updateUser(user);
-     dialog.dismiss();
-     })
-     .setNegativeButton("Remove", (dialog, buttonID) -> {
-     user.removeService(serviceName);
-     DBHelper.updateUser(user);
-     adapter.remove(serviceName);
-     dialog.dismiss();
-     });
-     AlertDialog dialog = dialogBuilder.create();
-     dialog.show();
-     });
-     }**/
 
     public ArrayList<String> getResults() {
         return results;
