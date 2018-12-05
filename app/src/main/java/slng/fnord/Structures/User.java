@@ -12,6 +12,8 @@ public abstract class User implements Identifiable {
     private String email;
     private String passwordHash;
     private String salt;
+    private String address;
+    private String phone;
     private UserTypes type;
     private ArrayList<String> bookings;
 
@@ -59,4 +61,20 @@ public abstract class User implements Identifiable {
     }
 
     public void addBooking(String id) { bookings.add(id); }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
 }

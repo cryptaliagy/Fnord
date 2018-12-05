@@ -10,6 +10,7 @@ import java.util.Calendar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import slng.fnord.Activities.Shared.SignInActivity;
+import slng.fnord.Activities.Shared.Welcome;
 import slng.fnord.R;
 import slng.fnord.Structures.Booking;
 import slng.fnord.Structures.HomeOwner;
@@ -29,7 +30,7 @@ public class BookingList extends Activity {
         //TODO: get bookings from User class
         ArrayList<Booking> bookings = new ArrayList<Booking>();
         ServiceProvider sp = new ServiceProvider("lmao", "cool");
-        bookings.add(new Booking(sp, (HomeOwner)SignInActivity.currentUser, "service",Calendar.getInstance(), 42, 55));
+        bookings.add(new Booking(sp, (HomeOwner)Welcome.currentUser, "service",Calendar.getInstance(), 42, 55));
 
         bookingListAdaptor = new BookingListAdaptor(bookings);
         bookingList.setAdapter(bookingListAdaptor);

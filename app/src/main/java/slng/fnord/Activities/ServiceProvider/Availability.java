@@ -12,6 +12,7 @@ import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
 import java.util.HashMap;
 
 import slng.fnord.Activities.Shared.SignInActivity;
+import slng.fnord.Activities.Shared.Welcome;
 import slng.fnord.Database.DBHelper;
 import slng.fnord.Helpers.Pair;
 import slng.fnord.Managers.AccountManager;
@@ -19,7 +20,7 @@ import slng.fnord.R;
 import slng.fnord.Structures.ServiceProvider;
 
 public class Availability extends AppCompatActivity {
-    ServiceProvider serviceProvider = (ServiceProvider) SignInActivity.currentUser;
+    ServiceProvider serviceProvider = (ServiceProvider) Welcome.currentUser;
     HashMap<String, Pair<Integer, Integer>> currentAvailability = serviceProvider.getAvailability();
     HashMap<String, Pair<Integer, Integer>> newAvailability = new HashMap<>();
     AccountManager manager = new AccountManager(new DBHelper());

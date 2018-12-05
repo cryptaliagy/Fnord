@@ -39,63 +39,20 @@
                 android:value=".Activities.Shared.MainActivity" />
         </activity>
         <activity
-            android:name=".Activities.HomeOwner.Welcome"
-            android:parentActivityName=".Activities.Shared.SignInActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Activities.Shared.SignInActivity" />
-        </activity>
-        <activity
-            android:name=".Activities.Admin.Welcome"
-            android:parentActivityName=".Activities.Shared.SignInActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Activities.Shared.SignInActivity" />
-        </activity>
-        <activity
-            android:name=".Activities.ServiceProvider.Welcome"
-            android:parentActivityName=".Activities.Shared.SignInActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Activities.Shared.SignInActivity" />
-        </activity>
-        <activity
-            android:name=".Activities.Admin.CreateService"
-            android:parentActivityName=".Activities.Admin.Welcome">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Activities.Admin.Welcome" />
-        </activity>
-        <activity
             android:name=".Activities.Admin.ViewService"
-            android:parentActivityName=".Activities.Admin.Welcome">
+            android:parentActivityName=".Activities.Shared.Welcome">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Activities.Admin.Welcome" />
+                android:value=".Activities.Shared.Welcome" />
         </activity>
-        <activity
-            android:name=".Activities.Admin.EditServicesSelect"
-            android:parentActivityName=".Activities.Admin.Welcome">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Activities.Admin.Welcome" />
+        <activity android:name=".Activities.ServiceProvider.ViewProfile"
+            android:parentActivityName=".Activities.Shared.Welcome">
+        <meta-data
+            android:name="android.support.PARENT_ACTIVITY"
+            android:value=".Activities.Shared.Welcome" />
         </activity>
-        <activity
-            android:name=".Activities.Admin.EditService"
-            android:parentActivityName=".Activities.Admin.EditServicesSelect">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Activities.Admin.EditServicesSelect" />
-        </activity>
-        <activity android:name=".Activities.ServiceProvider.ViewProfile" />
-        <activity android:name=".Activities.ServiceProvider.AddService" />
         <activity android:name=".Activities.ServiceProvider.ViewServices" />
         <activity android:name=".Activities.ServiceProvider.Availability" />
-        <activity android:name=".Availability" />
-        <activity android:name=".SearchSP" />
-        <activity
-            android:name=".HOviewSP"
-            android:label="@string/title_activity_hoview__sp" />
         <activity
             android:name=".Activities.HomeOwner.ServiceProfile"
             android:label="@string/title_activity_ho_service_profile" />
@@ -103,7 +60,8 @@
         <activity
             android:name=".Activities.HomeOwner.BookingList"
             android:label="@string/title_activity_hobooking_list" />
-        <activity android:name=".Activities.HomeOwner.BookingReview"></activity>
+        <activity android:name=".Activities.HomeOwner.BookingReview" />
+        <activity android:name=".Activities.Shared.Welcome"></activity>
     </application>
 
 </manifest>

@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import slng.fnord.Activities.ServiceProvider.Availability;
 import slng.fnord.Activities.Shared.SignInActivity;
+import slng.fnord.Activities.Shared.Welcome;
 import slng.fnord.Database.DBHelper;
 import slng.fnord.Managers.AccountManager;
 import slng.fnord.R;
@@ -53,7 +54,7 @@ public class BookingReview extends AppCompatActivity {
         TimeOfDay.setText(Integer.toString(booking.getStartTime()));
 
         EditText ratingCommentBox = findViewById(R.id.BRCommentPanel);
-        raterName = SignInActivity.currentUser.getEmail();
+        raterName = Welcome.currentUser.getEmail();
 
         addService = findViewById(R.id.BRUpdateReviewButton);
         addService.setOnClickListener(view -> {

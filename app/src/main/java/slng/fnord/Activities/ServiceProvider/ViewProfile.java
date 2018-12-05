@@ -12,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import slng.fnord.Activities.Shared.SignInActivity;
+import slng.fnord.Activities.Shared.Welcome;
 import slng.fnord.Database.DBHelper;
 import slng.fnord.Helpers.Common;
 import slng.fnord.Managers.AccountManager;
@@ -24,7 +25,7 @@ public class ViewProfile extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_spview_profile);
-        final ServiceProvider ourSP = (ServiceProvider) SignInActivity.currentUser;
+        ServiceProvider ourSP = (ServiceProvider) Welcome.currentUser;
 
         EditText addressView = findViewById(R.id.viewAddress);
         addressView.setText(ourSP.getAddress());
@@ -104,7 +105,7 @@ public class ViewProfile extends AppCompatActivity {
         companyView.setEnabled(false);
         bioView.setEnabled(false);
 
-        ServiceProvider user = (ServiceProvider) SignInActivity.currentUser;
+        ServiceProvider user = (ServiceProvider) Welcome.currentUser;
 
         user.setCompany(company);
         user.setAddress(address);

@@ -16,6 +16,7 @@ import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
 import java.util.Calendar;
 
 import slng.fnord.Activities.Shared.SignInActivity;
+import slng.fnord.Activities.Shared.Welcome;
 import slng.fnord.Database.DBHelper;
 import slng.fnord.Managers.BookingManager;
 import slng.fnord.R;
@@ -42,7 +43,7 @@ public class BookService extends AppCompatActivity {
         Button confirmButton = findViewById(R.id.confirmBookingButton);
         Button backButton = findViewById(R.id.backConfirmBookingButton);
 
-        HomeOwner user = (HomeOwner) SignInActivity.currentUser;
+        HomeOwner user = (HomeOwner) Welcome.currentUser;
         manager = new BookingManager(new DBHelper());
 
         TextView spCompanyTV = findViewById(R.id.spCompanyTextView);
@@ -92,7 +93,7 @@ public class BookService extends AppCompatActivity {
             manager.makeBooking(user, serviceProvider, serviceName, date, startTime, endTime);
             Toast.makeText(getApplicationContext(),
                     "Booking completed!", Toast.LENGTH_SHORT).show();
-            startActivity(new Intent(this, slng.fnord.Activities.HomeOwner.Welcome.class));
+            startActivity(new Intent(this, Welcome.class));
         });
     }
 }

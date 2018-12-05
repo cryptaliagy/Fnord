@@ -8,13 +8,19 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.Spinner;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Optional;
 
 import slng.fnord.Activities.Shared.SignInActivity;
+import slng.fnord.Activities.Shared.Welcome;
 import slng.fnord.Database.DBHelper;
+import slng.fnord.Helpers.Common;
 import slng.fnord.Managers.AccountManager;
 import slng.fnord.Managers.ServicesManager;
 import slng.fnord.R;
@@ -23,22 +29,92 @@ import slng.fnord.Structures.ServiceProvider;
 import slng.fnord.Helpers.ServicesAndRatesAdapter;
 
 public class ViewServices extends AppCompatActivity {
+    private ArrayList<String> allServices;
+    private AccountManager accountManager;
+    private ServicesManager servicesManager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_spview_service);
 
-        AccountManager manager = new AccountManager(new DBHelper());
-        ServicesManager servicesManager = new ServicesManager(new DBHelper());
+        accountManager = new AccountManager(new DBHelper());
+        servicesManager = new ServicesManager(new DBHelper());
 
-        ArrayList<String> services = (ArrayList<String>) ((ServiceProvider) SignInActivity.currentUser).getServiceList();
+        servicesManager.getServiceNamesArrayList(this::setAllServices);
+    }
+
+    public void handleService(Optional<Service> serviceOptional) {
+        if (serviceOptional.isPresent()) {
+            ServiceProvider user = (ServiceProvider) Welcome.currentUser;
+            Service service = serviceOptional.get();
+            service.deleteProvider(user.getCompany());
+        }
+    }
+
+    public void backClick(View v) {
+        Intent intent = new Intent(this, Welcome.class);
+        startActivity(intent);
+    }
+
+    public void addService(View v) {
+        Spinner spinner = new Spinner(this);
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(Common.dpToPx(this, 300),
+                LinearLayout.LayoutParams.MATCH_PARENT);
+        spinner.setLayoutParams(lp);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, allServices);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+
+        LinearLayout layoutView = new LinearLayout(ViewServices.this);
+        layoutView.setOrientation(LinearLayout.VERTICAL);
+        layoutView.addView(spinner);
+        layoutView.setPadding(Common.dpToPx(this, 20), 0, 0, 0);
+
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+        dialogBuilder.setTitle("Add a service")
+                .setView(layoutView)
+                .setPositiveButton("Add", (dialog, which) -> {
+                    String currentService = spinner.getSelectedItem().toString();
+                    ServiceProvider provider = (ServiceProvider) Welcome.currentUser;
+
+                    if (provider.getServiceList().contains(currentService)) {
+                        Toast.makeText(getApplicationContext(), "Service has already been added", Toast.LENGTH_SHORT).show();
+                    } else {
+                        currentService = spinner.getSelectedItem().toString();
+
+                        provider.addService(currentService, false);
+                        accountManager.updateUser(provider);
+                        servicesManager.getService(currentService, this::serviceCallback);
+                        Toast.makeText(getApplicationContext(), "Service has been added", Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .setNegativeButton("Cancel", (dialog, which) -> dialog.dismiss());
+        AlertDialog dialog = dialogBuilder.create();
+        dialog.show();
+
+
+    }
+
+    private void setAllServices(Optional<ArrayList<String>> allServices) {
+        if (allServices.isPresent()) {
+            this.allServices = allServices.get();
+        } else {
+            this.allServices = new ArrayList<>();
+        }
+
+        initializeUI();
+    }
+
+    private void initializeUI() {
+        ArrayList<String> services = (ArrayList<String>) ((ServiceProvider) Welcome.currentUser).getServiceList();
 
         ListView lv = findViewById(R.id.listOfServices);
         ServicesAndRatesAdapter adapter = new ServicesAndRatesAdapter(this, R.layout.adapter_view_layout,
                 services);
         lv.setAdapter(adapter);
 
-        ServiceProvider user = (ServiceProvider) SignInActivity.currentUser;
+        ServiceProvider user = (ServiceProvider) Welcome.currentUser;
 
         lv.setOnItemClickListener((parent, view, position, id) -> {
             String serviceName = services.get(position);
@@ -49,12 +125,12 @@ public class ViewServices extends AppCompatActivity {
                     .setMultiChoiceItems(new CharSequence[]{"Certified"}, new boolean[]{certified},
                             (dialog, which, isChecked) -> user.updateCertified(serviceName, isChecked))
                     .setPositiveButton("Done", (dialog, buttonID) -> {
-                        manager.updateUser(user);
+                        accountManager.updateUser(user);
                         dialog.dismiss();
                     })
                     .setNegativeButton("Remove", (dialog, buttonID) -> {
                         user.removeService(serviceName);
-                        manager.updateUser(user);
+                        accountManager.updateUser(user);
                         servicesManager.getService(serviceName, this::handleService);
                         adapter.remove(serviceName);
                         dialog.dismiss();
@@ -64,21 +140,12 @@ public class ViewServices extends AppCompatActivity {
         });
     }
 
-    public void handleService(Optional<Service> serviceOptional) {
-        if (serviceOptional.isPresent()) {
-            ServiceProvider user = (ServiceProvider) SignInActivity.currentUser;
-            Service service = serviceOptional.get();
-            service.deleteProvider(user.getCompany());
-        }
-    }
-
-    public void onClick(View v) {
-        if (v.getId() == R.id.backSPViewService) {
-            Intent intent = new Intent(this, Welcome.class);
-            startActivity(intent);
-        } else if (v.getId() == R.id.addSPViewService) {
-            Intent intent = new Intent(this, AddService.class);
-            startActivity(intent);
+    private void serviceCallback(Optional<Service> optionalService) {
+        if (optionalService.isPresent()) {
+            Service service = optionalService.get();
+            service.addProvider((ServiceProvider) Welcome.currentUser);
+            servicesManager.updateService(service);
+            initializeUI();
         }
     }
 }

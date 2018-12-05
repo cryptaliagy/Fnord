@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background"
-    tools:context=".Activities.ServiceProvider.Welcome">
+    tools:context=".Activities.Shared.Welcome">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -15,20 +15,23 @@
 
         <Space
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="40dp" />
 
         <TextView
-            android:id="@+id/textView9"
+            android:id="@+id/pageTitleTV"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="cursive"
-            android:text="Service Provider Page"
             android:textAlignment="center"
             android:textColor="@android:color/background_dark"
             android:textSize="36sp" />
 
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="30dp" />
+
         <TextView
-            android:id="@+id/welcomeSP"
+            android:id="@+id/welcomeUserTV"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="serif"
@@ -36,59 +39,66 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/textView11"
+            android:id="@+id/signedInAsTV"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="serif"
-            android:text="You are signed in as a service provider"
             android:textAlignment="center"
             android:textStyle="bold" />
 
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="15dp" />
-
         <Button
-            android:id="@+id/SPViewInfoChoice"
+            android:id="@+id/viewProfileButton"
             android:layout_width="250dp"
             android:layout_height="wrap_content"
-            android:text="View Profile" />
-
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="15dp" />
-
-        <Button
-            android:id="@+id/SPEditInfoChoice"
-            android:layout_width="250dp"
-            android:layout_height="wrap_content"
-            android:text="Edit profile" />
-
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="15dp" />
+            android:layout_marginTop="15dp"
+            android:onClick="viewProfile"
+            android:text="Profile"
+            android:visibility="gone" />
 
         <Button
-            android:id="@+id/SPViewServiceChoice"
+            android:id="@+id/viewServicesButton"
             android:layout_width="250dp"
             android:layout_height="wrap_content"
-            android:text="view current services" />
-
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="15dp" />
-
-        <Button
-            android:id="@+id/SPAddAvailabilitiesChoice"
-            android:layout_width="250dp"
-            android:layout_height="wrap_content"
-            android:text="Add availabilities" />
+            android:layout_marginTop="15dp"
+            android:onClick="viewServices"
+            android:text="services"
+            android:visibility="gone" />
 
         <Button
-            android:id="@+id/logOutButtonServiceProvier"
+            android:id="@+id/availabilityButton"
             android:layout_width="250dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="25dp"
-            android:text="Log Out" />
+            android:layout_marginTop="15dp"
+            android:onClick="viewAvailability"
+            android:text="Availability"
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/makeBookingButton"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:onClick="makeBooking"
+            android:text="Book A Service"
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/viewBookingsButton"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:onClick="viewBookings"
+            android:text="My Bookings"
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/logOutButton"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:onClick="logOut"
+            android:text="Log Out"
+            android:visibility="visible" />
     </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

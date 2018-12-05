@@ -46,8 +46,6 @@ public class RegisterActivity extends AppCompatActivity {
 
         EditText companyText = findViewById(R.id.companyNameRegisterEditText);
 
-        //making register button on register screen work/add stuff to account Accounts arraylists
-        //it shall open the appropriate welcome screen, as well as add the account to the list
         Button register2 = findViewById(R.id.registerButton);
         register2.setOnClickListener(view -> {
             EditText emailText = findViewById(R.id.registerEmail);
@@ -74,8 +72,6 @@ public class RegisterActivity extends AppCompatActivity {
                 companyText.setError("Company name contains forbidden characters");
                 return;
             }
-
-            UserTypes type;
 
             if (accountType.equals("Home Owner")) {
                 manager.newHomeOwner(email, password, this::handleCreate);
@@ -108,21 +104,13 @@ public class RegisterActivity extends AppCompatActivity {
         }
         Toast.makeText(getApplicationContext(), "New account has been made!", Toast.LENGTH_SHORT).show();
 
-        SignInActivity.currentUser = user.get();
+        Welcome.currentUser = user.get();
         openUserActivity(user.get().getType());
     }
 
     //opens welcome screen for the user
     public void openUserActivity(UserTypes type) {
-        Intent intent = null;
-        switch (type) {
-            case HOMEOWNER:
-                intent = new Intent(this, slng.fnord.Activities.HomeOwner.Welcome.class);
-                break;
-            case SERVICEPROVIDER:
-                intent = new Intent(this, slng.fnord.Activities.ServiceProvider.Welcome.class);
-                break;
-        }
+        Intent intent = new Intent(this, Welcome.class);
         startActivity(intent);
     }
 
