@@ -115,7 +115,7 @@ public class DBHelper implements Database {
         updateFromPath("services/"+service.getId(), service);
     }
 
-    public void addBooking(Booking booking) { addNewGeneric("bookings", booking); }
+    public String addBooking(Booking booking) { return addGenericGetID("bookings", booking); }
 
     public void removeBooking(String id) { updateFromPath("bookings/" + id, null); }
 
@@ -145,6 +145,16 @@ public class DBHelper implements Database {
     private <T> void updateFromPath(String path, T object) {
         DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();
         dbRef.child(path).setValue(object);
+    }
+
+    private <T extends Identifiable> String addGenericGetID(String node, T object) {
+        DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference(node).push();
+        String id = dbRef.getKey();
+
+        object.setId(id);
+
+        dbRef.setValue(object);
+        return id;
     }
 
     private <T extends Identifiable> void addNewGeneric(String node, T object) {

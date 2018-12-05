@@ -10,7 +10,10 @@ public class Booking implements Identifiable {
     private HomeOwnerInfo homeOwnerInfo;
     private String service;
 
-    private Calendar bookingDate;
+    private int bookingDay;
+    private int bookingMonth;
+    private int bookingYear;
+
     private int startTime;
     private int endTime;
 
@@ -21,7 +24,9 @@ public class Booking implements Identifiable {
     public Booking(ServiceProvider serviceProvider, HomeOwner homeOwner, String service, Calendar bookingDate, int startTime, int endTime) {
         this.serviceProviderInfo = new ServiceProviderInfo(serviceProvider);
         this.homeOwnerInfo = new HomeOwnerInfo(homeOwner);
-        this.bookingDate = bookingDate;
+        this.bookingDay = bookingDate.get(Calendar.DAY_OF_MONTH);
+        this.bookingMonth = bookingDate.get(Calendar.MONTH);
+        this.bookingYear = bookingDate.get(Calendar.YEAR);
         this.startTime = startTime;
         this.endTime = endTime;
         this.service = service;
@@ -43,12 +48,28 @@ public class Booking implements Identifiable {
         this.homeOwnerInfo = homeOwnerInfo;
     }
 
-    public Calendar getBookingDate() {
-        return bookingDate;
+    public Calendar dateAsCalendar() {
+        Calendar cal = Calendar.getInstance();
+        cal.set(bookingYear, bookingMonth, bookingDay);
+        return cal;
     }
 
     public void setBookingDate(Calendar bookingDate) {
-        this.bookingDate = bookingDate;
+        this.bookingDay = bookingDate.get(Calendar.DAY_OF_MONTH);
+        this.bookingMonth = bookingDate.get(Calendar.MONTH);
+        this.bookingYear = bookingDate.get(Calendar.YEAR);
+    }
+
+    public int getBookingDay() {
+        return bookingDay;
+    }
+
+    public int getBookingMonth() {
+        return bookingMonth;
+    }
+
+    public int getBookingYear() {
+        return bookingYear;
     }
 
     @Override
@@ -85,5 +106,5 @@ public class Booking implements Identifiable {
         this.service = service;
     }
 
-    
+
 }

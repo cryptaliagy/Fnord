@@ -1,4 +1,4 @@
-package slng.fnord.Activities.HomeOwner;
+package slng.fnord.Helpers;
 
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -15,6 +15,7 @@ import java.util.Locale;
 import java.util.Optional;
 
 import io.reactivex.functions.Consumer;
+import slng.fnord.Activities.HomeOwner.BookingList;
 import slng.fnord.Database.DBHelper;
 import slng.fnord.Managers.BookingManager;
 import slng.fnord.R;
@@ -62,7 +63,7 @@ public class BookingListAdaptor extends BaseAdapter {
         ((TextView) v.findViewById(R.id.bookingLProvider)).setText(booking.getServiceProviderInfo().getCompany());
         ((TextView) v.findViewById(R.id.bookingLStartTime)).setText(booking.getStartTime()+":00");
         ((TextView) v.findViewById(R.id.bookingLEndTime)).setText(booking.getEndTime()+":00");
-        ((TextView) v.findViewById(R.id.bookingLDate)).setText(dateFormatter.format(booking.getBookingDate().getTime()));
+        ((TextView) v.findViewById(R.id.bookingLDate)).setText(dateFormatter.format(booking.dateAsCalendar().getTime()));
     }
 
     public String getItem(int pos){

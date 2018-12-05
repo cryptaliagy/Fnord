@@ -37,6 +37,9 @@ public class ServiceProvider extends User {
     public void addRating(Ratings rating){
         //if ratings arraylist is less than 5, add it
         //if ratings arraylist is greater than 5,
+        if (ratings == null) {
+            ratings = new ArrayList<>();
+        }
         if(ratings.size() < 5){
             ratings.add(rating);
         } else {

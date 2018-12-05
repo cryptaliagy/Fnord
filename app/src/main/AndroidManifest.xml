@@ -89,14 +89,12 @@
         </activity>
         <activity android:name=".Activities.ServiceProvider.ViewProfile" />
         <activity android:name=".Activities.ServiceProvider.EditProfile" />
-        <activity android:name=".Activities.ServiceProvider.AddService" />
         <activity android:name=".Activities.ServiceProvider.ViewServices" />
         <activity android:name=".Activities.ServiceProvider.Availability" />
-        <activity android:name=".Availability" />
-        <activity android:name=".SearchSP" />
+        <activity android:name=".Activities.ServiceProvider.AddService" />
         <activity
-            android:name=".HOviewSP"
-            android:label="@string/title_activity_hoview__sp" />
+            android:name=".Activities.HomeOwner.SearchProvider" />
+        <activity android:name=".Activities.HomeOwner.SearchResults"/>
         <activity
             android:name=".Activities.HomeOwner.ServiceProfile"
             android:label="@string/title_activity_ho_service_profile" />

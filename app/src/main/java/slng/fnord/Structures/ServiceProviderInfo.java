@@ -9,7 +9,7 @@ public class ServiceProviderInfo {
     }
 
     public ServiceProviderInfo(ServiceProvider serviceProvider) {
-        this.email = serviceProvider.getId();
+        this.email = serviceProvider.getEmail();
         this.company = serviceProvider.getCompany();
     }
 

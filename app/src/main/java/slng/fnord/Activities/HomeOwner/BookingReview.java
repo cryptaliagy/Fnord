@@ -48,9 +48,8 @@ public class BookingReview extends AppCompatActivity {
         TextView ServiceRequested = findViewById(R.id.BRServiceRequestedTV);
         ServiceRequested.setText(booking.getService());
 
-        //DayOfService.setText(booking.getBookingDate().toString());
         TextView DayOfService = findViewById(R.id.BRDOSTV);
-        Calendar cal = booking.getBookingDate();
+        Calendar cal = booking.dateAsCalendar();
         SimpleDateFormat theDate = new SimpleDateFormat("EEE, MMM d, yyyy", Locale.US);
         String strTheDate = theDate.format(cal.getTime());
         DayOfService.setText(strTheDate);

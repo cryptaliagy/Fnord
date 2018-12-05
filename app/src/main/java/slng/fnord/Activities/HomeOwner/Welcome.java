@@ -25,6 +25,9 @@ public class Welcome extends AppCompatActivity {
             SignInActivity.currentUser = null;
             openActivity(MainActivity.class);
         });
+        findViewById(R.id.homeOwnerAddBookingButton).setOnClickListener(view -> {
+            openActivity(SearchProvider.class);
+        });
     }
 
     public void viewBookings(View view) {

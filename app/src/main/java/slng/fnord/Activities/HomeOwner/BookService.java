@@ -13,6 +13,7 @@ import android.widget.Toast;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import slng.fnord.Activities.Shared.SignInActivity;
@@ -51,10 +52,11 @@ public class BookService extends AppCompatActivity {
         spCompanyTV.setText(serviceProvider.getCompany());
         serviceNameTV.setText(serviceName);
 
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/mm/yyyy");
 
         DatePickerDialog datePickerDialog = DatePickerDialog.newInstance(((view, year, monthOfYear, dayOfMonth) -> {
             date.set(year, monthOfYear, dayOfMonth);
-            datePickerTV.setText(date.toString());
+            datePickerTV.setText(sdf.format(date.getTime()).toString());
         }), Calendar.getInstance());
 
         TimePickerDialog startTimePickerDialog = TimePickerDialog.newInstance(((view, hourOfDay, minute, second) -> {
@@ -89,6 +91,10 @@ public class BookService extends AppCompatActivity {
         });
 
         confirmButton.setOnClickListener(view -> {
+            if (user == null) {
+                System.out.println("null user");
+                return;
+            }
             manager.makeBooking(user, serviceProvider, serviceName, date, startTime, endTime);
             Toast.makeText(getApplicationContext(),
                     "Booking completed!", Toast.LENGTH_SHORT).show();

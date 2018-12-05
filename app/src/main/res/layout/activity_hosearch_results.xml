@@ -34,6 +34,7 @@
             android:textAlignment="center" />
 
         <ListView
+            android:id="@+id/searchResultsList"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
     </LinearLayout>

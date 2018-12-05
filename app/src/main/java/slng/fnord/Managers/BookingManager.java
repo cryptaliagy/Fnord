@@ -24,9 +24,9 @@ public class BookingManager {
                             Calendar date, int startTime, int endTime) {
         Booking booking = new Booking(provider, user, service, date, startTime, endTime);
 
-        database.addBooking(booking);
-        user.addBooking(booking.getId());
-        provider.addBooking(booking.getId());
+        String id = database.addBooking(booking);
+        user.addBooking(id);
+        provider.addBooking(id);
         database.updateUser(user);
         database.updateUser(provider);
     }
