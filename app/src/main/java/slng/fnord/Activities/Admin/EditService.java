@@ -18,9 +18,10 @@ import slng.fnord.Structures.Services;
 
 public class EditService extends AppCompatActivity {
     private Button confirm;
-    ServicesManager manager = new ServicesManager(new DBHelper());
-    String newServiceName;
-    String rate;
+    private ServicesManager manager = new ServicesManager(new DBHelper());
+    private String newServiceName;
+    private String prevServiceName;
+    private String rate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +48,7 @@ public class EditService extends AppCompatActivity {
             }
 
             newServiceName = serviceView.getText().toString();
-            String prevServiceName = EditServicesSelect.currentService;
+            prevServiceName = EditServicesSelect.currentService;
             rate = rateView.getText().toString();
 
 
@@ -74,8 +75,8 @@ public class EditService extends AppCompatActivity {
     }
 
     public void handleServiceConflict(Service service) {
-        if (service != null) {
-            manager.getService(((TextView) findViewById(R.id.serviceNameEditField)).getText().toString(), this::updateServiceObject);
+        if (service == null) {
+            manager.getService(prevServiceName, this::updateServiceObject);
         } else {
             Toast.makeText(getApplicationContext(), "A service with this name already exists", Toast.LENGTH_SHORT).show();
         }
@@ -89,6 +90,7 @@ public class EditService extends AppCompatActivity {
         service.setServiceName(newServiceName);
         service.setServiceRate(Double.valueOf(rate));
         manager.updateService(service);
+        Toast.makeText(getApplicationContext(), "Service updated", Toast.LENGTH_SHORT).show();
 
     }
 }
