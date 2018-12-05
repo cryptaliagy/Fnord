@@ -1,6 +1,8 @@
 package slng.fnord.Helpers;
 
 
+import android.content.Context;
+
 import java.util.HashMap;
 import java.util.Optional;
 import java.util.regex.Pattern;
@@ -98,7 +100,14 @@ public class Common {
         availability.put("Sunday", blankAvail);
         return availability;
     }
-
+    
+    public static int dpToPx(Context context, int dp) {
+        float density = context.getResources()
+                .getDisplayMetrics()
+                .density;
+        return Math.round((float)dp * density);
+    }
+    
 
     public static <T> T extractOptional(Optional<T> optional) {
         if (optional.isPresent()) {

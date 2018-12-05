@@ -8,13 +8,17 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import slng.fnord.Activities.Shared.SignInActivity;
+import slng.fnord.Activities.Shared.Welcome;
 import slng.fnord.Database.DBHelper;
 import slng.fnord.Helpers.BookingListAdaptor;
 import slng.fnord.Managers.BookingManager;
 import slng.fnord.R;
 import slng.fnord.Structures.Booking;
+import slng.fnord.Structures.HomeOwner;
+import slng.fnord.Structures.ServiceProvider;
 
 public class BookingList extends Activity {
     private ListView bookingList;
@@ -28,7 +32,7 @@ public class BookingList extends Activity {
 
         // list of bookings setup
         BookingManager bookingManager = new BookingManager(new DBHelper());
-        bookingManager.getAllBookings(SignInActivity.currentUser.getEmail(), this::bookingListCallback);
+        bookingManager.getAllBookings(Welcome.currentUser.getEmail(), this::bookingListCallback);
         bookingList = (ListView) findViewById(R.id.listOfBookings);
 
     }
@@ -36,8 +40,8 @@ public class BookingList extends Activity {
     public void bookingListCallback(ArrayList<Booking> bookings){
         this.bookings = bookings;
         // test things while bookings can't be created
-        //bookings.add(new Booking(new ServiceProvider(), (HomeOwner) SignInActivity.currentUser, "Do the thing", Calendar.getInstance(), 21, 22));
-        //bookings.add(new Booking(new ServiceProvider(), (HomeOwner) SignInActivity.currentUser, "Do the other thing", Calendar.getInstance(), 11, 12));
+        //bookings.add(new Booking(new ServiceProvider(), (HomeOwner) Welcome.currentUser, "Do the thing", Calendar.getInstance(), 21, 22));
+        //bookings.add(new Booking(new ServiceProvider(), (HomeOwner) Welcome.currentUser, "Do the other thing", Calendar.getInstance(), 11, 12));
         bookingListAdaptor = new BookingListAdaptor(bookings, this);
         bookingList.setAdapter(bookingListAdaptor);
     }

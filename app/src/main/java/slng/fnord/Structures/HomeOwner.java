@@ -3,7 +3,7 @@ package slng.fnord.Structures;
 import slng.fnord.Helpers.Enums.UserTypes;
 
 public class HomeOwner extends User {
-    private String address;
+    private String name;
 
     public HomeOwner() {
 
@@ -11,13 +11,14 @@ public class HomeOwner extends User {
 
     public HomeOwner(String email, String password) {
         super(email, password, UserTypes.HOMEOWNER);
+        name = "";
     }
 
-    public String getAddress() {
-        return address;
+    public String getName() {
+        return name;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public void setName(String name) {
+        this.name = name;
     }
 }

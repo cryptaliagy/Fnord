@@ -82,13 +82,13 @@ public class AccountManager {
      * @param callback callback function to receive new user object after the DB has received it
      */
 
-    public void newHomeOwner(String email, String password, Consumer<User> callback) {
+    public void newUser(String email, String password, UserTypes type, Consumer<User> callback) {
         database.getUser(email)
                 .map(user -> {
             Optional<User> optionalUser;
             // If a user does not exist, create one
             if (!user.isPresent()) {
-                HomeOwner newUser = (HomeOwner) makeUser(email, password, UserTypes.HOMEOWNER);
+                User newUser = makeUser(email, password, type);
                 database.addUser(newUser);
                 optionalUser = Optional.ofNullable(newUser);
             } else {
@@ -96,44 +96,6 @@ public class AccountManager {
             }
             return optionalUser;
 
-        }).subscribe(new DBOberver<Optional<User>>() {
-            @Override
-            public void onNext(Optional<User> user) {
-                User extracted = Common.extractOptional(user);
-                try {
-                    callback.accept(extracted);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-    }
-
-    /**
-     * Requests a user from the db helper, creating a new service provider if none were found and
-     * passing an empty optional to the callback if one has been found.
-     *
-     * @param email new user's email
-     * @param password new user's password
-     * @param company new user's company name
-     * @param callback callback function to receive new user object after the DB has received it
-     */
-
-    public void newServiceProvider(String email, String password, String company,
-                                   Consumer<User> callback) {
-        database.getUser(email)
-                .map(user -> {
-            Optional<User> optionalUser;
-            if (!user.isPresent()) {
-                ServiceProvider serviceProvider = (ServiceProvider) makeUser(email, password, UserTypes.SERVICEPROVIDER);
-                serviceProvider.setCompany(company);
-                database.addUser(serviceProvider);
-                optionalUser = Optional.ofNullable(serviceProvider);
-            } else {
-                optionalUser = Optional.empty();
-            }
-
-            return optionalUser;
         }).subscribe(new DBOberver<Optional<User>>() {
             @Override
             public void onNext(Optional<User> user) {

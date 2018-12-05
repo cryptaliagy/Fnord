@@ -22,7 +22,6 @@ public class SignInActivity extends AppCompatActivity {
     private Button signIn2;
     String email;
     String password;
-    public static User currentUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,24 +58,13 @@ public class SignInActivity extends AppCompatActivity {
             return;
         }
 
-        SignInActivity.currentUser = user;
+        Welcome.currentUser = user;
 
         openUserActivity(user.getType());
     }
 
     public void openUserActivity(UserTypes types) {
-        Intent intent = null;
-        switch (types) {
-            case HOMEOWNER:
-                intent = new Intent(this, slng.fnord.Activities.HomeOwner.Welcome.class);
-                break;
-            case SERVICEPROVIDER:
-                intent = new Intent(this, slng.fnord.Activities.ServiceProvider.Welcome.class);
-                break;
-            case ADMIN:
-                intent = new Intent(this, slng.fnord.Activities.Admin.Welcome.class);
-                break;
-        }
+        Intent intent = new Intent(this, Welcome.class);
         startActivity(intent);
     }
 

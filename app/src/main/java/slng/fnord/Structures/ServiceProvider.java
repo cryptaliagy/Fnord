@@ -11,8 +11,6 @@ import slng.fnord.Helpers.Pair;
 
 public class ServiceProvider extends User {
     private HashMap<String, Boolean> services;
-    private String phone;
-    private String address;
     private String company;
     private String biography;
     private HashMap<String, Pair<Integer, Integer>> availability;
@@ -27,6 +25,7 @@ public class ServiceProvider extends User {
 
     public ServiceProvider(String email, String password) {
         super(email, password, UserTypes.SERVICEPROVIDER);
+        company = "";
         services = new HashMap<>();
         availability = Common.makeBlankAvail();
         ratings = new ArrayList<Ratings>();
@@ -93,22 +92,6 @@ public class ServiceProvider extends User {
         }
 
         return services.get(serviceName);
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
     }
 
     public String getCompany() {
