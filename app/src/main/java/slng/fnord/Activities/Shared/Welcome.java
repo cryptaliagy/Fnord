@@ -18,6 +18,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
 public class Welcome extends AppCompatActivity {
     public static User currentUser;
 
@@ -89,11 +91,13 @@ public class Welcome extends AppCompatActivity {
         }
 
         ((TextView) findViewById(R.id.pageTitleTV)).setText(accountType + " Page");
-        ((TextView) findViewById(R.id.welcomeUserTV))
-                .setText("Welcome " +
-                        (currentUser.getType()
-                                .equals(UserTypes.SERVICEPROVIDER) ?
-                                ((ServiceProvider) currentUser).getCompany() : ((HomeOwner) currentUser).getName()));
+        if (accountType.equals("Administrator")) {
+            ((TextView) findViewById(R.id.welcomeUserTV)).setText("Welcome Administrator");
+        } else {
+            ((TextView) findViewById(R.id.welcomeUserTV))
+                    .setText("Welcome " + (accountType.equals("Home Owner") ?
+                            ((HomeOwner) currentUser).getName() : ((ServiceProvider) currentUser).getCompany()));
+        }
         ((TextView) findViewById(R.id.signedInAsTV)).setText("You are signed in as "+accountType);
     }
 
