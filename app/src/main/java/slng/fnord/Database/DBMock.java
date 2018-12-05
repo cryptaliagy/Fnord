@@ -37,8 +37,8 @@ public class DBMock implements Database {
     }
 
     @Override
-    public void addBooking(Booking booking) {
-
+    public String addBooking(Booking booking) {
+        return null;
     }
 
     @Override

@@ -24,7 +24,7 @@ public interface Database {
 
     void removeService(String name);
 
-    void addBooking(Booking booking);
+    String addBooking(Booking booking);
 
     void removeBooking(String id);
 

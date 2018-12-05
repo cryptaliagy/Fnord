@@ -47,7 +47,7 @@
                 android:layout_weight="1" />
 
             <TextView
-                android:id="@+id/HO_Profile_Company_Name"
+                android:id="@+id/providerProfileCompanyTV"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -78,7 +78,7 @@
                 android:layout_weight="1" />
 
             <TextView
-                android:id="@+id/HO_Profile_Company_Address"
+                android:id="@+id/providerProfileAddressTV"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -108,7 +108,7 @@
                 android:layout_weight="1" />
 
             <TextView
-                android:id="@+id/HO_Profile_Phone_Number"
+                android:id="@+id/providerProfilePhoneTV"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -127,7 +127,7 @@
             android:text="Company Biography" />
 
         <TextView
-            android:id="@+id/HO_Profile_Company_Bio"
+            android:id="@+id/providerProfileBioTV"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/common_google_signin_btn_icon_light_normal_background"
@@ -143,14 +143,14 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/button"
+                android:id="@+id/backToSearchButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Back to Search" />
 
             <Button
-                android:id="@+id/button2"
+                android:id="@+id/bookServiceButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -182,7 +182,7 @@
                 android:layout_height="match_parent">
 
                 <RatingBar
-                    android:id="@+id/ratingBar2"
+                    android:id="@+id/serviceProfileRatingBar"
                     style="@style/Widget.AppCompat.RatingBar"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

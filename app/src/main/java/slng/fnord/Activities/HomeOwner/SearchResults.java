@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.app.Activity;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -25,53 +26,60 @@ public class SearchResults extends Activity {
     private HashMap<String, ServiceProviderMeta> goodProviders;
     private ArrayList<String> results;
     private ServiceProvider provider;
-    private ServiceProvider selection;
+    private static ServiceProvider selection;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hosearch_results);
         createResults();
+
+    }
+
+    private void buildActivity() {
         ListView lv = findViewById(R.id.searchResultsList);
         ServiceProviderAdapter adapter = new ServiceProviderAdapter(this, R.layout.adapter_view_layout,
-               results);
+                results);
         lv.setAdapter(adapter);
+
+        managerAcc = new AccountManager(new DBHelper());
 
 
         lv.setOnItemClickListener((parent, view, position, id) -> {
             String[] node = results.get(position).split("#");
             String companyName = node[0];
-            for (String company: goodProviders.keySet()){
-                if (company.equals(companyName)) {
-                    managerAcc.getUser(goodProviders.get(company).getEmail(), this::setProvider);
-                    selection = provider;
-                }
-            }
 
-            Intent intent = new Intent(this, slng.fnord.Activities.HomeOwner.ServiceProfile.class);
-            this.startActivity(intent);
-
-
-
+            System.out.println(goodProviders.get(companyName).getEmail());
+            managerAcc.getUser(goodProviders.get(companyName).getEmail(), this::makeSelection);
         });
 
     }
 
     private void createResults(){
-        String oneItem;
+        results = new ArrayList<>();
         goodProviders = SearchProvider.getGoodProviders();
         for(String company : goodProviders.keySet()){
-            managerAcc.getUser(goodProviders.get(company).getEmail(), this::setProvider);
-            oneItem = company + "#" + provider.getAverageRating();
-            results.add(oneItem);
+            results.add(company + "#" + String.format("%.2f", goodProviders.get(company).getAverageRating()));
         }
+
+        buildActivity();
+    }
+
+    private void makeSelection(User user) {
+        if (user == null) {
+            Toast.makeText(getApplicationContext(), "Null user", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        ServiceProfile.provider = (ServiceProvider) user;
+        Intent intent = new Intent(this, ServiceProfile.class);
+        this.startActivity(intent);
+
     }
 
 
-    private void setProvider(User user) {
-        provider = (ServiceProvider) user;
+    public static ServiceProvider getSelection() {
+        return selection;
     }
-
 
     public ArrayList<String> getResults() {
         return results;

@@ -25,6 +25,7 @@ public abstract class User implements Identifiable {
         this.email = email;
         byte[] saltBytes = new byte[20];
         new SecureRandom().nextBytes(saltBytes);
+        bookings = new ArrayList<>();
 
         salt = Common.makeHex(saltBytes);
         passwordHash = Common.makeMD5(password + salt);
@@ -58,5 +59,10 @@ public abstract class User implements Identifiable {
         return bookings;
     }
 
-    public void addBooking(String id) { bookings.add(id); }
+    public void addBooking(String id) {
+        if (bookings == null) {
+            bookings = new ArrayList<>();
+        }
+        bookings.add(id);
+    }
 }
