@@ -5,7 +5,7 @@ import org.junit.Test;
 import slng.fnord.Structures.HomeOwner;
 import slng.fnord.Structures.ServiceProvider;
 import slng.fnord.Structures.User;
-import slng.fnord.Structures.UserTypes;
+import slng.fnord.Helpers.Enums.UserTypes;
 
 import static com.google.common.truth.Truth.assertThat;
 
@@ -25,7 +25,7 @@ public class AccountTest {
     @Test
     public void spAccountTest(){
         // values should be verified by now, so only valid strings will be used
-        User user = new ServiceProvider("glitt073@uottawa.ca", "Graham", "1337Potato");
+        User user = new ServiceProvider("glitt073@uottawa.ca", "1337Potato");
         assertThat(user!=null).isTrue();
         assertThat(user.getType()==UserTypes.SERVICEPROVIDER).isTrue();
     }
@@ -33,7 +33,7 @@ public class AccountTest {
     @Test
     public void homeOwnerAccountTest(){
         // values should be verified by now, so only valid strings will be used
-        User user = new HomeOwner("glitt073@uottawa.ca", "Graham", "1337Potato");
+        User user = new HomeOwner("glitt073@uottawa.ca", "1337Potato");
         assertThat(user!=null).isTrue();
         assertThat(user.getType()==UserTypes.HOMEOWNER).isTrue();
     }

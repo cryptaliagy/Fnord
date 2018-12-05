@@ -1,17 +1,31 @@
 package slng.fnord.Structures;
 
 public class HomeOwnerInfo {
-    private String id;
+    private String email;
     private String address;
-    private String username;
 
     public HomeOwnerInfo() {
 
     }
 
     public HomeOwnerInfo(HomeOwner homeOwner) {
-        this.id = homeOwner.getId();
+        this.email = homeOwner.getEmail();
         this.address = homeOwner.getAddress();
-        this.username = homeOwner.getUsername();
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setId(String email) {
+        this.email = email;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 }

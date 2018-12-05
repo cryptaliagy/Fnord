@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background"
-    tools:context=".Activities.WelcomeServiceProvider">
+    tools:context=".Activities.ServiceProvider.Welcome">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -83,5 +83,12 @@
             android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:text="Add availabilities" />
+
+        <Button
+            android:id="@+id/logOutButtonServiceProvier"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:text="Log Out" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

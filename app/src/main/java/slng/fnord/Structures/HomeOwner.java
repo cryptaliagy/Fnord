@@ -1,7 +1,6 @@
 package slng.fnord.Structures;
 
-import slng.fnord.Structures.User;
-import slng.fnord.Structures.UserTypes;
+import slng.fnord.Helpers.Enums.UserTypes;
 
 public class HomeOwner extends User {
     private String address;
@@ -10,15 +9,15 @@ public class HomeOwner extends User {
 
     }
 
-    public HomeOwner(String email, String username, String password) {
-        super(email, username, password, UserTypes.HOMEOWNER);
+    public HomeOwner(String email, String password) {
+        super(email, password, UserTypes.HOMEOWNER);
     }
 
     public String getAddress() {
         return address;
     }
 
-    public void setAddreess(String address) {
+    public void setAddress(String address) {
         this.address = address;
     }
 }

@@ -5,9 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background"
-    tools:context=".Activities.HOBookingList">
+    tools:context=".Activities.HomeOwner.BookingList">
 
     <LinearLayout
+        android:id="@+id/linearlayout42"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -33,7 +34,12 @@
             android:textAlignment="center" />
 
         <ListView
+            android:id="@+id/listOfBookings"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:background="@android:drawable/alert_light_frame">
+
+        </ListView>
+
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

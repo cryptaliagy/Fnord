@@ -28,7 +28,7 @@
 
             <TextView
                 android:gravity="center"
-                android:text="rate"
+                android:text="serviceRate"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:id="@+id/rateField"

@@ -1,16 +1,14 @@
 package slng.fnord.Helpers;
 
 
-import android.app.Activity;
-import android.widget.Toast;
-
 import java.util.HashMap;
+import java.util.Optional;
 import java.util.regex.Pattern;
 
 import slng.fnord.Structures.HomeOwner;
 import slng.fnord.Structures.ServiceProvider;
 import slng.fnord.Structures.User;
-import slng.fnord.Structures.UserTypes;
+import slng.fnord.Helpers.Enums.UserTypes;
 
 public class Common {
     public static String makeHex(byte[] bytes) {
@@ -69,7 +67,7 @@ public class Common {
     }
 
     public static boolean validateCompany(String company){
-        return Pattern.matches("^[^\\s].+?[^\\s]$", company);
+        return Pattern.matches("^[^\\s][^.$#\\[\\]/]+[^\\s]$", company);
     }
 
     public static boolean validateAddress(String address){
@@ -77,12 +75,12 @@ public class Common {
     }
 
 
-    public static User makeUser(String email, String username, String password, UserTypes type) {
+    public static User makeUser(String email, String password, UserTypes type) {
         switch (type) {
             case HOMEOWNER:
-                return new HomeOwner(email, username, password);
+                return new HomeOwner(email, password);
             case SERVICEPROVIDER:
-                return new ServiceProvider(email, username, password);
+                return new ServiceProvider(email, password);
         }
 
         return null; // In theory impossible
@@ -99,6 +97,15 @@ public class Common {
         availability.put("Saturday", blankAvail);
         availability.put("Sunday", blankAvail);
         return availability;
+    }
+
+
+    public static <T> T extractOptional(Optional<T> optional) {
+        if (optional.isPresent()) {
+            return optional.get();
+        } else {
+            return null;
+        }
     }
 
 }

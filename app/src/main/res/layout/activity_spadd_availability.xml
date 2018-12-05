@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background"
-    tools:context=".Activities.SPAddAvailability">
+    tools:context=".Activities.ServiceProvider.Availability">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -53,14 +53,14 @@
                 android:layout_weight="1"
                 android:text="Start" />
 
-            <Button
+            <EditText
                 android:id="@+id/mondayStartTime"
                 android:layout_width="50dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
+                android:focusable="false"
                 android:text="Select Time"
-                android:inputType="time"
                 android:textSize="10sp" />
 
             <TextView
@@ -71,12 +71,13 @@
                 android:text="End"
                 android:textAlignment="center" />
 
-            <Button
+            <EditText
                 android:id="@+id/mondayEndTime"
                 android:layout_width="50dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
+                android:focusable="false"
                 android:text="Select Time"
                 android:inputType="time"
                 android:textSize="10sp" />
@@ -105,12 +106,13 @@
                 android:layout_weight="1"
                 android:text="Start" />
 
-            <Button
+            <EditText
                 android:id="@+id/tuesdayStartTime"
                 android:layout_width="50dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
+                android:focusable="false"
                 android:text="Select Time"
                 android:inputType="time"
                 android:textSize="10sp" />
@@ -123,12 +125,13 @@
                 android:text="End"
                 android:textAlignment="center" />
 
-            <Button
+            <EditText
                 android:id="@+id/tuesdayEndTime"
                 android:layout_width="50dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
+                android:focusable="false"
                 android:text="Select Time"
                 android:inputType="time"
                 android:textSize="10sp" />
@@ -157,12 +160,13 @@
                 android:layout_weight="1"
                 android:text="Start" />
 
-            <Button
+            <EditText
                 android:id="@+id/wednesdayStartTime"
                 android:layout_width="50dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
+                android:focusable="false"
                 android:text="Select Time"
                 android:inputType="time"
                 android:textSize="10sp" />
@@ -175,12 +179,13 @@
                 android:text="End"
                 android:textAlignment="center" />
 
-            <Button
+            <EditText
                 android:id="@+id/wednesdayEndTime"
                 android:layout_width="50dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
+                android:focusable="false"
                 android:text="Select Time"
                 android:inputType="time"
                 android:textSize="10sp" />
@@ -209,12 +214,13 @@
                 android:layout_weight="1"
                 android:text="Start" />
 
-            <Button
+            <EditText
                 android:id="@+id/thursdayStartTime"
                 android:layout_width="50dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
+                android:focusable="false"
                 android:text="Select Time"
                 android:inputType="time"
                 android:textSize="10sp" />
@@ -227,12 +233,13 @@
                 android:text="End"
                 android:textAlignment="center" />
 
-            <Button
+            <EditText
                 android:id="@+id/thursdayEndTime"
                 android:layout_width="50dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
+                android:focusable="false"
                 android:text="Select Time"
                 android:inputType="time"
                 android:textSize="10sp" />
@@ -261,12 +268,13 @@
                 android:layout_weight="1"
                 android:text="Start" />
 
-            <Button
+            <EditText
                 android:id="@+id/fridayStartTime"
                 android:layout_width="50dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
+                android:focusable="false"
                 android:text="Select Time"
                 android:inputType="time"
                 android:textSize="10sp" />
@@ -279,12 +287,13 @@
                 android:text="End"
                 android:textAlignment="center" />
 
-            <Button
+            <EditText
                 android:id="@+id/fridayEndTime"
                 android:layout_width="50dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
+                android:focusable="false"
                 android:text="Select Time"
                 android:inputType="time"
                 android:textSize="10sp" />
@@ -313,12 +322,13 @@
                 android:layout_weight="1"
                 android:text="Start" />
 
-            <Button
+            <EditText
                 android:id="@+id/saturdayStartTime"
                 android:layout_width="50dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
+                android:focusable="false"
                 android:text="Select Time"
                 android:inputType="time"
                 android:textSize="10sp" />
@@ -331,12 +341,13 @@
                 android:text="End"
                 android:textAlignment="center" />
 
-            <Button
+            <EditText
                 android:id="@+id/saturdayEndTime"
                 android:layout_width="50dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
+                android:focusable="false"
                 android:text="Select Time"
                 android:inputType="time"
                 android:textSize="10sp" />
@@ -365,12 +376,13 @@
                 android:layout_weight="1"
                 android:text="Start" />
 
-            <Button
+            <EditText
                 android:id="@+id/sundayStartTime"
                 android:layout_width="50dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
+                android:focusable="false"
                 android:text="Select Time"
                 android:inputType="time"
                 android:textSize="10sp" />
@@ -383,12 +395,13 @@
                 android:text="End"
                 android:textAlignment="center" />
 
-            <Button
+            <EditText
                 android:id="@+id/sundayEndTime"
                 android:layout_width="50dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
+                android:focusable="false"
                 android:text="Select Time"
                 android:inputType="time"
                 android:textSize="10sp" />
@@ -402,7 +415,6 @@
             android:id="@+id/updateAvailibility"
             android:layout_width="250dp"
             android:layout_height="wrap_content"
-            android:onClick="onClick"
             android:text="Update Availibility"
             tools:layout_editor_absoluteY="329dp" />
 
