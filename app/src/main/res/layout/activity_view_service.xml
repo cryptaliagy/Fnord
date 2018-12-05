@@ -84,7 +84,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Button" />
+                android:onClick="backButton"
+                android:text="Back" />
 
             <Space
                 android:layout_width="wrap_content"

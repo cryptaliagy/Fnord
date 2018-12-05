@@ -4,6 +4,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -16,6 +17,7 @@ import java.util.ArrayList;
 import java.util.Optional;
 
 import slng.fnord.Activities.Shared.MainActivity;
+import slng.fnord.Activities.Shared.Welcome;
 import slng.fnord.Database.DBHelper;
 import slng.fnord.Helpers.Common;
 import slng.fnord.Managers.ServicesManager;
@@ -198,5 +200,9 @@ public class ViewService extends AppCompatActivity {
         manager.updateService(service);
         manager.getServiceNamesArrayList(this::updateUI);
 
+    }
+
+    public void backButton(View view) {
+        startActivity(new Intent(this, Welcome.class));
     }
 }

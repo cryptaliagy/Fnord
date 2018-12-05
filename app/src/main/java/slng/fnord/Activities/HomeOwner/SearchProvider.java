@@ -73,6 +73,8 @@ public class SearchProvider extends AppCompatActivity {
         }), Calendar.getInstance());
 
 
+
+
         edittext.setOnClickListener(view -> {
             datePickerDialog.setMinDate(Calendar.getInstance());
             datePickerDialog.show(getSupportFragmentManager(), "Select a date");
@@ -95,12 +97,18 @@ public class SearchProvider extends AppCompatActivity {
             startTimePickerDialog.show(getSupportFragmentManager(), "Pick a start time");
         });
 
+        startTimePickerDialog.enableMinutes(false);
+        startTimePickerDialog.enableSeconds(false);
+
         EditText endTimeEditText = findViewById(R.id.endTimeEditText);
 
         TimePickerDialog endTimePickerDialog = TimePickerDialog.newInstance(((view, hourOfDay, minute, second) -> {
             endTime = hourOfDay;
             endTimeEditText.setText(endTime + ":00");
         }), 23, 0, 0, true);
+
+        endTimePickerDialog.enableMinutes(false);
+        endTimePickerDialog.enableSeconds(false);
 
         endTimeEditText.setOnClickListener(view -> {
             if (startTime > -1) {
