@@ -38,6 +38,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".Activities.Shared.MainActivity" />
         </activity>
+        <activity android:name=".Activities.Shared.Welcome" />
         <activity
             android:name=".Activities.Admin.ViewService"
             android:parentActivityName=".Activities.Shared.Welcome">

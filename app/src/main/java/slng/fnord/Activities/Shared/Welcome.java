@@ -2,6 +2,9 @@ package slng.fnord.Activities.Shared;
 
 import androidx.appcompat.app.AppCompatActivity;
 import slng.fnord.Activities.Admin.ViewService;
+import slng.fnord.Activities.HomeOwner.BookingList;
+import slng.fnord.Activities.HomeOwner.SearchProvider;
+import slng.fnord.Activities.ServiceProvider.Availability;
 import slng.fnord.Activities.ServiceProvider.ViewProfile;
 import slng.fnord.Activities.ServiceProvider.ViewServices;
 import slng.fnord.Helpers.Enums.UserTypes;
@@ -30,24 +33,26 @@ public class Welcome extends AppCompatActivity {
     }
 
     public void viewBookings(View view) {
-        // TODO
+        if (currentUser.getType().equals(UserTypes.HOMEOWNER)) {
+            openActivity(BookingList.class);
+        }
     }
 
     public void makeBooking(View view) {
-        // TODO
+        openActivity(SearchProvider.class);
     }
 
     public void viewServices(View view) {
         if (currentUser.getType().equals(UserTypes.SERVICEPROVIDER)) {
             openActivity(ViewServices.class);
-        } else {
+        } else if (currentUser.getType().equals(UserTypes.ADMIN)){
             openActivity(ViewService.class);
         }
 
     }
 
     public void viewAvailability(View view) {
-        // TODO
+        openActivity(Availability.class);
     }
 
     public void logOut(View view) {
@@ -69,11 +74,11 @@ public class Welcome extends AppCompatActivity {
                 findViewById(R.id.viewServicesButton).setVisibility(View.VISIBLE);
                 findViewById(R.id.viewProfileButton).setVisibility(View.VISIBLE);
                 findViewById(R.id.availabilityButton).setVisibility(View.VISIBLE);
-                findViewById(R.id.viewBookingsButton).setVisibility(View.VISIBLE);
+                //findViewById(R.id.viewBookingsButton).setVisibility(View.VISIBLE);
                 break;
             case HOMEOWNER:
                 accountType = "Home Owner";
-                findViewById(R.id.viewProfileButton).setVisibility(View.VISIBLE);
+                //findViewById(R.id.viewProfileButton).setVisibility(View.VISIBLE);
                 findViewById(R.id.makeBookingButton).setVisibility(View.VISIBLE);
                 findViewById(R.id.viewBookingsButton).setVisibility(View.VISIBLE);
                 break;
