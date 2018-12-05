@@ -29,6 +29,8 @@ public interface Database {
 
     Observable<Optional<Booking>> getBooking(String id);
 
+    Observable<Booking> getAllBookings();
+
     Observable<Optional<ArrayList<String>>> getAllServiceNames();
 
     Observable<Optional<ArrayList<Service>>> getAllServices();

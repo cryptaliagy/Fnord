@@ -56,12 +56,22 @@
         <activity
             android:name=".Activities.HomeOwner.ServiceProfile"
             android:label="@string/title_activity_ho_service_profile" />
-        <activity android:name=".Activities.HomeOwner.BookService" />
+        <activity
+            android:name=".Activities.HomeOwner.BookService"
+            android:parentActivityName=".Activities.HomeOwner.Welcome" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Activities.HomeOwner.Welcome" />
+        </activity>
         <activity
             android:name=".Activities.HomeOwner.BookingList"
-            android:label="@string/title_activity_hobooking_list" />
-        <activity android:name=".Activities.HomeOwner.BookingReview" />
-        <activity android:name=".Activities.Shared.Welcome"></activity>
+            android:parentActivityName=".Activities.HomeOwner.Welcome"
+            android:label="@string/title_activity_hobooking_list" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Activities.HomeOwner.Welcome" />
+        </activity>
+        <activity android:name=".Activities.HomeOwner.BookingReview"></activity>
     </application>
 
 </manifest>

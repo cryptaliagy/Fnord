@@ -97,15 +97,15 @@ public class RegisterActivity extends AppCompatActivity {
         });
     }
 
-    public void handleCreate(Optional<User> user) {
-        if (!user.isPresent()) {
+    public void handleCreate(User user) {
+        if (user == null) {
             ((EditText) findViewById(R.id.registerEmail)).setError("An account with this email already exists");
             return;
         }
         Toast.makeText(getApplicationContext(), "New account has been made!", Toast.LENGTH_SHORT).show();
 
-        Welcome.currentUser = user.get();
-        openUserActivity(user.get().getType());
+        SignInActivity.currentUser = user;
+        openUserActivity(user.getType());
     }
 
     //opens welcome screen for the user

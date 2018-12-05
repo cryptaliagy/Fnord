@@ -41,12 +41,12 @@ public class ViewService extends AppCompatActivity {
 
     }
 
-    public void updateUI(Optional<ArrayList<String>> servicesOptional) {
+    public void updateUI(ArrayList<String> servicesOptional) {
         ArrayList<String> services;
-        if (!servicesOptional.isPresent()) {
+        if (servicesOptional == null) {
             services = new ArrayList<>();
         } else {
-            services = servicesOptional.get();
+            services = servicesOptional;
         }
 
         ListView lv = findViewById(R.id.listOfServices);

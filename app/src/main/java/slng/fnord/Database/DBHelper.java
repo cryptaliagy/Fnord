@@ -200,7 +200,6 @@ public class DBHelper implements Database {
                         } else {
                             optionalServices = Optional.empty();
                         }
-
                         source.onNext(optionalServices);
                         source.onComplete();
                     }
@@ -208,6 +207,29 @@ public class DBHelper implements Database {
                     @Override
                     public void onCancelled(DatabaseError databaseError) {
 
+                    }
+                }));
+    }
+
+    @Override
+    public Observable<Booking> getAllBookings() {
+        return Observable.create(source -> FirebaseDatabase.getInstance()
+                .getReference("bookings")
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        if (dataSnapshot.exists()) {
+                            Booking booking;
+                            for (DataSnapshot child : dataSnapshot.getChildren()) {
+                                source.onNext(child.getValue(Booking.class));
+                            }
+                        }
+                        source.onComplete();
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        source.onError(databaseError.toException());
                     }
                 }));
     }

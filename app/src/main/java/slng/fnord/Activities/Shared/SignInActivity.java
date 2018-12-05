@@ -53,14 +53,14 @@ public class SignInActivity extends AppCompatActivity {
         });
     }
 
-    public void signInCallback(Optional<User> user) {
-        if (!user.isPresent()) { // Sign in invalid/No such user
+    public void signInCallback(User user) {
+        if (user == null) { // Sign in invalid/No such user
             return;
         }
 
-        Welcome.currentUser = user.get();
+        SignInActivity.currentUser = user;
 
-        openUserActivity(user.get().getType());
+        openUserActivity(user.getType());
     }
 
     public void openUserActivity(UserTypes types) {
