@@ -74,7 +74,7 @@ public class EditService extends AppCompatActivity {
     }
 
     public void handleServiceConflict(Service service) {
-        if (service == null) {
+        if (service != null) {
             manager.getService(((TextView) findViewById(R.id.serviceNameEditField)).getText().toString(), this::updateServiceObject);
         } else {
             Toast.makeText(getApplicationContext(), "A service with this name already exists", Toast.LENGTH_SHORT).show();
