@@ -76,8 +76,8 @@ public class ViewServices extends AppCompatActivity {
             Intent intent = new Intent(this, Welcome.class);
             startActivity(intent);
         } else if (v.getId() == R.id.addSPViewService) {
-            Intent intent = new Intent(this, AddService.class);
-            startActivity(intent);
+            //Intent intent = new Intent(this, AddService.class);
+            //startActivity(intent);
         }
     }
 }

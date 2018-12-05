@@ -61,7 +61,7 @@
                 android:textSize="18sp" />
 
             <Spinner
-                android:id="@+id/spinner"
+                android:id="@+id/searchServiceSpinner"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:background="@android:drawable/btn_dropdown"
@@ -87,22 +87,24 @@
                 android:textSize="18sp" />
 
             <EditText
-                android:id="@+id/editText4"
+                android:id="@+id/Date"
                 android:layout_width="120dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:ems="10"
-                android:hint="Date"
-                android:inputType="date" />
+                android:clickable="true"
+                android:editable="false"
+                android:hint="Date" />
 
             <EditText
-                android:id="@+id/editText5"
+                android:id="@+id/time"
                 android:layout_width="120dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
-                android:hint="Time"
-                android:inputType="time" />
+                android:focusable="false"
+                android:hint="Pick Time"
+                android:inputType="time"
+                android:textSize="18sp" />
+
         </LinearLayout>
 
         <Space
@@ -126,7 +128,7 @@
                 android:id="@+id/ratingBar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1" />
+                android:numStars="5" />
 
         </LinearLayout>
 
