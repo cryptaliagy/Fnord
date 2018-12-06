@@ -22,8 +22,13 @@ CircleCI has been setup and is functioning (see `CircleCI.png` for screenshot)
 **usernames** should be minimum **6** characters long but
 the app will tell you if your input into a field is not valid.
 
+**Service Provider** account has been pre-created:
+>Email: service@provider.com
+>
+>Password: security
 
-Administrator account has been pre-created:
+
+**Administrator** account has been pre-created:
 >Email: admin@admin.com
 >
 >Password: administrator
