@@ -2,6 +2,8 @@ package slng.fnord;
 
 import org.junit.Test;
 
+import slng.fnord.Helpers.Common;
+
 import static com.google.common.truth.Truth.assertThat;
 
 public class ValidationTestCases {

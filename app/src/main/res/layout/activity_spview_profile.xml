@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background"
-    tools:context=".SPViewProfile">
+    tools:context=".Activities.ServiceProvider.ViewProfile">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -22,72 +22,137 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="cursive"
-            android:text="View Profile"
+            android:text="My Profile"
             android:textAlignment="center"
             android:textColor="@color/common_google_signin_btn_text_dark_focused"
             android:textSize="36sp" />
 
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="25dp" />
-
         <TextView
-            android:id="@+id/textView27"
+            android:id="@+id/nameTextView"
             android:layout_width="250dp"
             android:layout_height="wrap_content"
-            android:text="Company Address" />
+            android:layout_marginTop="25dp"
+            android:text="Name"
+            android:visibility="gone" />
 
-        <TextView
-            android:id="@+id/viewAddress"
+        <EditText
+            android:id="@+id/viewName"
             android:layout_width="250dp"
-            android:layout_height="wrap_content" />
-
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="15dp" />
+            android:layout_height="40dp"
+            android:inputType="text"
+            android:visibility="gone" />
 
         <TextView
-            android:id="@+id/textView28"
-            android:layout_width="250dp"
-            android:layout_height="wrap_content"
-            android:text="Phone Number" />
-
-        <TextView
-            android:id="@+id/viewPhoneNumber"
-            android:layout_width="250dp"
-            android:layout_height="wrap_content" />
-
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="25dp" />
-
-        <TextView
-            android:id="@+id/textView29"
+            android:id="@+id/companyNameTextView"
             android:layout_width="250dp"
             android:layout_height="wrap_content"
-            android:text="Company Name" />
+            android:layout_marginTop="25dp"
+            android:text="Company Name"
+            android:visibility="gone" />
 
-        <TextView
+        <EditText
             android:id="@+id/viewCompanyName"
             android:layout_width="250dp"
-            android:layout_height="wrap_content" />
-
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="25dp" />
+            android:layout_height="40dp"
+            android:inputType="text"
+            android:visibility="gone" />
 
         <TextView
-            android:id="@+id/textView30"
+            android:id="@+id/companyAddressTextView"
             android:layout_width="250dp"
             android:layout_height="wrap_content"
-            android:text="Company Biography" />
+            android:layout_marginTop="25dp"
+            android:text="Company Address"
+            android:visibility="gone" />
+
+        <EditText
+            android:id="@+id/viewAddress"
+            android:layout_width="250dp"
+            android:layout_height="40dp"
+            android:inputType="text"
+            android:visibility="gone" />
 
         <TextView
+            android:id="@+id/phoneTextView"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:text="Phone Number"
+            android:visibility="gone" />
+
+        <EditText
+            android:id="@+id/viewPhoneNumber"
+            android:layout_width="250dp"
+            android:layout_height="40dp"
+            android:inputType="phone"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/companyBioTextField"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:text="Company Biography"
+            android:visibility="gone" />
+
+        <EditText
             android:id="@+id/viewBio"
             android:layout_width="250dp"
-            android:layout_height="wrap_content"
+            android:layout_height="141dp"
             android:background="@drawable/common_google_signin_btn_icon_light_normal_background"
-            android:textAppearance="@android:style/TextAppearance.Material.Menu" />
+            android:hint="text"
+            android:inputType="textMultiLine|textImeMultiLine"
+            android:lines="6"
+            android:textAlignment="textStart"
+            android:textAppearance="@android:style/TextAppearance.Material.Menu"
+            android:visibility="gone" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="25dp"
+            android:orientation="horizontal">
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <Button
+                android:id="@+id/backServiceProviderViewProfileButton"
+                android:layout_width="75dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:onClick="back"
+                android:text="Back" />
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <Button
+                android:id="@+id/editServiceProviderViewProfileButton"
+                android:layout_width="75dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:onClick="editProfile"
+                android:text="Edit" />
+
+            <Button
+                android:id="@+id/saveServiceProviderViewProfileButton"
+                android:layout_width="75dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:onClick="saveProfile"
+                android:text="Save"
+                android:visibility="gone" />
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+        </LinearLayout>
 
     </LinearLayout>
-</android.support.constraint.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
