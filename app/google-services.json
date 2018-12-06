@@ -1,27 +1,27 @@
 {
   "project_info": {
-    "project_number": "607536356622",
-    "firebase_url": "https://fnordprojectseg2105-9cf17.firebaseio.com",
-    "project_id": "fnordprojectseg2105-9cf17",
-    "storage_bucket": "fnordprojectseg2105-9cf17.appspot.com"
+    "project_number": "35853666798",
+    "firebase_url": "https://fnord-test-db.firebaseio.com",
+    "project_id": "fnord-test-db",
+    "storage_bucket": "fnord-test-db.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:607536356622:android:ff107181568b0805",
+        "mobilesdk_app_id": "1:35853666798:android:ff107181568b0805",
         "android_client_info": {
           "package_name": "slng.fnord"
         }
       },
       "oauth_client": [
         {
-          "client_id": "607536356622-okcfreen1ej0c5ruft5vjbj1qebodhu8.apps.googleusercontent.com",
+          "client_id": "35853666798-tfkhpb8pm452c2k1th6qcek9juomgolc.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCXiCIQ4vDvuDYBBirzTX3nx4FLMXECpj0"
+          "current_key": "AIzaSyBT3vygE0z8FP-dA93IkvqyZfN29k8PDpk"
         }
       ],
       "services": {
