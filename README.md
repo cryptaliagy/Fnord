@@ -1,5 +1,5 @@
-Build Status
-[![Build Status](https://circleci.com/gh/NGnius/FnordProjectSEG2105.png?branch=develop)](https://circleci.com/gh/NGnius/FnordProjectSEG2105)
+Build Status: 
+[![Build Status](https://circleci.com/gh/NGnius/FnordProjectSEG2105.svg?style=svg&circle-token=5760795e51bf5254fbeaa558b848990be2295d98)](https://circleci.com/gh/NGnius/FnordProjectSEG2105)
 
 
 Team Members:
