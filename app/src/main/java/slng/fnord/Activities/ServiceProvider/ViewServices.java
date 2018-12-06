@@ -74,6 +74,10 @@ public class ViewServices extends AppCompatActivity {
         dialogBuilder.setTitle("Add a service")
                 .setView(layoutView)
                 .setPositiveButton("Add", (dialog, which) -> {
+                    if (spinner.getSelectedItem() == null) {
+                        Toast.makeText(getApplicationContext(), "No selected service", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
                     String currentService = spinner.getSelectedItem().toString();
                     ServiceProvider provider = (ServiceProvider) Welcome.currentUser;
 

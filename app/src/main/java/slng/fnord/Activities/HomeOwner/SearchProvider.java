@@ -126,6 +126,10 @@ public class SearchProvider extends AppCompatActivity {
 
         spSearchButton.setOnClickListener(view -> {
             //get name of service from spinner
+            if (searchServiceSpinner.getSelectedItem() == null) {
+                Toast.makeText(getApplicationContext(), "No selected service", Toast.LENGTH_SHORT).show();
+                return;
+            }
             serviceRequestedString = searchServiceSpinner.getSelectedItem().toString();
             //get rating from ratingBar
             minRating = ratingBar.getRating();

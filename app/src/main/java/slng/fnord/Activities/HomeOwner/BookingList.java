@@ -39,9 +39,6 @@ public class BookingList extends Activity {
 
     public void bookingListCallback(ArrayList<Booking> bookings){
         this.bookings = bookings;
-        // test things while bookings can't be created
-        //bookings.add(new Booking(new ServiceProvider(), (HomeOwner) Welcome.currentUser, "Do the thing", Calendar.getInstance(), 21, 22));
-        //bookings.add(new Booking(new ServiceProvider(), (HomeOwner) Welcome.currentUser, "Do the other thing", Calendar.getInstance(), 11, 12));
         bookingListAdaptor = new BookingListAdaptor(bookings, this);
         bookingList.setAdapter(bookingListAdaptor);
     }

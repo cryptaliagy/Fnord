@@ -58,6 +58,9 @@ public abstract class User implements Identifiable {
     public void setEmail(String email) {  this.email = email; }
 
     public ArrayList<String> getBookings() {
+        if (bookings == null) {
+            bookings = new ArrayList<>();
+        }
         return bookings;
     }
 

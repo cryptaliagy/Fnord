@@ -85,7 +85,9 @@ public class ServiceProvider extends User {
         addService(serviceName, false);
     }
 
-    public void removeService(String id) { services.remove(id); }
+    public void removeService(String id) {
+        services.remove(id);
+    }
 
     public List<String> getServiceList() {
         if (services == null) {
