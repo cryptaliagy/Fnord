@@ -1,4 +1,4 @@
-package slng.fnord.Structures;
+package slng.fnord.Structures.User;
 
 
 import java.util.ArrayList;
@@ -8,6 +8,7 @@ import java.util.List;
 import slng.fnord.Helpers.Common;
 import slng.fnord.Helpers.Enums.UserTypes;
 import slng.fnord.Helpers.Pair;
+import slng.fnord.Structures.Service.Ratings;
 
 public class ServiceProvider extends User {
     private HashMap<String, Boolean> services;

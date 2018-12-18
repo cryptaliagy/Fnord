@@ -4,12 +4,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.app.Activity;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
 import slng.fnord.R;
-import slng.fnord.Structures.ServiceProvider;
+import slng.fnord.Structures.User.ServiceProvider;
 
 public class ServiceProfile extends Activity {
     public static ServiceProvider provider;

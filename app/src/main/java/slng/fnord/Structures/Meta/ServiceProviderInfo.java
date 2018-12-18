@@ -1,4 +1,6 @@
-package slng.fnord.Structures;
+package slng.fnord.Structures.Meta;
+
+import slng.fnord.Structures.User.ServiceProvider;
 
 public class ServiceProviderInfo {
     private String email;

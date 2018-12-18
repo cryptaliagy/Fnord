@@ -6,19 +6,37 @@ import java.util.ArrayList;
 import java.util.Optional;
 
 import io.reactivex.functions.Consumer;
+import slng.fnord.Database.DBHelper;
 import slng.fnord.Helpers.Common;
-import slng.fnord.Helpers.DBObserver;
-import slng.fnord.Helpers.Interfaces.Database;
-import slng.fnord.Structures.Service;
-import slng.fnord.Structures.ServiceProvider;
+import slng.fnord.Database.DBObserver;
+import slng.fnord.Database.Interfaces.Database;
+import slng.fnord.Structures.Service.Service;
+import slng.fnord.Structures.User.ServiceProvider;
 
 public class ServicesManager {
     private Database database;
-
+    private static ServicesManager instance = new ServicesManager();
 
     /**
-     * Constructor; initializes a new db helper instance
+     * Singleton instance retriever (with proper connection to the database)
+     * @return singleton instance of the Manager object
      */
+    public static ServicesManager getInstance() {
+        return instance;
+    }
+
+    /**
+     * Constructor; necessary to prevent instantiating Manager and set up proper DB object
+     */
+    private ServicesManager() {
+        this.database = DBHelper.getInstance();
+    }
+
+    /**
+     * Constructor; initializes the object with the specified database instance
+     * Kept for testing purposes.
+     */
+    @Deprecated
     public ServicesManager(Database database) {
         this.database = database;
     }

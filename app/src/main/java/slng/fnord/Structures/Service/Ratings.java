@@ -1,4 +1,4 @@
-package slng.fnord.Structures;
+package slng.fnord.Structures.Service;
 
 public class Ratings {
     int ratingValue;

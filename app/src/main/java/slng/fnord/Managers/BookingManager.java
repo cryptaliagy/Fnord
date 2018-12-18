@@ -6,16 +6,41 @@ import java.util.Optional;
 
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
+import slng.fnord.Database.DBHelper;
 import slng.fnord.Helpers.Common;
-import slng.fnord.Helpers.DBObserver;
-import slng.fnord.Helpers.Interfaces.Database;
-import slng.fnord.Structures.Booking;
-import slng.fnord.Structures.HomeOwner;
-import slng.fnord.Structures.ServiceProvider;
+import slng.fnord.Database.DBObserver;
+import slng.fnord.Database.Interfaces.Database;
+import slng.fnord.Structures.Service.Booking;
+import slng.fnord.Structures.User.HomeOwner;
+import slng.fnord.Structures.User.ServiceProvider;
 
 public class BookingManager {
     private Database database;
+    private static BookingManager instance = new BookingManager();
 
+
+    /**
+     * Singleton instance retriever (with proper connection to the database)
+     * @return singleton instance of the Manager object
+     */
+    public static BookingManager getInstance() {
+        return instance;
+    }
+
+    /**
+     * Constructor; necessary to prevent instantiating Manager and set up proper DB object
+     */
+    private BookingManager() {
+        this.database = DBHelper.getInstance();
+    }
+
+    /**
+     * Constructor; initializes the object with the specified database instance
+     * Kept for testing purposes only
+     * @param database
+     */
+
+    @Deprecated
     public BookingManager(Database database) {
         this.database = database;
     }

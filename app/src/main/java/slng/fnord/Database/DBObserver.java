@@ -1,4 +1,4 @@
-package slng.fnord.Helpers;
+package slng.fnord.Database;
 
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;

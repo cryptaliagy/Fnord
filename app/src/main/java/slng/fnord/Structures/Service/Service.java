@@ -1,9 +1,11 @@
-package slng.fnord.Structures;
+package slng.fnord.Structures.Service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import slng.fnord.Helpers.Interfaces.Identifiable;
+import slng.fnord.Database.Interfaces.Identifiable;
+import slng.fnord.Structures.Meta.ServiceProviderMeta;
+import slng.fnord.Structures.User.ServiceProvider;
 
 public class Service implements Identifiable {
     private String serviceName;

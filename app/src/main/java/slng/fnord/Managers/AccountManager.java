@@ -4,26 +4,43 @@ import java.util.Optional;
 
 import io.reactivex.Observable;
 import io.reactivex.functions.Consumer;
+import slng.fnord.Database.DBHelper;
 import slng.fnord.Helpers.Common;
-import slng.fnord.Helpers.DBObserver;
-import slng.fnord.Helpers.Interfaces.Database;
-import slng.fnord.Structures.Booking;
-import slng.fnord.Structures.HomeOwner;
-import slng.fnord.Structures.HomeOwnerInfo;
-import slng.fnord.Structures.Service;
-import slng.fnord.Structures.ServiceProvider;
-import slng.fnord.Structures.ServiceProviderInfo;
-import slng.fnord.Structures.User;
+import slng.fnord.Database.DBObserver;
+import slng.fnord.Database.Interfaces.Database;
+import slng.fnord.Structures.Service.Booking;
+import slng.fnord.Structures.User.HomeOwner;
+import slng.fnord.Structures.Meta.HomeOwnerInfo;
+import slng.fnord.Structures.Service.Service;
+import slng.fnord.Structures.User.ServiceProvider;
+import slng.fnord.Structures.Meta.ServiceProviderInfo;
+import slng.fnord.Structures.User.User;
 import slng.fnord.Helpers.Enums.UserTypes;
 
 public class AccountManager {
     private Database database;
+    private static AccountManager instance = new AccountManager();
 
     /**
-     * Constructor; Initializes a db helper instance
-     *
+     * Singleton instance retriever (with proper connection to the database)
+     * @return singleton instance of the Manager object
      */
+    public static AccountManager getInstance() {
+        return instance;
+    }
 
+    /**
+     * Constructor; necessary to prevent instantiating Manager and set up proper DB object
+     */
+    private AccountManager() {
+        this.database = DBHelper.getInstance();
+    }
+
+    /**
+     * Constructor; initializes the object with the specified database instance
+     * Kept for testing purposes.
+     */
+    @Deprecated
     public AccountManager(Database database) {
         this.database = database;
     }

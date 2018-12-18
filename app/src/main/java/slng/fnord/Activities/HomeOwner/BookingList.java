@@ -8,17 +8,13 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 
-import slng.fnord.Activities.Shared.SignInActivity;
 import slng.fnord.Activities.Shared.Welcome;
 import slng.fnord.Database.DBHelper;
 import slng.fnord.Helpers.BookingListAdaptor;
 import slng.fnord.Managers.BookingManager;
 import slng.fnord.R;
-import slng.fnord.Structures.Booking;
-import slng.fnord.Structures.HomeOwner;
-import slng.fnord.Structures.ServiceProvider;
+import slng.fnord.Structures.Service.Booking;
 
 public class BookingList extends Activity {
     private ListView bookingList;
@@ -31,7 +27,7 @@ public class BookingList extends Activity {
         setContentView(R.layout.activity_hobooking_list);
 
         // list of bookings setup
-        BookingManager bookingManager = new BookingManager(new DBHelper());
+        BookingManager bookingManager = BookingManager.getInstance();
         bookingManager.getAllBookings(Welcome.currentUser.getEmail(), this::bookingListCallback);
         bookingList = (ListView) findViewById(R.id.listOfBookings);
 

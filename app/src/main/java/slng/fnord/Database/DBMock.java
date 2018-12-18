@@ -4,11 +4,11 @@ import java.util.ArrayList;
 import java.util.Optional;
 
 import io.reactivex.Observable;
-import slng.fnord.Helpers.Interfaces.Database;
-import slng.fnord.Structures.Booking;
-import slng.fnord.Structures.Service;
-import slng.fnord.Structures.ServiceProvider;
-import slng.fnord.Structures.User;
+import slng.fnord.Database.Interfaces.Database;
+import slng.fnord.Structures.Service.Booking;
+import slng.fnord.Structures.Service.Service;
+import slng.fnord.Structures.User.ServiceProvider;
+import slng.fnord.Structures.User.User;
 
 public class DBMock implements Database {
     @Override

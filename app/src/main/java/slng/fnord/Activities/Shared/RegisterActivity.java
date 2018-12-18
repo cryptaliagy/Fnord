@@ -3,26 +3,19 @@ package slng.fnord.Activities.Shared;
 import android.content.Intent;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import java.util.ArrayList;
-import java.util.Optional;
-
 import slng.fnord.Activities.ServiceProvider.ViewProfile;
 import slng.fnord.Database.DBHelper;
 import slng.fnord.Helpers.Common;
 import slng.fnord.Managers.AccountManager;
 import slng.fnord.R;
-import slng.fnord.Structures.User;
+import slng.fnord.Structures.User.User;
 import slng.fnord.Helpers.Enums.UserTypes;
-
-import static slng.fnord.Helpers.Enums.UserTypes.*;
 
 public class RegisterActivity extends AppCompatActivity {
     String email;
@@ -34,7 +27,7 @@ public class RegisterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-        AccountManager manager = new AccountManager(new DBHelper());
+        AccountManager manager = AccountManager.getInstance();
 
         String[] accountTypes = getResources().getStringArray(R.array.accountTypes);
 

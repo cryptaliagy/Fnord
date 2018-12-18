@@ -1,8 +1,9 @@
-package slng.fnord.Structures;
+package slng.fnord.Structures.Meta;
 
 import java.util.HashMap;
 
 import slng.fnord.Helpers.Pair;
+import slng.fnord.Structures.User.ServiceProvider;
 
 public class ServiceProviderMeta extends ServiceProviderInfo {
 

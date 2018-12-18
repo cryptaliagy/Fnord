@@ -1,13 +1,13 @@
-package slng.fnord.Helpers.Interfaces;
+package slng.fnord.Database.Interfaces;
 
 import java.util.ArrayList;
 import java.util.Optional;
 
 import io.reactivex.Observable;
-import slng.fnord.Structures.Booking;
-import slng.fnord.Structures.Service;
-import slng.fnord.Structures.ServiceProvider;
-import slng.fnord.Structures.User;
+import slng.fnord.Structures.Service.Booking;
+import slng.fnord.Structures.Service.Service;
+import slng.fnord.Structures.User.ServiceProvider;
+import slng.fnord.Structures.User.User;
 
 public interface Database {
     Observable<Optional<User>> getUser(String email);

@@ -5,16 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Button;
 
-import com.google.firebase.database.DataSnapshot;
-
-import java.util.HashMap;
-
-import io.reactivex.Observable;
-import io.reactivex.Observer;
-import slng.fnord.Database.DBHelper;
 import slng.fnord.R;
-import slng.fnord.Structures.Service;
-import slng.fnord.Structures.Services;
 
 public class MainActivity extends AppCompatActivity {
 

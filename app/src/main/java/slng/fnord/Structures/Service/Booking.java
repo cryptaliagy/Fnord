@@ -1,8 +1,12 @@
-package slng.fnord.Structures;
+package slng.fnord.Structures.Service;
 
 import java.util.Calendar;
 
-import slng.fnord.Helpers.Interfaces.Identifiable;
+import slng.fnord.Database.Interfaces.Identifiable;
+import slng.fnord.Structures.Meta.HomeOwnerInfo;
+import slng.fnord.Structures.Meta.ServiceProviderInfo;
+import slng.fnord.Structures.User.HomeOwner;
+import slng.fnord.Structures.User.ServiceProvider;
 
 public class Booking implements Identifiable {
     private String id;

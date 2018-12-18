@@ -23,13 +23,11 @@ import java.util.Locale;
 
 import slng.fnord.Database.DBHelper;
 import slng.fnord.Helpers.Pair;
-import slng.fnord.Managers.AccountManager;
 import slng.fnord.Managers.ServicesManager;
 import slng.fnord.R;
-import slng.fnord.Structures.Service;
-import slng.fnord.Structures.ServiceProvider;
-import slng.fnord.Structures.ServiceProviderMeta;
-import slng.fnord.Structures.User;
+import slng.fnord.Structures.Service.Service;
+import slng.fnord.Structures.User.ServiceProvider;
+import slng.fnord.Structures.Meta.ServiceProviderMeta;
 
 public class SearchProvider extends AppCompatActivity {
     public static Service serviceRequested;
@@ -57,7 +55,7 @@ public class SearchProvider extends AppCompatActivity {
         goodProviders = new HashMap<>();
 
         //manager for getting service info
-        managerSer = new ServicesManager(new DBHelper());
+        managerSer = ServicesManager.getInstance();
         //manager gets service names and initializes the spinner with them
         managerSer.getServiceNamesArrayList(this::initializeSpinner);
 

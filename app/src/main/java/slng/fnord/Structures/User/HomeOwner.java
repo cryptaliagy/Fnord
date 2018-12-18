@@ -1,4 +1,4 @@
-package slng.fnord.Structures;
+package slng.fnord.Structures.User;
 
 import slng.fnord.Helpers.Enums.UserTypes;
 

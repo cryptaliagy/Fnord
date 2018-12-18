@@ -1,6 +1,5 @@
 package slng.fnord.Activities.ServiceProvider;
 
-import android.app.Activity;
 import android.content.Intent;
 
 import androidx.appcompat.app.AlertDialog;
@@ -15,17 +14,15 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.Optional;
 
-import slng.fnord.Activities.Shared.SignInActivity;
 import slng.fnord.Activities.Shared.Welcome;
 import slng.fnord.Database.DBHelper;
 import slng.fnord.Helpers.Common;
 import slng.fnord.Managers.AccountManager;
 import slng.fnord.Managers.ServicesManager;
 import slng.fnord.R;
-import slng.fnord.Structures.Service;
-import slng.fnord.Structures.ServiceProvider;
+import slng.fnord.Structures.Service.Service;
+import slng.fnord.Structures.User.ServiceProvider;
 import slng.fnord.Helpers.ServicesAndRatesAdapter;
 
 public class ViewServices extends AppCompatActivity {
@@ -38,8 +35,8 @@ public class ViewServices extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_spview_service);
 
-        accountManager = new AccountManager(new DBHelper());
-        servicesManager = new ServicesManager(new DBHelper());
+        accountManager = AccountManager.getInstance();
+        servicesManager = ServicesManager.getInstance();
 
         servicesManager.getServiceNamesArrayList(this::setAllServices);
     }

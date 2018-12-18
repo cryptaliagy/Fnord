@@ -17,9 +17,9 @@ import slng.fnord.Helpers.Common;
 import slng.fnord.Helpers.Enums.UserTypes;
 import slng.fnord.Managers.AccountManager;
 import slng.fnord.R;
-import slng.fnord.Structures.HomeOwner;
-import slng.fnord.Structures.ServiceProvider;
-import slng.fnord.Structures.User;
+import slng.fnord.Structures.User.HomeOwner;
+import slng.fnord.Structures.User.ServiceProvider;
+import slng.fnord.Structures.User.User;
 
 public class ViewProfile extends AppCompatActivity {
     private boolean firstProfile;
@@ -100,7 +100,7 @@ public class ViewProfile extends AppCompatActivity {
         Button editButton = findViewById(R.id.editServiceProviderViewProfileButton);
         Button thisButton = (Button) view;
 
-        AccountManager manager = new AccountManager(new DBHelper());
+        AccountManager manager = AccountManager.getInstance();
 
         EditText addressView = findViewById(R.id.viewAddress);
         EditText phoneView = findViewById(R.id.viewPhoneNumber);

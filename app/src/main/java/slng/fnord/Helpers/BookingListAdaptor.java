@@ -1,26 +1,18 @@
 package slng.fnord.Helpers;
 
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import java.lang.reflect.Array;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Locale;
-import java.util.Optional;
 
-import io.reactivex.functions.Consumer;
 import slng.fnord.Activities.HomeOwner.BookingList;
-import slng.fnord.Database.DBHelper;
-import slng.fnord.Managers.BookingManager;
 import slng.fnord.R;
-import slng.fnord.Structures.Booking;
-import slng.fnord.Structures.User;
+import slng.fnord.Structures.Service.Booking;
 
 
 public class BookingListAdaptor extends BaseAdapter {
@@ -50,10 +42,6 @@ public class BookingListAdaptor extends BaseAdapter {
     @Override
     public int getCount() {
         return bookings.size();
-    }
-
-    public void bookingsCallback(ArrayList<Booking> bookings){
-        this.bookings = bookings;
     }
 
     public void fillItem(int pos, View v, Booking booking){

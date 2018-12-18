@@ -14,16 +14,14 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
 
-import slng.fnord.Activities.ServiceProvider.Availability;
-import slng.fnord.Activities.Shared.SignInActivity;
 import slng.fnord.Activities.Shared.Welcome;
 import slng.fnord.Database.DBHelper;
 import slng.fnord.Managers.AccountManager;
 import slng.fnord.Managers.ServicesManager;
 import slng.fnord.R;
-import slng.fnord.Structures.Booking;
-import slng.fnord.Structures.Ratings;
-import slng.fnord.Structures.ServiceProvider;
+import slng.fnord.Structures.Service.Booking;
+import slng.fnord.Structures.Service.Ratings;
+import slng.fnord.Structures.User.ServiceProvider;
 
 public class BookingReview extends AppCompatActivity {
     private Button addService;
@@ -42,8 +40,8 @@ public class BookingReview extends AppCompatActivity {
 
         final RatingBar ratingBar = (RatingBar) findViewById(R.id.BRRatingBar);
 
-        accountManager = new AccountManager(new DBHelper());
-        ServicesManager servicesManager = new ServicesManager(new DBHelper());
+        accountManager = AccountManager.getInstance();
+        ServicesManager servicesManager = ServicesManager.getInstance();
 
         TextView SPCompanyName = findViewById(R.id.BRCompanyNameTV);
         SPCompanyName.setText(booking.getServiceProviderInfo().getCompany());

@@ -9,16 +9,14 @@ import slng.fnord.Activities.ServiceProvider.ViewProfile;
 import slng.fnord.Activities.ServiceProvider.ViewServices;
 import slng.fnord.Helpers.Enums.UserTypes;
 import slng.fnord.R;
-import slng.fnord.Structures.HomeOwner;
-import slng.fnord.Structures.ServiceProvider;
-import slng.fnord.Structures.User;
+import slng.fnord.Structures.User.HomeOwner;
+import slng.fnord.Structures.User.ServiceProvider;
+import slng.fnord.Structures.User.User;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
-
-import org.w3c.dom.Text;
 
 public class Welcome extends AppCompatActivity {
     public static User currentUser;

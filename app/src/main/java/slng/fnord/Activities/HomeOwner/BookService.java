@@ -16,13 +16,12 @@ import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
-import slng.fnord.Activities.Shared.SignInActivity;
 import slng.fnord.Activities.Shared.Welcome;
 import slng.fnord.Database.DBHelper;
 import slng.fnord.Managers.BookingManager;
 import slng.fnord.R;
-import slng.fnord.Structures.HomeOwner;
-import slng.fnord.Structures.ServiceProvider;
+import slng.fnord.Structures.User.HomeOwner;
+import slng.fnord.Structures.User.ServiceProvider;
 
 public class BookService extends AppCompatActivity {
     public static ServiceProvider serviceProvider;
@@ -45,7 +44,7 @@ public class BookService extends AppCompatActivity {
         Button backButton = findViewById(R.id.backConfirmBookingButton);
 
         HomeOwner user = (HomeOwner) Welcome.currentUser;
-        manager = new BookingManager(new DBHelper());
+        manager = BookingManager.getInstance();
 
         TextView spCompanyTV = findViewById(R.id.spCompanyTextView);
         TextView serviceNameTV = findViewById(R.id.serviceNameBookingTextView);

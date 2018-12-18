@@ -3,27 +3,23 @@ package slng.fnord.Activities.Admin;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.Optional;
 
-import slng.fnord.Activities.Shared.MainActivity;
 import slng.fnord.Activities.Shared.Welcome;
 import slng.fnord.Database.DBHelper;
 import slng.fnord.Helpers.Common;
 import slng.fnord.Managers.ServicesManager;
 import slng.fnord.R;
 import slng.fnord.Helpers.ServicesAndRatesAdapter;
-import slng.fnord.Structures.Service;
+import slng.fnord.Structures.Service.Service;
 
 //simple view of service + its rate, do not touch
 public class ViewService extends AppCompatActivity {
@@ -37,7 +33,7 @@ public class ViewService extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_service);
-        manager = new ServicesManager(new DBHelper());
+        manager = ServicesManager.getInstance();
 
         manager.getServiceNamesArrayList(this::updateUI);
 

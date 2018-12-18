@@ -2,9 +2,9 @@ package slng.fnord;
 
 import org.junit.Test;
 
-import slng.fnord.Structures.HomeOwner;
-import slng.fnord.Structures.ServiceProvider;
-import slng.fnord.Structures.User;
+import slng.fnord.Structures.User.HomeOwner;
+import slng.fnord.Structures.User.ServiceProvider;
+import slng.fnord.Structures.User.User;
 import slng.fnord.Helpers.Enums.UserTypes;
 
 import static com.google.common.truth.Truth.assertThat;

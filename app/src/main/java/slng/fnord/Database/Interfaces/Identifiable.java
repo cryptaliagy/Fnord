@@ -1,4 +1,4 @@
-package slng.fnord.Helpers.Interfaces;
+package slng.fnord.Database.Interfaces;
 
 public interface Identifiable {
     String getId();

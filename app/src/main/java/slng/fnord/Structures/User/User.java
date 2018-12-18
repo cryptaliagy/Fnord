@@ -1,11 +1,11 @@
-package slng.fnord.Structures;
+package slng.fnord.Structures.User;
 
 import java.security.SecureRandom;
 import java.util.ArrayList;
 
 import slng.fnord.Helpers.Common;
 import slng.fnord.Helpers.Enums.UserTypes;
-import slng.fnord.Helpers.Interfaces.Identifiable;
+import slng.fnord.Database.Interfaces.Identifiable;
 
 public abstract class User implements Identifiable {
     private String id;

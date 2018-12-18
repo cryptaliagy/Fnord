@@ -11,11 +11,9 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import slng.fnord.Activities.Shared.MainActivity;
 import slng.fnord.Database.DBHelper;
 import slng.fnord.Managers.ServicesManager;
 import slng.fnord.R;
-import slng.fnord.Structures.Services;
 
 //this is a helper class to make sure the UI on the view services page displays properly - do not touch
 public class ServicesAndRatesAdapter extends ArrayAdapter<String> {
@@ -33,7 +31,7 @@ public class ServicesAndRatesAdapter extends ArrayAdapter<String> {
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-        ServicesManager manager = new ServicesManager(new DBHelper());
+        ServicesManager manager = ServicesManager.getInstance();
         String service = objects.get(position);
 
         System.out.println(service);

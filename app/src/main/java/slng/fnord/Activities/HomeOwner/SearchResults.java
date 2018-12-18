@@ -6,19 +6,17 @@ import android.app.Activity;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import androidx.appcompat.app.AlertDialog;
 import slng.fnord.Database.DBHelper;
 import slng.fnord.Helpers.ServiceProviderAdapter;
-import slng.fnord.Helpers.ServicesAndRatesAdapter;
 import slng.fnord.Managers.AccountManager;
+import slng.fnord.Managers.ServicesManager;
 import slng.fnord.R;
-import slng.fnord.Structures.ServiceProvider;
-import slng.fnord.Structures.ServiceProviderMeta;
-import slng.fnord.Structures.User;
+import slng.fnord.Structures.User.ServiceProvider;
+import slng.fnord.Structures.Meta.ServiceProviderMeta;
+import slng.fnord.Structures.User.User;
 
 public class SearchResults extends Activity {
 
@@ -42,8 +40,7 @@ public class SearchResults extends Activity {
                 results);
         lv.setAdapter(adapter);
 
-        managerAcc = new AccountManager(new DBHelper());
-
+        managerAcc = AccountManager.getInstance();
 
         lv.setOnItemClickListener((parent, view, position, id) -> {
             String[] node = results.get(position).split("#");

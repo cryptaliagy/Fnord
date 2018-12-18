@@ -11,11 +11,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import slng.fnord.Activities.Shared.MainActivity;
-import slng.fnord.Database.DBHelper;
-import slng.fnord.Managers.ServicesManager;
 import slng.fnord.R;
-import slng.fnord.Structures.Services;
 
 //this is a helper class to make sure the UI on the view services page displays properly - do not touch
 public class ServiceProviderAdapter extends ArrayAdapter<String> {

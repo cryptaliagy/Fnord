@@ -9,13 +9,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import java.util.Optional;
-
 import slng.fnord.Database.DBHelper;
 import slng.fnord.Managers.AccountManager;
 import slng.fnord.Helpers.Common;
 import slng.fnord.R;
-import slng.fnord.Structures.User;
+import slng.fnord.Structures.User.User;
 import slng.fnord.Helpers.Enums.UserTypes;
 
 public class SignInActivity extends AppCompatActivity {
@@ -28,7 +26,7 @@ public class SignInActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
 
-        AccountManager manager = new AccountManager(new DBHelper());
+        AccountManager manager = AccountManager.getInstance();
 
         signIn2 = findViewById(R.id.signInButton);
         signIn2.setOnClickListener(view -> {

@@ -6,24 +6,30 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Optional;
 
 import androidx.annotation.NonNull;
 import io.reactivex.Observable;
 import io.reactivex.disposables.Disposable;
-import slng.fnord.Helpers.Interfaces.Database;
-import slng.fnord.Helpers.Interfaces.Identifiable;
-import slng.fnord.Structures.Administrator;
-import slng.fnord.Structures.Booking;
-import slng.fnord.Structures.HomeOwner;
-import slng.fnord.Structures.Service;
-import slng.fnord.Structures.ServiceProvider;
-import slng.fnord.Structures.User;
+import slng.fnord.Database.Interfaces.Database;
+import slng.fnord.Database.Interfaces.Identifiable;
+import slng.fnord.Structures.User.Administrator;
+import slng.fnord.Structures.Service.Booking;
+import slng.fnord.Structures.User.HomeOwner;
+import slng.fnord.Structures.Service.Service;
+import slng.fnord.Structures.User.ServiceProvider;
+import slng.fnord.Structures.User.User;
 import slng.fnord.Helpers.Enums.UserTypes;
 
 public class DBHelper implements Database {
+    private static DBHelper instance = new DBHelper();
+
+    public static DBHelper getInstance() {
+        return instance;
+    }
+
+    private DBHelper() { }
 
     public Observable<Optional<User>> getUser(String email) {
         return Observable.create(source -> FirebaseDatabase.getInstance()
@@ -154,16 +160,6 @@ public class DBHelper implements Database {
     private <T> void updateFromPath(String path, T object) {
         DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();
         dbRef.child(path).setValue(object);
-    }
-
-    private <T extends Identifiable> String addGenericGetID(String node, T object) {
-        DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference(node).push();
-        String id = dbRef.getKey();
-
-        object.setId(id);
-
-        dbRef.setValue(object);
-        return id;
     }
 
     private <T extends Identifiable> void addNewGeneric(String node, T object) {

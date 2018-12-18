@@ -2,10 +2,8 @@ package slng.fnord;
 
 import org.junit.Test;
 
-import slng.fnord.Helpers.Enums.UserTypes;
-import slng.fnord.Structures.Ratings;
-import slng.fnord.Structures.ServiceProvider;
-import slng.fnord.Structures.User;
+import slng.fnord.Structures.Service.Ratings;
+import slng.fnord.Structures.User.ServiceProvider;
 
 import static com.google.common.truth.Truth.assertThat;
 
